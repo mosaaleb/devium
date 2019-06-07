@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :requests, foreign_key: "receiver_id", dependent: :destroy
   has_many :pending_friends, through: :requests, source: :sender
 
+  has_many :friendships, dependent: :destroy
+  has_many :friends, through: :friendships, source: :friend
   # Instance methods
 
 end
