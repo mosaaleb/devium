@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   let(:user) { create :user }
   let(:request) { create :request }
   let(:friendship) { create :friendship }
+  let(:post) { create :post }
   
   describe 'Associations' do
     it 'has one profile' do
@@ -44,7 +45,22 @@ RSpec.describe User, type: :model do
       assc = described_class.reflect_on_association(:friends)
       expect(assc.macro).to eq :has_many
     end
+
+    it 'has many posts' do
+      assc = described_class.reflect_on_association(:posts)
+      expect(assc.macro).to eq :has_many
+    end
     
+    it 'returns all posts when called' do
+      user.posts << post
+      expect(user.posts.last).to eq(post)
+    end
+
+    it 'is expected to destroy dependent posts' do
+      post
+      expect { post.user.destroy }.to change { Post.count }.by(-1)
+    end
+
   end
 
   context 'validations' do
