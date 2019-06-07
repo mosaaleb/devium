@@ -67,10 +67,21 @@ RSpec.describe User, type: :model do
       expect(assc.macro).to eq :has_many
     end
 
-    it 'returns friendships when called upon friendships method' do
+    it 'returns comments when called upon comments method' do
       user.comments << comment
       expect(user.comments.last).to eq(comment)
     end
+
+    it 'has many likes' do
+      assc = described_class.reflect_on_association(:likes)
+      expect(assc.macro).to eq :has_many
+    end
+
+    it 'returns likes when called upon likes method' do
+      user.likes << like
+      expect(user.likes.last).to eq(like)
+    end
+
   end
 
   context 'validations' do
