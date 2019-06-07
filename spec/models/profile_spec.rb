@@ -37,16 +37,43 @@ RSpec.describe Profile, type: :model do
     end
 
     context 'gender' do
-      it 'is either male or female' do
-        expect(profile.gender).to eq('male').or(eq('female')).or(eq('anything'))
+      it 'is female when set to 0' do
+        profile.gender = 0
+        expect(profile.gender).to eq('female')
+      end
+
+      it 'is male when set to 1' do
+        profile.gender = 1
+        expect(profile.gender).to eq('male')
+      end
+
+      it 'is valid if User chooses male or female' do
+        profile.gender = 1
+        profile.valid?
+        expect(profile.errors[:gender]).to be_blank
+      end
+
+      it 'is invalid if User does not choose male or female' do   
+        profile.gender = nil
+        profile.valid?
+        expect(profile.errors[:gender]).to include("can't be blank")
+      end
+    end
+
+    context 'about_me' do
+      it 'is valid with <= 400 characters' do
+        profile.about_me = 'a' * 399
+        profile.valid?
+        expect(profile.errors[:about_me]).to be_blank
+      end
+
+      it 'is invalid if more than 140 characters' do
+        profile.about_me = 'a' * 401
+        profile.valid?
+        expect(profile.errors[:about_me])
+          .to include('is too long (maximum is 400 characters)')
       end
     end
 
   end
 end
-
-# t.string "first_name"
-# t.string "last_name"
-# t.string "gender" => male or female
-# t.date "date_of_birth"=> can't be afte minimum age for site registeration
-# t.text "about_me"
