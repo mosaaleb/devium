@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships, source: :friend
 
   has_many :posts, dependent: :destroy
+
+  has_many :comments
   # Instance methods
 
 end

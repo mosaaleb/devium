@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
   let(:request) { create :request }
   let(:friendship) { create :friendship }
   let(:post) { create :post }
+  let(:comment) { create :comment }
   
   describe 'Associations' do
     it 'has one profile' do
@@ -61,6 +62,15 @@ RSpec.describe User, type: :model do
       expect { post.user.destroy }.to change { Post.count }.by(-1)
     end
 
+    it 'has many comments' do
+      assc = described_class.reflect_on_association(:comments)
+      expect(assc.macro).to eq :has_many
+    end
+
+    it 'returns friendships when called upon friendships method' do
+      user.comments << comment
+      expect(user.comments.last).to eq(comment)
+    end
   end
 
   context 'validations' do
