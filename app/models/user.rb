@@ -10,7 +10,10 @@ class User < ApplicationRecord
   # Validations
   validates :username, presence: true
 
+  # Associations
   has_one :profile
+  has_many :requests, foreign_key: "receiver_id", dependent: :destroy
+  has_many :pending_friends, through: :requests, source: :sender
 
   # Instance methods
 
