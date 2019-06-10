@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
+  let(:user) { build :user}
   let(:comment) { build :comment }
 
   context 'Validations' do
@@ -27,6 +28,11 @@ RSpec.describe Comment, type: :model do
       comment.comment_content = 'a' * 200
       comment.valid?
       expect(comment.errors[:comment_content]).to be_blank
+    end
+
+    it 'returns numbers of likes associated with a comment' do
+      comment.liked_by(user)
+      expect(comment.likes_count).to eq 1
     end
 
   end

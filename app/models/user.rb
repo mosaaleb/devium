@@ -23,6 +23,13 @@ class User < ApplicationRecord
   has_many :comments
 
   has_many :likes
+  has_many :liked_comments, through: :likes, source: :likable, source_type: 'Comment'
+  has_many :liked_posts, through: :likes, source: :likable, source_type: 'Post'  
+
+
   # Instance methods
+  def liked(comment)
+    liked_comments << comment
+  end
 
 end
