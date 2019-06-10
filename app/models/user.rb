@@ -28,8 +28,9 @@ class User < ApplicationRecord
 
 
   # Instance methods
-  def liked(comment)
-    liked_comments << comment
+  # comment or post
+  def liked(likable)
+    likable.kind_of?(Comment) ? liked_comments << likable : liked_posts << likable
   end
 
 end

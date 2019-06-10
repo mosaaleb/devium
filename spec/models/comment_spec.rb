@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  let(:user) { build :user}
+  let(:user) { build :user }
   let(:comment) { build :comment }
+  let(:user2) { create :user }
+  let(:comment2) { create :comment }
 
-  context 'Validations' do
-
+  describe 'Validations' do
     it 'is invalid if the content is absent' do
       comment.comment_content = nil
       comment.valid?
@@ -30,10 +31,13 @@ RSpec.describe Comment, type: :model do
       expect(comment.errors[:comment_content]).to be_blank
     end
 
-    it 'returns numbers of likes associated with a comment' do
-      comment.liked_by(user)
-      expect(comment.likes_count).to eq 1
-    end
-
   end
+
+  describe 'Likes' do
+    it 'returns numbers of likes associated with a comment' do
+      user2.liked(comment2)
+      expect(comment2.likes_count).to eq 1
+    end
+  end
+
 end
