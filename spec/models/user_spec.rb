@@ -49,11 +49,6 @@ RSpec.describe User, type: :model do
         assc = described_class.reflect_on_association(:friends)
         expect(assc.macro).to eq :has_many
       end
-
-      it "is invalid if user sends request to self" do
-        sender.send_request(receiver)
-        expect(sender).not_to eq(receiver)
-      end
     end
       
     context 'Posts' do
