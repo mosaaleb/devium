@@ -5,7 +5,7 @@ RSpec.describe Post, type: :model do
   let(:user2) { create :user }
   let(:post2) { create :post }
 
-  context 'Validations' do
+  describe 'Validations' do
     it 'is not valid when content is missing' do
       post.post_content = nil
       post.valid?
@@ -33,6 +33,13 @@ RSpec.describe Post, type: :model do
       post.post_content = 'a' * 400
       post.valid?
       expect(post.errors[:post_content]).to be_blank
+    end
+  end
+
+  describe 'Associations' do
+    it 'has many likes' do
+      user2.liked(post2)
+      expect(post2.likes.count).to eq 1
     end
   end
 

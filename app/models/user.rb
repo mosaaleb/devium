@@ -12,8 +12,12 @@ class User < ApplicationRecord
 
   # Associations
   has_one :profile
-  has_many :requests, foreign_key: "receiver_id", dependent: :destroy
-  has_many :pending_friends, through: :requests, source: :sender
+
+  has_many :requests, foreign_key: "sender_id", dependent: :destroy
+  has_many :pending_friends, through: :requests, source: :receiver
+
+  # has_many :requests, foreign_key: "receiver_id", dependent: :destroy
+  # has_many :pending_friends, through: :requests, source: :sender
 
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships, source: :friend
@@ -22,7 +26,7 @@ class User < ApplicationRecord
 
   has_many :comments
 
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :liked_comments, through: :likes, source: :likable, source_type: 'Comment'
   has_many :liked_posts, through: :likes, source: :likable, source_type: 'Post'  
 

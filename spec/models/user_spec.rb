@@ -49,6 +49,11 @@ RSpec.describe User, type: :model do
         assc = described_class.reflect_on_association(:friends)
         expect(assc.macro).to eq :has_many
       end
+
+      it "is invalid if user sends request to self" do
+        sender.send_request(receiver)
+        expect(sender).not_to eq(receiver)
+      end
     end
       
     context 'Posts' do
@@ -57,7 +62,7 @@ RSpec.describe User, type: :model do
         expect(assc.macro).to eq :has_many
       end
       
-      it 'returns all posts when called' do
+      it 'returns last post when called' do
         user.posts << post
         expect(user.posts.last).to eq(post)
       end
@@ -86,14 +91,19 @@ RSpec.describe User, type: :model do
         expect(assc.macro).to eq :has_many
       end
       
-      it 'increases number of comments likes by one'  do
+      it 'increases number of comments likes by one when user likes'  do
         user.liked_comments << comment
         expect(user.liked_comments.count).to eq 1
       end
 
-      it 'increases number of posts likes by one'  do
+      it 'increases number of posts likes by one when user likes'  do
         user.liked_posts << post
         expect(user.liked_posts.count).to eq 1
+      end
+
+      it 'is expected to destroy dependent likes' do
+        user.liked(post)
+        expect { user.destroy }.to change { Like.count }.by(-1)
       end
     end
     
