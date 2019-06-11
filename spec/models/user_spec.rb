@@ -22,16 +22,14 @@ RSpec.describe User, type: :model do
       end
     end
 
-
-
     context 'Friend Requests' do
       it 'has many friend requests' do
-        assc = described_class.reflect_on_association(:requests)
+        assc = described_class.reflect_on_association(:outgoing_requests)
         expect(assc.macro).to eq :has_many
       end
       
       it 'has many pending_friends' do
-        assc = described_class.reflect_on_association(:pending_friends)
+        assc = described_class.reflect_on_association(:outgoing_pending_friends)
         expect(assc.macro).to eq :has_many
       end
       
@@ -53,7 +51,7 @@ RSpec.describe User, type: :model do
       
       it 'is expected to destroy dependent friendships' do
         friendship
-        expect { friendship.user.destroy }.to change { Friendship.count }.by(-1)
+        expect { friendship.user.destroy }.to change { Friendship.count }.by(-2)
       end
       
       it 'has many friends' do
