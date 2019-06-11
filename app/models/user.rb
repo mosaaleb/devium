@@ -13,8 +13,13 @@ class User < ApplicationRecord
   # Associations
   has_one :profile, dependent: :destroy
 
-  has_many :requests, foreign_key: "receiver_id", dependent: :destroy
-  has_many :pending_friends, through: :requests, source: :sender
+  has_many :outgoing_requests, foreign_key: "sender_id", 
+            dependent: :destroy, class_name: 'Request'
+  has_many :outgoing_pending_friends, through: :outgoing_requests, source: :receiver
+
+  has_many :incoming_requests, foreign_key: "receiver_id", 
+            dependent: :destroy, class_name: 'Request'
+  has_many :incoming_pending_friends, through: :incoming_requests, source: :sender
 
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
@@ -29,7 +34,6 @@ class User < ApplicationRecord
 
 
   # Instance methods
-  # comment or post
   def liked(likable)
     likable.kind_of?(Comment) ? liked_comments << likable : liked_posts << likable
   end
