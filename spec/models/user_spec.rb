@@ -6,12 +6,23 @@ RSpec.describe User, type: :model do
   let(:friendship) { create :friendship }
   let(:post) { create :post }
   let(:comment) { create :comment }
+  let(:profile) { create :profile }
   
   describe 'Associations' do
-    it 'has one profile' do
-      assc = described_class.reflect_on_association(:profile)
-      expect(assc.macro).to eq :has_one
+    context 'Profile' do
+      it 'has one profile' do
+        assc = described_class.reflect_on_association(:profile)
+        expect(assc.macro).to eq :has_one
+      end      
+      
+      it 'is expected to depend on user deletion' do
+        user
+        user.destroy
+        expect(Profile.count).to be 0
+      end
     end
+
+
 
     context 'Friend Requests' do
       it 'has many friend requests' do
@@ -78,6 +89,12 @@ RSpec.describe User, type: :model do
         user.comments << comment
         expect(user.comments.last).to eq(comment)
       end
+
+      it 'is depedent on user deletion' do
+        user.comments << comment
+        user.destroy
+        expect(Comment.count).to eq 0
+      end
     end
 
     context 'Likes' do
@@ -104,14 +121,18 @@ RSpec.describe User, type: :model do
     
   end
 
-  context 'validations' do
-    it 'is invalid if username is missing' do
-      user.username = nil
-      expect(user.valid?).to be false
+  describe 'Validations' do
+    context 'missing username' do
+      it 'is invalid' do
+        user.username = nil
+        expect(user.valid?).to be false
+      end
     end
 
-    it 'is valid if username is found' do
-      expect(user.valid?).to be true
+    context 'username present' do
+      it 'is valid' do
+        expect(user.valid?).to be true
+      end
     end
   end
 

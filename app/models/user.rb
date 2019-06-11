@@ -11,17 +11,17 @@ class User < ApplicationRecord
   validates :username, presence: true
 
   # Associations
-  has_one :profile
+  has_one :profile, dependent: :destroy
 
   has_many :requests, foreign_key: "receiver_id", dependent: :destroy
   has_many :pending_friends, through: :requests, source: :sender
 
   has_many :friendships, dependent: :destroy
-  has_many :friends, through: :friendships, source: :friend
+  has_many :friends, through: :friendships
 
   has_many :posts, dependent: :destroy
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   has_many :likes, dependent: :destroy
   has_many :liked_comments, through: :likes, source: :likable, source_type: 'Comment'
