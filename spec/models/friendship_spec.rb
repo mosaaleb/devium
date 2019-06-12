@@ -14,20 +14,22 @@ RSpec.describe Friendship, type: :model do
     end
   end
 
-  describe 'Callbacks' do
-    context 'inverse relationship' do
-      it 'creates inverse relationship for every friendship relation' do
+  describe 'Associations' do
+    context 'inverse friendships' do
+      it 'returns all inverse_friendships when called upon inverse_relationships' do
         user.friendships.create friend: friend
-        expect(Friendship.count).to be 2
-      end
-      
-      it 'deletes inverse relation if the other user deletes friendship' do
-        friendship = user.friendships.create friend: friend
-        friendship.destroy
-        expect(Friendship.count).to be 0
+        expect(user.friendships.first.id).to eq(friend.inverse_friendships.first.id)
       end
 
+      it 'returns all friends when called on #friends' do
+        user.friendships.create friend: friend
+        expect(user.friends.first.id).to eq(friend.id)
+      end
+
+      it 'returns all friends when called on #inverse_friends' do
+        user.friendships.create friend: friend
+        expect(friend.inverse_friends.first.id).to eq(user.id)
+      end
     end
   end
-
 end

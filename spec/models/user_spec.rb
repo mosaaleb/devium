@@ -13,8 +13,8 @@ RSpec.describe User, type: :model do
       it 'has one profile' do
         assc = described_class.reflect_on_association(:profile)
         expect(assc.macro).to eq :has_one
-      end      
-      
+      end
+
       it 'is expected to depend on user deletion' do
         user
         user.destroy
@@ -39,7 +39,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'Friendships' do
+    context 'friendships' do
       it 'has many friendships' do
         assc = described_class.reflect_on_association(:friendships)
         expect(assc.macro).to eq :has_many
@@ -51,7 +51,7 @@ RSpec.describe User, type: :model do
       
       it 'is expected to destroy dependent friendships' do
         friendship
-        expect { friendship.user.destroy }.to change { Friendship.count }.by(-2)
+        expect { friendship.user.destroy }.to change { Friendship.count }.by(-1)
       end
       
       it 'has many friends' do
@@ -59,6 +59,24 @@ RSpec.describe User, type: :model do
         expect(assc.macro).to eq :has_many
       end
     end
+
+    context 'Inverse friendship' do
+      it 'has many inverse friendships' do
+        assc = described_class.reflect_on_association(:inverse_friendships)
+        expect(assc.macro).to eq :has_many
+      end
+
+      it 'returns inverse friendships when called upon inverser_friendships method' do
+        expect(friendship.user.inverse_friendships.first).to eq(friendship) 
+      end
+
+      it 'has many inverse_friends' do
+        assc = described_class.reflect_on_association(:inverse_friends)
+        expect(assc.macro).to eq :has_many
+      end
+
+    end
+
       
     context 'Posts' do
       it 'has many posts' do

@@ -6,7 +6,7 @@ RSpec.describe Post, type: :model do
   let(:post2) { create :post }
   let(:comment) { create :comment }
 
-  describe 'Validations' do    
+  describe 'Validations' do
     context 'content' do
       it 'is invalid when content is missing' do
         post.post_content = nil
@@ -31,7 +31,7 @@ RSpec.describe Post, type: :model do
         post.valid?
         expect(post.errors[:post_content]).to be_blank
       end
-    end    
+    end
   end
     
   describe 'Associations' do
@@ -63,8 +63,6 @@ RSpec.describe Post, type: :model do
         post2.destroy
         expect(Comment.count).to be 0
       end
-      
-    end       
+    end
   end
-  
 end

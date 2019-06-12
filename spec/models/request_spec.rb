@@ -17,7 +17,6 @@ RSpec.describe Request, type: :model do
         request = sender.outgoing_requests.create receiver: receiver
         expect(request.errors[:sender_id]).to include(/already friends/)
       end
-
     end
   end
 
