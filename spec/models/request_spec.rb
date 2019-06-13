@@ -3,16 +3,19 @@ require 'rails_helper'
 RSpec.describe Request, type: :model do
   let(:sender) { create :user }
   let(:receiver) { create :user }
+  let(:request) { create :request }
 
   describe 'Validation' do
-    context 'user requests' do
-      it 'is invalid when request already exists' do
+    context 'when request already exists' do
+      it 'is invalid' do
         sender.outgoing_requests.create receiver: receiver
         request = sender.outgoing_requests.create receiver: receiver
         expect(request.errors[:sender_id]).to include("has already been taken")
       end
+    end
 
-      it 'is invalid if the users are already friends' do
+    context 'when users are already friends' do
+      it 'is invalid' do
         sender.friendships.create friend: receiver
         request = sender.outgoing_requests.create receiver: receiver
         expect(request.errors[:sender_id]).to include(/already friends/)
@@ -20,4 +23,12 @@ RSpec.describe Request, type: :model do
     end
   end
 
+  describe 'Associations' do
+    context 'when user is destroyed' do      
+      it 'is expected to destroy dependent requests' do
+        request
+        expect { request.receiver.destroy }.to change { Request.count }.by(-1)
+      end
+    end    
+  end
 end
