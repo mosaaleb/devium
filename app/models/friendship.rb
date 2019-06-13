@@ -7,6 +7,7 @@ class Friendship < ApplicationRecord
 
   # Validations
   validate :users_are_not_already_friends
+  validate :user_and_friend_are_not_the_same_person
 
   private
 
@@ -18,4 +19,10 @@ class Friendship < ApplicationRecord
       errors.add(:user_id, 'already friends')
     end
   end 
+
+  def user_and_friend_are_not_the_same_person
+    if user == friend
+      errors.add(:user_id, 'can\'t friend yourself')
+    end
+  end
 end

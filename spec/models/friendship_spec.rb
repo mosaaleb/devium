@@ -20,6 +20,14 @@ RSpec.describe Friendship, type: :model do
     end
   end
 
+  context 'when user creates friendship relation with himself' do
+    it 'is invalid' do
+      friendship = user.friendships.create friend: user
+
+      expect(friendship.errors[:user_id]).to include(/can't friend yourself/)
+    end
+  end
+
   describe 'Associations' do
     context 'when called upon inverse_relationships' do
       it 'returns all inverse_friendships' do
