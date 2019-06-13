@@ -6,7 +6,6 @@ class Friendship < ApplicationRecord
   belongs_to :friend, class_name: 'User'
 
   # Validations
-  # validates :user_id, uniqueness: { scope: :friend_id}
   validate :users_are_not_already_friends
 
   private

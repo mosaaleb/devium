@@ -9,16 +9,24 @@ RSpec.describe Request, type: :model do
     context 'when request already exists' do
       it 'is invalid' do
         sender.outgoing_requests.create receiver: receiver
+
         request = sender.outgoing_requests.create receiver: receiver
-        expect(request.errors[:sender_id]).to include("has already been taken")
+        expect(request.errors[:sender_id]).to include('request already sent')
+
+        inverse_request = receiver.outgoing_requests.create receiver: sender
+        expect(inverse_request.errors[:sender_id]).to include('request already sent')
       end
     end
 
     context 'when users are already friends' do
       it 'is invalid' do
         sender.friendships.create friend: receiver
+        
         request = sender.outgoing_requests.create receiver: receiver
         expect(request.errors[:sender_id]).to include(/already friends/)
+
+        inverse_request = receiver.outgoing_requests.create receiver: sender
+        expect(inverse_request.errors[:sender_id]).to include(/already friends/)
       end
     end
   end

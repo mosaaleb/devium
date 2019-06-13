@@ -10,14 +10,12 @@ RSpec.describe Friendship, type: :model do
     context 'when friendship already exists' do
       it 'is invalid' do
         user.friendships.create friend: friend
+
         friendship = user.friendships.create friend: friend
         expect(friendship.errors[:user_id]).to include('already friends')
-      end
-
-      it 'is invalid to' do
-        user.friendships.create friend: friend
-        friendship = friend.friendships.create friend: user
-        expect(friendship.errors[:user_id]).to include('already friends')
+        
+        inverse_friendship = friend.friendships.create friend: user
+        expect(inverse_friendship.errors[:user_id]).to include('already friends')
       end
     end
   end
