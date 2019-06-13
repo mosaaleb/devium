@@ -18,10 +18,18 @@ RSpec.describe Request, type: :model do
       end
     end
 
+    context 'when user sends friend requst to himself' do
+      it 'is invalid' do
+        request = sender.outgoing_requests.create receiver: sender
+
+        expect(request.errors[:sender_id]).to include(/can't send a request to yourself/)
+      end
+    end
+
     context 'when users are already friends' do
       it 'is invalid' do
         sender.friendships.create friend: receiver
-        
+
         request = sender.outgoing_requests.create receiver: receiver
         expect(request.errors[:sender_id]).to include(/already friends/)
 

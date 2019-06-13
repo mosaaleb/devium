@@ -4,6 +4,7 @@ class Request < ApplicationRecord
 
   # Validations
   validates :sender_id, uniqueness: { scope: :receiver_id }
+  validate :sender_and_receiver_are_not_the_same_person
   validate :sender_and_receiver_are_not_friends
   validate :sender_and_receiver_does_not_already_have_requests
 
@@ -28,5 +29,11 @@ class Request < ApplicationRecord
       errors.add(:sender_id, 'request already sent')
     end
   end 
+
+  def sender_and_receiver_are_not_the_same_person
+    if sender == receiver
+      errors.add(:sender_id, 'can\'t send a request to yourself')
+    end
+  end
 
 end
