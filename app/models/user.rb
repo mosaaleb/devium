@@ -35,10 +35,13 @@ class User < ApplicationRecord
   has_many :liked_comments, through: :likes, source: :likable, source_type: 'Comment'
   has_many :liked_posts, through: :likes, source: :likable, source_type: 'Post'  
 
-
   # Instance methods
   def liked(likable)
     likable.kind_of?(Comment) ? liked_comments << likable : liked_posts << likable
+  end
+
+  def all_friends
+    friends + inverse_friends
   end
 
 end
