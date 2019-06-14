@@ -5,6 +5,20 @@ RSpec.describe Request, type: :model do
   let(:receiver) { create :user }
   let(:request) { create :request }
 
+  describe 'DB validations' do
+    context 'when request already exists' do
+      it 'is invalid' do
+        sender.outgoing_requests.create receiver: receiver
+
+        request = sender.outgoing_requests.build receiver: receiver
+        expect { request.save validate: false}.to raise_error(ActiveRecord::RecordNotUnique)
+
+        inverse_request = receiver.outgoing_requests.build receiver: sender
+        expect { inverse_request.save validate: false}.to raise_error(ActiveRecord::RecordNotUnique)
+      end
+    end
+  end
+
   describe 'Validation' do
     context 'when request already exists' do
       it 'is invalid' do
