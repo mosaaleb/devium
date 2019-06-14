@@ -1,6 +1,5 @@
 class Request < ApplicationRecord
   # callbacks
-  after_create :swap_sender_and_receiver_if_not_in_db
 
   # Validations
   validates :sender_id, uniqueness: { scope: :receiver_id }
@@ -35,14 +34,4 @@ class Request < ApplicationRecord
       errors.add(:sender_id, 'can\'t send a request to yourself')
     end
   end
-
-  def swap_sender_and_receiver_if_not_in_db
-    self.sender, self.receiver = self.receiver, self.sender unless record_found?
-    swap if record_found?
-  end
-
-  def record_found?
-    Request.where(['sender_id = ? and receiver_id = ?', sender.id, receiver.id]).exists?
-  end
-
 end
