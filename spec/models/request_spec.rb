@@ -59,6 +59,6 @@ RSpec.describe Request, type: :model do
         request
         expect { request.receiver.destroy }.to change { Request.count }.by(-1)
       end
-    end    
+    end
   end
 end

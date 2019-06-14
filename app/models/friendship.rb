@@ -1,14 +1,15 @@
 class Friendship < ApplicationRecord
   # Callback
 
-  # Associations
-  belongs_to :user
-  belongs_to :friend, class_name: 'User'
-
   # Validations
   validate :users_are_not_already_friends
   validate :user_and_friend_are_not_the_same_person
-
+  
+  # Associations
+  belongs_to :user
+  belongs_to :friend, class_name: 'User'
+  
+  # Private Methods
   private
 
   def users_are_not_already_friends

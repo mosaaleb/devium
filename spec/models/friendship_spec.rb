@@ -6,6 +6,20 @@ RSpec.describe Friendship, type: :model do
   let(:user2) { create :user }
   let(:friend) { create :user }
 
+  describe 'DB validations' do
+    context 'when friendship already exists' do
+      it 'is invalid' do
+        user.friendships.create friend: friend
+
+        friendship = user.friendships.build friend: friend
+        expect { friendship.save validate: false}.to raise_error(ActiveRecord::RecordNotUnique)
+
+        inverse_friendship = friend.friendships.build friend: user
+        expect { inverse_friendship.save validate: false}.to raise_error(ActiveRecord::RecordNotUnique)
+      end
+    end
+  end
+
   describe 'Validation' do
     context 'when friendship already exists' do
       it 'is invalid' do
