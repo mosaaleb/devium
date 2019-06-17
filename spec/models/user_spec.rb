@@ -1,49 +1,47 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { create :user }
+  let(:user) { build :user }
   let(:request) { create :request }
   let(:friendship) { create :friendship }
   let(:post) { create :post }
   let(:comment) { create :comment }
+  let(:profile) { create :profile }
   
   describe 'Associations' do
+
     it 'has one profile' do
       assc = described_class.reflect_on_association(:profile)
       expect(assc.macro).to eq :has_one
     end
-
+    
     it 'has many friend requests' do
-      assc = described_class.reflect_on_association(:requests)
+      assc = described_class.reflect_on_association(:outgoing_requests)
       expect(assc.macro).to eq :has_many
     end
-
+    
     it 'has many pending_friends' do
-      assc = described_class.reflect_on_association(:pending_friends)
+      assc = described_class.reflect_on_association(:outgoing_pending_friends)
       expect(assc.macro).to eq :has_many
     end
-
-    it 'is expected to destroy dependent requests' do
-      request
-      expect { request.receiver.destroy }.to change { Request.count }.by(-1)
-    end
-
+    
     it 'has many friendships' do
       assc = described_class.reflect_on_association(:friendships)
       expect(assc.macro).to eq :has_many
     end
-
-    it 'returns friendships when called upon friendships method' do
-      expect(friendship.user.friendships.first).to eq(friendship) 
-    end
-
-    it 'is expected to destroy dependent friendships' do
-      friendship
-      expect { friendship.user.destroy }.to change { Friendship.count }.by(-1)
-    end
-
+    
     it 'has many friends' do
       assc = described_class.reflect_on_association(:friends)
+      expect(assc.macro).to eq :has_many
+    end
+    
+    it 'has many inverse friendships' do
+      assc = described_class.reflect_on_association(:inverse_friendships)
+      expect(assc.macro).to eq :has_many
+    end
+
+    it 'has many inverse_friends' do
+      assc = described_class.reflect_on_association(:inverse_friends)
       expect(assc.macro).to eq :has_many
     end
 
@@ -51,25 +49,10 @@ RSpec.describe User, type: :model do
       assc = described_class.reflect_on_association(:posts)
       expect(assc.macro).to eq :has_many
     end
-    
-    it 'returns all posts when called' do
-      user.posts << post
-      expect(user.posts.last).to eq(post)
-    end
-
-    it 'is expected to destroy dependent posts' do
-      post
-      expect { post.user.destroy }.to change { Post.count }.by(-1)
-    end
 
     it 'has many comments' do
       assc = described_class.reflect_on_association(:comments)
       expect(assc.macro).to eq :has_many
-    end
-
-    it 'returns comments when called upon comments method' do
-      user.comments << comment
-      expect(user.comments.last).to eq(comment)
     end
 
     it 'has many likes' do
@@ -77,22 +60,65 @@ RSpec.describe User, type: :model do
       expect(assc.macro).to eq :has_many
     end
 
-    it 'returns likes when called upon likes method' do
-      user.likes << like
-      expect(user.likes.last).to eq(like)
+    context ' when called upon friendships method' do      
+      it 'returns friendships' do
+        expect(friendship.user.friendships.first).to eq(friendship) 
+      end
     end
+
+    context 'when called upon inverse_friendships method' do
+      it 'returns inverse friendships' do
+        expect(friendship.friend.inverse_friendships.first).to eq(friendship) 
+      end
+    end
+
+      
+    context 'when user creates a post' do     
+      it 'adds the posts to user_posts' do
+        user.posts << post
+        expect(user.posts.last).to eq(post)
+      end
+    end
+
+    context 'when user is destroyed' do
+      it 'is expected to destroy dependent posts' do
+        post
+        expect { post.user.destroy }.to change { Post.count }.by(-1)
+      end
+    end
+
+    context 'when user create a comment' do     
+      it 'adds the comment to user_comments' do
+        user.comments << comment
+        expect(user.comments.last).to eq(comment)
+      end
+    end
+
+    context 'user is deleted' do
+      it 'is expected to destroy dependent comments' do
+        user.comments << comment
+        user.destroy
+        expect(Comment.count).to eq 0
+      end
+    end  
 
   end
 
-  context 'validations' do
-    it 'is invalid if username is missing' do
-      user.username = nil
-      expect(user.valid?).to be false
+  describe 'Validations' do
+
+    context 'when username is missing' do
+      it 'is invalid' do
+        user.username = nil
+        expect(user.valid?).to be false
+      end
     end
 
-    it 'is valid if username is found' do
-      expect(user.valid?).to be true
+    context 'when username is present' do
+      it 'is valid' do
+        expect(user.valid?).to be true
+      end
     end
+
   end
-
 end
+

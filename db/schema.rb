@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_07_155412) do
+ActiveRecord::Schema.define(version: 2019_06_14_155604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_155412) do
     t.text "comment_content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "likes_count", default: 0, null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -30,8 +31,21 @@ ActiveRecord::Schema.define(version: 2019_06_07_155412) do
     t.bigint "friend_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "GREATEST(user_id, friend_id), LEAST(user_id, friend_id)", name: "index_friendships_on_interchangable_user_id_and_friend_id", unique: true
+    t.index "LEAST(user_id, friend_id), GREATEST(user_id, friend_id)", name: "index_friendships_on_interchangable_friend_id_and_user_id", unique: true
     t.index ["friend_id"], name: "index_friendships_on_friend_id"
     t.index ["user_id"], name: "index_friendships_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "likable_type"
+    t.bigint "likable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["likable_type", "likable_id"], name: "index_likes_on_likable_type_and_likable_id"
+    t.index ["user_id", "likable_id", "likable_type"], name: "index_likes_on_user_id_and_likable_id_and_likable_type", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -39,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_155412) do
     t.text "post_content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "likes_count", default: 0, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -59,6 +74,8 @@ ActiveRecord::Schema.define(version: 2019_06_07_155412) do
     t.bigint "receiver_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "GREATEST(sender_id, receiver_id), LEAST(sender_id, receiver_id)", name: "index_requests_on_interchangable_sender_id_and_receiver_id", unique: true
+    t.index "LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id)", name: "index_requests_on_interchangable_receiver_id_and_sender_id", unique: true
     t.index ["receiver_id"], name: "index_requests_on_receiver_id"
     t.index ["sender_id"], name: "index_requests_on_sender_id"
   end
@@ -80,6 +97,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_155412) do
   add_foreign_key "comments", "users"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
+  add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "requests", "users", column: "receiver_id"
