@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   # Associations
   has_one :profile, dependent: :destroy
+  accepts_nested_attributes_for :profile
 
   has_many :outgoing_requests, foreign_key: "sender_id", 
             dependent: :destroy, class_name: 'Request'
