@@ -5,7 +5,7 @@ class User < ApplicationRecord
   :recoverable, :rememberable, :validatable
 
   # Validations
-  validates :username, presence: true
+  validates :username, presence: true, uniqueness: true
 
   # Associations
   has_one :profile, dependent: :destroy

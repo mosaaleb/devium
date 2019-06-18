@@ -1,5 +1,8 @@
 class ProfilesController < ApplicationController
-  def create
+  def show
+  end
+
+  def edit
   end
 
   def update

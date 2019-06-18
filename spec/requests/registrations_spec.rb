@@ -29,12 +29,10 @@ RSpec.describe "Registrations", type: :request do
     }
   } 
 
-  
-
   describe "GET /users/sign_up" do
     it 'returns success' do
       get '/users/sign_up'
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:success)
     end
   end
   
@@ -112,5 +110,3 @@ RSpec.describe "Registrations", type: :request do
 
   end
 end
-
-``
