@@ -5,7 +5,7 @@ class Profile < ApplicationRecord
   # Validations
   validate :age_is_present_and_permitted
   validates :date_of_birth, :gender, presence: true
-  # validates :about_me, length: { maximum: 400 }
+  validates :about_me, length: { maximum: 400 }
 
   # Private methods
   private

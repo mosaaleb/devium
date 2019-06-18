@@ -11,6 +11,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new sign_up_params
     if @user.valid? && @user.profile&.valid?
       @user.save
+      flash[:success] = 'Account successfully created!'
+      redirect_to root_path
     else
       render :new
     end
