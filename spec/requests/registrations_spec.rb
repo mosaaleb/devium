@@ -15,6 +15,22 @@ RSpec.describe "Registrations", type: :request do
     }
   } 
 
+  let(:empty_attributes) {
+    { 
+      user: {
+        password: nil,
+        username: nil,
+        email: nil,
+        profile_attributes: {
+          date_of_birth: nil,
+          gender: nil
+        }
+      }
+    }
+  } 
+
+  
+
   describe "GET /users/sign_up" do
     it 'returns success' do
       get '/users/sign_up'
@@ -59,90 +75,29 @@ RSpec.describe "Registrations", type: :request do
         expect(flash[:success]).to eq "Account successfully created!"
       end
     end
-    
-
-    context 'when user attributes are missing' do
-      
-      it 'creates neither user nor profile' do
-        attributes[:user][:username] = nil
-
-        post '/users', params: attributes
-        
-        user = User.find_by(email: 'email@email.com')
-
-        expect(user).to be nil
-      end
-
-      it 'displays username error messages' do
-        attributes[:user][:username] = nil
-
-        post '/users', params: attributes
-
-        expect(response.body).to include CGI.escapeHTML("Username can't be blank")
-      end
-
-      it 'displays email error messages' do
-        attributes[:user][:email] = nil
-
-        post '/users', params: attributes
-
-        expect(response.body).to include CGI.escapeHTML("Email can't be blank")
-      end
-
-      it 'displays password error messages' do
-        attributes[:user][:password] = nil
-
-        post '/users', params: attributes
-
-        expect(response.body).to include CGI.escapeHTML("Password can't be blank")
-      end
-      
-    end
 
     context 'when any attribute is missing' do
       it 'displays error messages' do
-        attributes[:user][:email] = nil
-        attributes[:user][:username] = nil
-        attributes[:user][:password] = nil
-        attributes[:user][:profile_attributes][:gender] = nil
-        attributes[:user][:profile_attributes][:date_of_birth] = nil        
 
+        post '/users', params: empty_attributes
 
-        post '/users', params: attributes
-
+        expect(response.body).to include CGI.escapeHTML("Email can't be blank")
         expect(response.body).to include CGI.escapeHTML("Password can't be blank")
+        expect(response.body).to include CGI.escapeHTML("Username can't be blank")
+        expect(response.body).to include CGI.escapeHTML("date of birth can't be blank")
+        expect(response.body).to include CGI.escapeHTML("gender can't be blank")
       end
     end
 
     context 'when profile or profile attributes are missing' do
       it 'does not create user nor profile' do
-        
         attributes[:user][:profile_attributes] = nil
         
         post '/users', params: attributes
-        
         user = User.find_by(username: attributes[:user][:username])
 
         expect(user).to be nil
         expect(Profile.count).to be 0
-      end
-
-      it 'displays gender error messages' do
-        attributes[:user][:profile_attributes][:gender] = nil
-
-        post '/users', params: attributes
-
-        expect(response.body)
-          .to include CGI.escapeHTML("Profile gender can't be blank")
-      end
-
-      it 'displays date_of_birth error messages' do
-        attributes[:user][:profile_attributes][:date_of_birth] = nil
-
-        post '/users', params: attributes
-
-        expect(response.body)
-          .to include CGI.escapeHTML("Profile date of birth can't be blank")
       end
 
       it 'displays age ineligibity error messages' do
@@ -158,3 +113,4 @@ RSpec.describe "Registrations", type: :request do
   end
 end
 
+``
