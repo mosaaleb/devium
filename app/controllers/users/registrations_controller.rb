@@ -3,13 +3,17 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 
   def new
-    build_resource({})
-    self.resource.profile = Profile.new
-    respond_with self.resource
+    @user = User.new
+    @profile = @user.build_profile
   end
 
   def create
-    super
+    @user = User.new sign_up_params
+    if @user.valid? && @user.profile&.valid?
+      @user.save
+    else
+      render :new
+    end
   end
 
   private

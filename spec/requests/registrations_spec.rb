@@ -39,26 +39,43 @@ RSpec.describe "Registrations", type: :request do
         
         expect(user.profile).not_to be_nil
       end
+
+      it 'creates not-empty profile with associated params' do
+        post '/users', params: attributes
+        
+        user = User.find_by(username: attributes[:user][:username])
+        
+        expect(user.profile.gender).to eq 'female'
+      end
     end
     
 
-    context 'when user or profile attribues are missing' do
+    context 'when user attribues are missing' do
       it 'does not create user nor profile' do
         attributes[:user][:username] = nil
 
         post '/users', params: attributes
         
-        expect(User.count).to be 0
+        user = User.find_by(email: 'email@email.com')
+
+        expect(user).to be nil
       end
-      
-      it 'does not create user nor profile 2' do
-        attributes[:user][:profile_attributes][:gender] = nil
+    end
+
+    context 'when profile or profile attribues are missing' do
+      it 'does not create user nor profile' do
+        
+        attributes[:user][:profile_attributes] = nil
         
         post '/users', params: attributes
         
+        user = User.find_by(username: attributes[:user][:username])
+
+        expect(user).to be nil
         expect(Profile.count).to be 0
       end
     end
+
   end
 end
 

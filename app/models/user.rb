@@ -4,9 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :validatable
 
-  # Callbacks
-  after_create :create_profile
-
   # Validations
   validates :username, presence: true
 
