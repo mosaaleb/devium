@@ -2,10 +2,18 @@ class Profile < ApplicationRecord
   # Enums
   enum gender: [:female, :male]
  
+  # Associations
+  belongs_to :user
+
   # Validations
   validate :age_is_present_and_permitted
   validates :date_of_birth, :gender, presence: true
   validates :about_me, length: { maximum: 400 }
+
+  # Instance Methods
+  def to_param
+    self.user.username
+  end
 
   # Private methods
   private

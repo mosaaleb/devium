@@ -1,2 +1,5 @@
-<h1>Profiles#edit</h1>
-<p>Find me in app/views/profiles/edit.html.erb</p>
+<% if @profile.errors.full_messages.any? %>
+  <% @profile.errors.full_messages.each do |error_message| %>
+    <li><%= error_message %></li>
+  <% end %>
+<% end %>
