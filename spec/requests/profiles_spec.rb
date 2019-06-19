@@ -33,7 +33,7 @@ RSpec.describe "Profiles", type: :request do
         expect(response).to have_http_status(:success)
       end
 
-      it 'can not access another user edit profile page' do
+      it 'is not expected to access another user edit profile page' do
         get "/#{another_user.username}/edit"
 
         expect(response).to redirect_to("/#{another_user.username}")
@@ -50,7 +50,7 @@ RSpec.describe "Profiles", type: :request do
 
   end
 
-  describe 'PUT /username/update' do
+  describe 'PUT /username' do
     before do
       sign_in user
     end
@@ -59,7 +59,7 @@ RSpec.describe "Profiles", type: :request do
       it 'update user profile' do
         profile_params[:profile][:first_name] = 'firstname'
 
-        put "/#{user.username}/update", params: profile_params
+        put "/#{user.username}", params: profile_params
 
         expect(user.profile.first_name).to eq 'firstname'
       end
@@ -68,7 +68,7 @@ RSpec.describe "Profiles", type: :request do
     context 'when paramaters are invalid' do
       it 'show errors' do
 
-        put "/#{user.username}/update", params: invalid_params
+        put "/#{user.username}", params: invalid_params
 
         expect(response.body).to include("About me is too long")
         expect(response.body).to include("You are ineligible to register")
