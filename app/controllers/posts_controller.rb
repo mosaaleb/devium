@@ -5,10 +5,15 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
   end
 
-  # def create
-  #   @post = current_user.posts.create posts_params
-  #   redirect_to root_path
-  # end
+  def create
+    @post = current_user.posts.build post_params
+    if @post.save
+      flash[:success] = 'Post successfully added!'
+      redirect_to root_path
+    else
+      render :edit
+    end
+  end
 
   def edit
     @post = Post.find_by(id: params[:id])
