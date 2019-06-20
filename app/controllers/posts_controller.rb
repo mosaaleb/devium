@@ -20,13 +20,20 @@ class PostsController < ApplicationController
     @user = @post.user
     if @post.update post_params
       flash[:success] = 'Post successfully updated!'
-      redirect_to action: :show
+      redirect_to user_post_path @post
     else
       render :edit
     end
   end
 
   def destroy
+    @post = Post.find(params[:id])
+    if @post.user == current_user
+      @post.destroy
+      redirect_to user_profile_path @post
+    else
+      redirect_to user_post_path @post 
+    end
   end
 
   private
