@@ -44,7 +44,7 @@ RSpec.describe "Profiles", type: :request do
       it 'redirect to login in page' do
         get "/#{user.username}/edit"
   
-        expect(response).to redirect_to('/users/sign_in')
+        expect(response).to redirect_to('/accounts/sign_in')
       end
     end
 

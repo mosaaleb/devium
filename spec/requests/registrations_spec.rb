@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Registrations", type: :request do
-  let(:attributes) {
-    { 
+RSpec.describe 'Registrations', type: :request do
+  let(:attributes) do
+    {
       user: {
         password: '123456',
         username: 'nameneww',
@@ -13,10 +15,10 @@ RSpec.describe "Registrations", type: :request do
         }
       }
     }
-  } 
+  end
 
-  let(:empty_attributes) {
-    { 
+  let(:empty_attributes) do
+    {
       user: {
         password: nil,
         username: nil,
@@ -27,57 +29,56 @@ RSpec.describe "Registrations", type: :request do
         }
       }
     }
-  } 
+  end
 
-  describe "GET /users/sign_up" do
+  describe 'GET /accounts/sign_up' do
     it 'returns success' do
       get '/accounts/sign_up'
       expect(response).to have_http_status(:success)
     end
   end
-  
-  describe 'POST /users' do
+
+  describe 'POST /accounts' do
     context 'when attributes are valid' do
       it 'creates new user' do
-        post '/users', params: attributes
+        post '/accounts', params: attributes
 
         user = User.find_by(username: attributes[:user][:username])
-        
+
         expect(user).not_to be_nil
       end
-      
+
       it 'creates new profile' do
-        post '/users', params: attributes
-        
+        post '/accounts', params: attributes
+
         user = User.find_by(username: attributes[:user][:username])
-        
+
         expect(user.profile).not_to be_nil
       end
 
       it 'creates not-empty profile with associated params' do
-        post '/users', params: attributes
-        
+        post '/accounts', params: attributes
+
         user = User.find_by(username: attributes[:user][:username])
-        
+
         expect(user.profile.gender).to eq 'female'
       end
 
       it 'redirects to home page' do
-        post '/users', params: attributes
+        post '/accounts', params: attributes
 
         expect(response).to redirect_to('/')
       end
 
-      it "shows an success message" do
-        post "/users", params: attributes
-        expect(flash[:success]).to eq "Account successfully created!"
+      it 'shows an success message' do
+        post '/accounts', params: attributes
+        expect(flash[:success]).to eq 'Account successfully created!'
       end
     end
 
     context 'when any attribute is missing' do
       it 'displays error messages' do
-
-        post '/users', params: empty_attributes
+        post '/accounts', params: empty_attributes
 
         expect(response.body).to include CGI.escapeHTML("Email can't be blank")
         expect(response.body).to include CGI.escapeHTML("Password can't be blank")
@@ -90,8 +91,8 @@ RSpec.describe "Registrations", type: :request do
     context 'when profile or profile attributes are missing' do
       it 'does not create user nor profile' do
         attributes[:user][:profile_attributes] = nil
-        
-        post '/users', params: attributes
+
+        post '/accounts', params: attributes
         user = User.find_by(username: attributes[:user][:username])
 
         expect(user).to be nil
@@ -99,14 +100,13 @@ RSpec.describe "Registrations", type: :request do
       end
 
       it 'displays age ineligibity error messages' do
-        attributes[:user][:profile_attributes][:date_of_birth] = Date.new(2010,1,2)
+        attributes[:user][:profile_attributes][:date_of_birth] = Date.new(2010, 1, 2)
 
-        post '/users', params: attributes
+        post '/accounts', params: attributes
 
         expect(response.body)
-          .to include CGI.escapeHTML("You are ineligible to register for devmedium")
+          .to include CGI.escapeHTML('You are ineligible to register for devmedium')
       end
     end
-
   end
 end

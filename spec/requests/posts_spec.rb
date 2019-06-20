@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Posts", type: :request do
+RSpec.describe 'Posts', type: :request do
   let(:post) { create :post }
   let(:post2) { create :post }
 
-  describe "GET /:username/:posts_id" do
-    it "returns success" do
+  describe 'GET /:username/:posts_id' do
+    it 'returns success' do
       get "/#{post.user.username}/#{post.id}"
 
       expect(response).to have_http_status(200)
     end
 
-    it "includes post_content in the body" do
+    it 'includes post_content in the body' do
       get "/#{post.user.username}/#{post.id}"
 
-      expect(response.body).to include("he first post of this website")
+      expect(response.body).to include('he first post of this website')
     end
   end
 
@@ -22,18 +24,18 @@ RSpec.describe "Posts", type: :request do
     context 'when not logged in' do
       it 'redirects to sign_in page' do
         get "/#{post.user.username}/#{post.id}/edit"
-        
-        expect(response).to redirect_to("/accounts/sign_in")
+
+        expect(response).to redirect_to('/accounts/sign_in')
       end
     end
-    
+
     context 'when logged in' do
       before do
         sign_in post.user
       end
       it 'is not expected to access another user edit post page' do
         get "/#{post2.user.username}/#{post2.id}/edit"
-        
+
         expect(response).to redirect_to("/#{post2.user.username}/#{post2.id}")
       end
 
@@ -45,12 +47,29 @@ RSpec.describe "Posts", type: :request do
     end
   end
 
+  describe 'POST /:username' do
+    context 'when logged in' do
+      before do
+        sign_in post.user
+      end
+      # profile (show and update) has the same route as posts create
+      
+      # it 'redirects to sign_in page' do
+      #   post_params = { post: { post_content: 'Test post.' } }
+
+      #   post "/#{post.user.username}", params: post_params
+
+      #   expect(response).to redirect_to('/')
+      # end
+    end
+  end
+
   describe 'PUT /:username/:post_id' do
     context 'when not logged in' do
       it 'redirects to sign_in page' do
         put "/#{post.user.username}/#{post.id}"
-        
-        expect(response).to redirect_to("/accounts/sign_in")
+
+        expect(response).to redirect_to('/accounts/sign_in')
       end
     end
 
@@ -58,7 +77,7 @@ RSpec.describe "Posts", type: :request do
       before do
         sign_in post.user
       end
-      
+
       it 'returns success' do
         post_params = { post: { post_content: 'I am the updated version' } }
 
@@ -71,11 +90,11 @@ RSpec.describe "Posts", type: :request do
     end
 
     describe 'DELETE /:username/:id' do
-      context "when not logged in" do
+      context 'when not logged in' do
         it 'redirects to the sign_in page' do
           delete "/#{post.user.username}/#{post.id}"
-        
-          expect(response).to redirect_to("/accounts/sign_in")
+
+          expect(response).to redirect_to('/accounts/sign_in')
         end
       end
 
@@ -86,13 +105,13 @@ RSpec.describe "Posts", type: :request do
 
         it 'redirects to the other user post page' do
           delete "/#{post2.user.username}/#{post2.id}"
-        
+
           expect(response).to redirect_to("/#{post2.user.username}/#{post2.id}")
         end
 
         it 'deletes the post' do
           delete "/#{post.user.username}/#{post.id}"
-          
+
           expect(Post.count).to be 0
           expect(response).to redirect_to("/#{post.user.username}")
         end
