@@ -42,4 +42,7 @@ class User < ApplicationRecord
     friends + inverse_friends
   end
 
+  def to_param
+    username
+  end
 end

@@ -2,13 +2,13 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: :show
   
   def show
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(username: params[:user_username])
     @profile = @user.profile
   end
 
   def edit
-    user = User.find_by(username: params[:username])
-    redirect_to user.profile unless current_user == user
+    user = User.find_by(username: params[:user_username])
+    redirect_to user_profile_path user.profile unless current_user == user
 
     @profile = current_user.profile
   end
@@ -17,7 +17,7 @@ class ProfilesController < ApplicationController
     @profile = current_user.profile
     if @profile.update profile_params
       flash[:success] = 'Profile updated successfully'
-      redirect_to @profile
+      redirect_to user_profile_path @profile
     else
       render :edit
     end
