@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Posts", type: :request do
   let(:post) { create :post }
   let(:post2) { create :post }
+  # let(:user) { create :user }
 
   describe "GET /:username/:posts_id" do
     it "returns success" do
@@ -25,7 +26,6 @@ RSpec.describe "Posts", type: :request do
         
         expect(response).to redirect_to("/users/sign_in")
       end
-
     end
     
     context 'when logged in' do
@@ -57,20 +57,22 @@ RSpec.describe "Posts", type: :request do
     end
 
     context 'when logged in' do
+      
       it 'returns success' do
         sign_in post.user
-        
 
         post_params = { post: { post_content: 'I am the updated version' } }
 
-        put "/#{post.user.username}/#{post.id}", params: post_params
+        put :update, "/#{post.user.username}/#{post.id}", params: post_params
+        
+        # put user_post_path(post.user.username, post.id), params: post_params
 
-        expect(response.body).to include('I am the updated version')    
+
+        redirect_to "/#{post.user.username}"
+
+        # expect(response).to have_http_status(302)
+        expect(response.body).to include('I am the updated version')
       end
     end
   end
-
-
-
-
 end
