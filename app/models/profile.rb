@@ -11,9 +11,6 @@ class Profile < ApplicationRecord
   validates :about_me, length: { maximum: 400 }
 
   # Instance Methods
-  def to_param
-    self.user.username
-  end
 
   # Private methods
   private
