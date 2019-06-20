@@ -8,7 +8,7 @@ class ProfilesController < ApplicationController
 
   def edit
     user = User.find_by(username: params[:user_username])
-    redirect_to user_profile_path user.profile unless current_user == user
+    redirect_to user_profile_path(user) unless current_user == user
 
     @profile = current_user.profile
   end
@@ -17,7 +17,7 @@ class ProfilesController < ApplicationController
     @profile = current_user.profile
     if @profile.update profile_params
       flash[:success] = 'Profile updated successfully'
-      redirect_to user_profile_path @profile
+      redirect_to user_profile_path(@profile.user)
     else
       render :edit
     end
