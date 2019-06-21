@@ -48,7 +48,7 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe 'POST /:username' do
-    context 'when logged in and parameters are valid' do      
+    context 'when logged in and parameters are valid' do
       it 'redirects to home page' do
         sign_in post1.user
 
@@ -58,10 +58,10 @@ RSpec.describe 'Posts', type: :request do
 
         expect(response).to redirect_to('/')
         expect(flash[:success]).to eq('Post successfully added!')
-      end        
+      end
     end
 
-    context 'when logged in and parameters are invalid' do      
+    context 'when logged in and parameters are invalid' do
       it 'renders edit page with error messages' do
         sign_in post1.user
 
@@ -70,7 +70,7 @@ RSpec.describe 'Posts', type: :request do
         post "/#{post1.user.username}", params: post_params
 
         expect(response.body).to include CGI.escapeHTML("Post content can't be blank")
-      end        
+      end
     end
   end
 
