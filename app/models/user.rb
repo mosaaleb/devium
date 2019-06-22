@@ -37,6 +37,10 @@ class User < ApplicationRecord
   def liked(likable)
     likable.kind_of?(Comment) ? liked_comments << likable : liked_posts << likable
   end
+  
+  def disliked(likable)
+    likable.kind_of?(Comment) ? liked_comments.destroy(likable) : liked_posts.destroy(likable)
+  end
 
   def adds_comment(comment)
     comments << comment
