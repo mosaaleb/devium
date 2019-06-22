@@ -9,8 +9,4 @@ class Post < ApplicationRecord
   # Validations
   validates :post_content, presence: true, length: { maximum: 400 }
 
-  # to_param
-  def to_param
-    self.user.username
-  end
 end

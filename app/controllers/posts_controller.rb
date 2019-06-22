@@ -17,7 +17,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find_by(id: params[:id])
-    redirect_to user_post_path @post unless @post.user == current_user
+    redirect_to user_post_path @post.user unless @post.user == current_user
   end
 
   def update
@@ -25,7 +25,7 @@ class PostsController < ApplicationController
     @user = @post.user
     if @post.update post_params
       flash[:success] = 'Post successfully updated!'
-      redirect_to user_post_path @post
+      redirect_to user_post_path @post.user
     else
       render :edit
     end
@@ -35,9 +35,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.user == current_user
       @post.destroy
-      redirect_to user_profile_path @post
+      redirect_to user_profile_path @post.user
     else
-      redirect_to user_post_path @post 
+      redirect_to user_post_path @post.user
     end
   end
 
