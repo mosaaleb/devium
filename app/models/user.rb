@@ -46,6 +46,14 @@ class User < ApplicationRecord
     comments << comment
   end
 
+  def sends_request(receiver)
+    outgoing_requests.create receiver: receiver
+  end
+
+  def unsend_request(request)
+    outgoing_requests.destroy request
+  end
+
   def all_friends
     friends + inverse_friends
   end
