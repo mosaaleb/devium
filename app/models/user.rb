@@ -54,11 +54,32 @@ class User < ApplicationRecord
     outgoing_requests.destroy request
   end
 
+  def rejects_request(request)
+    incoming_requests.destroy request
+  end
+
+  def accepts_friendship(friend)
+    friends << friend
+    remove_request_upon_friendship_created(friend)
+  end
+
+  def deletes_friendship(friend)
+    friends.destroy(friend)
+  end
+
   def all_friends
     friends + inverse_friends
   end
-
+  
   def to_param
     username
   end
+
+  private
+
+  def remove_request_upon_friendship_created(friend)
+    request = self.incoming_requests.find_by(sender_id: friend.id)
+    request.destroy
+  end
+
 end
