@@ -26,11 +26,13 @@ Rails.application.routes.draw do
       get 'received_requests', to: 'incoming_requests#index'
       delete 'reject_request', to: 'incoming_requests#destroy'
     end
+    
     member do
       get 'sent_requests', to: 'outgoing_requests#index'
       post 'send_request', to: 'outgoing_requests#create'
       delete 'remove_request', to: 'outgoing_requests#destroy'
     end
+
     member do
       post 'accept_request', to: 'friendships#create'
       delete 'remove_friend', to: 'friendships#destroy'
