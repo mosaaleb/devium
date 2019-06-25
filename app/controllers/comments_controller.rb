@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_comment, only: [:update, :destroy]
 
   def create
     @post = Post.find(params[:post_id])
@@ -16,8 +17,6 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = Comment.find(params[:id])
-
     if  current_user != @comment.user
       flash[:error] = 'You are not authorized to edit this comment'
       redirect_to user_post_path @comment.post.user
@@ -30,8 +29,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-
     if current_user == @comment.user
       @comment.destroy
       redirect_to root_path
@@ -45,5 +42,9 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:comment_content)
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
   end
 end

@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: :show
+  before_action :set_post, except: :create
 
   def show
-    @post = Post.find_by(id: params[:id])
   end
 
   def create
@@ -16,12 +16,10 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find_by(id: params[:id])
     redirect_to user_post_path @post.user unless @post.user == current_user
   end
 
   def update
-    @post = Post.find(params[:id])
     @user = @post.user
     if @post.update post_params
       flash[:success] = 'Post successfully updated!'
@@ -32,7 +30,6 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     if @post.user == current_user
       @post.destroy
       redirect_to user_profile_path @post.user
@@ -45,5 +42,9 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:post_content)
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 end
