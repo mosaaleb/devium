@@ -9,4 +9,6 @@ class Post < ApplicationRecord
   # Validations
   validates :post_content, presence: true, length: { maximum: 400 }
 
+  # Scope
+  default_scope { order(created_at: :desc) }
 end

@@ -42,6 +42,11 @@ class User < ApplicationRecord
     likable.kind_of?(Comment) ? liked_comments.destroy(likable) : liked_posts.destroy(likable)
   end
 
+  def liked?(likable)
+    likable.kind_of?(Comment) ? liked_comment_ids.include?(likable.id) :
+                                liked_post_ids.include?(likable.id)
+  end
+
   def adds_comment(comment)
     comments << comment
   end
@@ -73,6 +78,10 @@ class User < ApplicationRecord
   
   def to_param
     username
+  end
+
+  def timeline_posts
+    Post.where(user_id: friend_ids + inverse_friend_ids + [id])
   end
 
   private
