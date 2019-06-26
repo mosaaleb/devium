@@ -8,10 +8,11 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build post_params
     if @post.save
-      flash[:success] = 'Post successfully added!'
+      flash[:notice] = 'Post published!'
       redirect_to root_path
     else
-      render :edit
+      flash[:alert] = @post.errors.full_messages[0]
+      redirect_back(fallback_location: root_path)
     end
   end
 
