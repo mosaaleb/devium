@@ -3,10 +3,13 @@ require 'rails_helper'
 RSpec.describe "newsfeeds/show.html.erb", type: :view do
   let(:post1) { create :post}
   let(:post2) { create :post }
+  let(:user) { create :user }
 
   before do
+    sign_in user
     assign(:post, Post.new)
     assign(:posts, [post1, post2])
+    assign(:current_user, user)
     # assign(:posts, [double(Post, post_content: 'first post', user_id: 1), double(Post, post_content: 'second post', user_id: 2)])
   end
 
