@@ -1,1 +1,8 @@
 <h1>Newsfeed</h1>
+
+<%= form_for @post do |f| %>
+  <%= f.text_area :post_content, placeholder: 'What\'s happening?' %>
+  <%= f.submit 'Publish' %>
+<% end %>
+
+<%= render @posts %>
