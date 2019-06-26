@@ -20,10 +20,10 @@ RSpec.describe 'Posts', type: :request do
     end
   end
 
-  describe 'GET /:username/:post_id/edit' do
+  describe 'GET /posts/:post_id/edit' do
     context 'when not logged in' do
       it 'redirects to sign_in page' do
-        get "/#{post1.user.username}/#{post1.id}/edit"
+        get "/posts/#{post1.id}/edit"
 
         expect(response).to redirect_to('/accounts/sign_in')
       end
@@ -34,27 +34,27 @@ RSpec.describe 'Posts', type: :request do
         sign_in post1.user
       end
       it 'is not expected to access another user edit post page' do
-        get "/#{post2.user.username}/#{post2.id}/edit"
+        get "/posts/#{post2.id}/edit"
 
         expect(response).to redirect_to("/#{post2.user.username}/#{post2.id}")
       end
 
       it 'returns success' do
-        get "/#{post1.user.username}/#{post1.id}/edit"
+        get "/posts/#{post1.id}/edit"
 
         expect(response).to have_http_status 200
       end
     end
   end
 
-  describe 'POST /:username' do
+  describe 'POST /posts' do
     context 'when logged in and parameters are valid' do
       it 'redirects to home page' do
         sign_in post1.user
 
         post_params = { post: { post_content: 'Test post.' } }
 
-        post "/#{post1.user.username}", params: post_params
+        post '/posts', params: post_params
 
         expect(response).to redirect_to('/')
         expect(flash[:success]).to eq('Post successfully added!')
@@ -67,17 +67,17 @@ RSpec.describe 'Posts', type: :request do
 
         post_params = { post: { post_content: '' } }
 
-        post "/#{post1.user.username}", params: post_params
+        post "/posts", params: post_params
 
         expect(response.body).to include CGI.escapeHTML("Post content can't be blank")
       end
     end
   end
 
-  describe 'PUT /:username/:post_id' do
+  describe 'PUT /posts/:id' do
     context 'when not logged in' do
       it 'redirects to sign_in page' do
-        put "/#{post1.user.username}/#{post1.id}"
+        put "/posts/#{post1.id}"
 
         expect(response).to redirect_to('/accounts/sign_in')
       end
@@ -91,7 +91,7 @@ RSpec.describe 'Posts', type: :request do
       it 'returns success' do
         post_params = { post: { post_content: 'I am the updated version' } }
 
-        put "/#{post1.user.username}/#{post1.id}", params: post_params
+        put "/posts/#{post1.id}", params: post_params
 
         expect(post1.reload.post_content).to include('I am the updated version')
         expect(response).to redirect_to("/#{post1.user.username}/#{post1.id}")
@@ -100,10 +100,10 @@ RSpec.describe 'Posts', type: :request do
     end
   end
 
-  describe 'DELETE /:username/:id' do
+  describe 'DELETE /posts/:id' do
     context 'when not logged in' do
       it 'redirects to the sign_in page' do
-        delete "/#{post1.user.username}/#{post1.id}"
+        delete "/posts/#{post1.id}"
 
         expect(response).to redirect_to('/accounts/sign_in')
       end
@@ -115,13 +115,13 @@ RSpec.describe 'Posts', type: :request do
       end
 
       it 'redirects to the other user post page' do
-        delete "/#{post2.user.username}/#{post2.id}"
+        delete "/posts/#{post2.id}"
 
         expect(response).to redirect_to("/#{post2.user.username}/#{post2.id}")
       end
 
       it 'deletes the post' do
-        delete "/#{post1.user.username}/#{post1.id}"
+        delete "/posts/#{post1.id}"
 
         expect(Post.count).to be 0
         expect(response).to redirect_to("/#{post1.user.username}")
