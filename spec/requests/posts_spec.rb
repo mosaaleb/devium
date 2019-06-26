@@ -57,19 +57,19 @@ RSpec.describe 'Posts', type: :request do
         post '/posts', params: post_params
 
         expect(response).to redirect_to('/')
-        expect(flash[:success]).to eq('Post successfully added!')
+        expect(flash[:notice]).to eq('Post published!')
       end
     end
 
     context 'when logged in and parameters are invalid' do
-      it 'renders edit page with error messages' do
+      it 'renders same page with error messages' do
         sign_in post1.user
 
         post_params = { post: { post_content: '' } }
 
         post "/posts", params: post_params
 
-        expect(response.body).to include CGI.escapeHTML("Post content can't be blank")
+        expect(flash[:alert]).to include("Post content can't be blank")
       end
     end
   end
