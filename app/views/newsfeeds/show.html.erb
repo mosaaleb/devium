@@ -1,8 +1,7 @@
-<h1>Newsfeed</h1>
+<div class="form-new-post">
+  <%= render partial: 'posts/form' %>
+</div>
 
-<%= form_for @post do |f| %>
-  <%= f.text_area :post_content, placeholder: 'What\'s happening?' %>
-  <%= f.submit 'Publish' %>
-<% end %>
-
-<%= render @posts %>
+<div class="all-posts">
+  <%= render @posts %>
+</div>
