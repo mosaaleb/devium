@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     end
 
     member do
+      get 'friends', to: 'friendships#index'
       post 'accept_request', to: 'friendships#create'
       delete 'remove_friend', to: 'friendships#destroy'
     end
