@@ -59,8 +59,16 @@ class User < ApplicationRecord
     outgoing_requests.destroy request
   end
 
+  def already_sent_request?(user)
+    outgoing_pending_friends.include?(user)
+  end
+
   def rejects_request(request)
     incoming_requests.destroy request
+  end
+
+  def already_friends?(friend)
+    all_friends.include?(friend)
   end
 
   def accepts_friendship(friend)
@@ -69,7 +77,8 @@ class User < ApplicationRecord
   end
 
   def deletes_friendship(friend)
-    friends.destroy(friend)
+    friends.destroy(friend) 
+    inverse_friends.destroy(friend)
   end
 
   def all_friends
