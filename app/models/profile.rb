@@ -11,6 +11,9 @@ class Profile < ApplicationRecord
   validates :about_me, length: { maximum: 400 }
 
   # Instance Methods
+  def fullname
+    "#{first_name} #{last_name}"
+  end
 
   # Private methods
   private
