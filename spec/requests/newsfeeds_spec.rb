@@ -11,16 +11,6 @@ RSpec.describe "Newsfeeds", type: :request do
         expect(response.body).to include("Log in")
       end
     end
-
-    context 'when looged in' do
-      it 'redirects to newsfeed page' do  
-        sign_in user
-        
-        get '/'
-        
-        expect(response.body).to include("Newsfeed")
-      end
-    end
-
+    
   end
 end

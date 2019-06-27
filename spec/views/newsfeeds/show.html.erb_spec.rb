@@ -13,18 +13,10 @@ RSpec.describe "newsfeeds/show.html.erb", type: :view do
     # assign(:posts, [double(Post, post_content: 'first post', user_id: 1), double(Post, post_content: 'second post', user_id: 2)])
   end
 
-  it 'contain Newsfeed word' do
-    render
-
-    expect(rendered).to match('<h1>Newsfeed</h1>')
-    expect(rendered).to include('Newsfeed')
-    expect(rendered).to have_selector('h1', text: 'Newsfeed', count: 1)
-  end
-
   it 'renders a form for creating a posts' do
     render
 
-    expect(rendered).to have_selector('form')
+    expect(rendered).to have_selector('.form-new-post form')
   end
 
   it 'renders posts partial' do
@@ -40,7 +32,7 @@ RSpec.describe "newsfeeds/show.html.erb", type: :view do
     expect(rendered).to have_selector('.likes-box', count: 2)
   end
 
-  it 'renders a like button' do
+  it 'renders a like button for posts' do
     render 
 
     expect(rendered).to have_selector('form.button_to', count: 2)
@@ -53,13 +45,18 @@ RSpec.describe "newsfeeds/show.html.erb", type: :view do
     expect(rendered).to have_selector('p', text: post2.likes_count)
   end
   
-  # it 'displays a form for neis not an ActiveModel-compatible objecw post' do
+  it 'renders a form for new comment' do
+    render
 
-  #   render
+    expect(rendered).to have_selector('.form-new-comment form', count: 2)
+  end
 
-  #   rendered.should contain("slicer")
-  #   rendered.should contain("dicer")
-  # end
+  it 'renders comments for every post' do
+    render
+
+    expect(rendered).to have_selector('.post-comments')
+  end
+
 end
 
 # Notes
