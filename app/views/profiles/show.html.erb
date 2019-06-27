@@ -3,9 +3,32 @@
     <%= @user.username %>
   </h1>
 
+  <div class="friends-details">
+    <p><%= @user.friendships_count %> <%= link_to "Friends", friends_user_path(@user) %></p>
+  </div>
+
+  <div class="edit-profile-button">
+    <%= edit_profile_button(@user) %>
+  </div>
+
   <div class="friendship_button">
     <%= friendship_button(@user) %>
   </div>
+
+  <div class="profile-details">
+    <p class="about-me">
+      Bio: <%= @user.profile.about_me %>
+    </p>
+
+    <p class="date-of-birth">
+      Birthday: <%= @user.profile.date_of_birth.strftime("%B %d, %Y") %>
+    </p>
+
+    <p class="full-name">
+      Name: <%= @user.profile.fullname %>
+    </p>
+  </div>
+
 
 </div>
 

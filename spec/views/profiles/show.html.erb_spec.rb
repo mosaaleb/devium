@@ -55,4 +55,54 @@ RSpec.describe "profiles/show.html.erb", type: :view do
 
     expect(rendered).not_to have_selector('.friendship_button a')
   end
+
+  it 'shows the number of friends' do
+    current_user.friendships.create friend: user
+
+    render
+
+    expect(rendered).to have_selector('.friends-details', text: "#{user.friendships_count}")
+  end
+
+  it 'shows the number of friends' do
+    current_user.friendships.create friend: user
+
+    render
+
+    expect(rendered).to have_selector('.friends-details a', text: "Friends")
+  end
+
+  it 'shows link to edit profile' do
+    sign_in user
+
+    render
+
+    expect(rendered).to have_selector('.edit-profile-button a', text: "Edit Profile")
+  end
+
+  it 'shows bio information' do
+    user.profile.about_me = 'I am the bio!'
+
+    render
+
+    expect(rendered).to have_selector('.about-me', text: 'I am the bio!')
+  end
+
+  it 'shows date of birth' do
+    user.profile.date_of_birth = Date.new(2002,12,1)
+
+    render
+
+    expect(rendered).to have_selector('.profile-details .date-of-birth', text: 'December 01, 2002')
+  end
+
+  it 'shows full name' do
+    user.profile.first_name = 'Testme'
+    user.profile.last_name = 'Ifyoulike'
+
+
+    render
+
+    expect(rendered).to have_selector('.profile-details .full-name', text: 'Testme Ifyoulike')
+  end
 end

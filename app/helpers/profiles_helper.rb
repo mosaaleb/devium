@@ -14,4 +14,8 @@ module ProfilesHelper
         link_to 'Send Request', send_request_user_path(user.id), method: :post
     end
   end
+
+  def edit_profile_button(user)
+    link_to 'Edit Profile',  edit_user_profile_path(user.id) if current_user == user
+  end
 end
