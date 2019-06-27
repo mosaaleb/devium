@@ -1,18 +1,19 @@
-<div>
-    <div>
-        <h3><%= link_to comment.user.username, user_profile_path(comment.user) %></h3>
-    </div>
+<div style="background-color: #eee; margin: 10px auto; width: 70%;">
+  <div>
+    <h3><%= link_to comment.user.username, user_profile_path(comment.user) %></h3>
+  </div>
 
-    <div>
-        <p><%= comment.comment_content %></p>
-    </div>
+  <div>
+    <p><%= comment.comment_content %></p>
+  </div>
 
-    <div>
-        <em>published <%= link_to time_ago_in_words(comment.created_at), comment %> ago</em>
-    </div>
+  <div>
+    <em>published <%= link_to time_ago_in_words(comment.created_at), comment %> ago</em>
+  </div>
 
-    <div class="likes-box">
-        <%= like_button(comment) %>
-        <p><%= comment.likes_count %></p>
-    </div>
+  <div class="likes-box">
+    <%= like_comment_button(comment) %>
+    <p><%= comment.likes_count %></p>
+  </div>
+
 </div>

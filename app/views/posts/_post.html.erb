@@ -1,4 +1,4 @@
-<div class="post_box">
+<div class="post_box" style="border: 2px solid blue; margin: 10px auto; width: 70%">
 
   <div>
     <h3><%= link_to post.user.username, user_profile_path(post.user) %></h3>
@@ -13,19 +13,16 @@
   </div>
 
   <div class="likes-box">
-    <%= like_button(post) %>
+    <%= like_post_button(post) %>
     <p><%= post.likes_count %></p>
   </div>
 
-  <%= form_for [post, @comment] do |f| %>
-    <%= f.text_field :comment_content, placeholder: 'Comment on this post.' %>
-    <%= f.submit 'Comment' %>
-  <% end %>
+  <div class="form-new-comment">
+    <%= render partial: 'comments/form', locals: { post: post } %>
+  </div>
 
-  <%= render post.comments %>
+  <div class="post-comments">
+    <%= render post.comments %>
+  </div>
 
-  <%# render comments %>
-    <%# add new comment %>
-    <%# show post comments %>
-      <%# comment likes %>
 </div>
