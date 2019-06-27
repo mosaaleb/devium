@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, except: :create
 
   def show
+    
   end
 
   def create

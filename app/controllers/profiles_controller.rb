@@ -3,7 +3,11 @@ class ProfilesController < ApplicationController
   
   def show
     @user = User.find_by(username: params[:user_username])
+
+    render html: 'User not found' and return unless @user
+
     @profile = @user.profile
+    @posts = @user.posts
   end
 
   def edit
