@@ -34,13 +34,15 @@ Rails.application.routes.draw do
     end
 
     member do
-      get 'friends', to: 'friendships#index'
       post 'accept_request', to: 'friendships#create'
       delete 'remove_friend', to: 'friendships#destroy'
     end
   end
 
   resources :users, only: :none, path: '', param: :username do
+    member do
+      get 'friends', to: 'friendships#index'
+    end
     resource :profile, path: '', only: [:show, :edit, :update]
     resources :posts, path: '', only: :show
   end

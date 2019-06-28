@@ -1,7 +1,7 @@
 class Profile < ApplicationRecord
   # Enums
   enum gender: [:female, :male]
- 
+
   # Associations
   belongs_to :user
 
