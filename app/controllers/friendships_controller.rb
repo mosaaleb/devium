@@ -2,6 +2,8 @@ class FriendshipsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @user = User.find_by(username: params[:username])
+    @friends = @user.all_friends
   end
   
   def create
