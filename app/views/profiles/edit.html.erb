@@ -1,5 +1,13 @@
-<% if @profile.errors.full_messages.any? %>
-  <% @profile.errors.full_messages.each do |error_message| %>
-    <li><%= error_message %></li>
+<div class="errors">
+
+  <% if @profile.errors.full_messages.any? %>
+    <% @profile.errors.full_messages.each do |error_message| %>
+      <li><%= error_message %></li>
+    <% end %>
   <% end %>
-<% end %>
+  
+</div>
+
+<div class="form-edit-profile">
+  <%= render 'form' %>
+</div>

@@ -100,7 +100,6 @@ RSpec.describe "profiles/show.html.erb", type: :view do
     user.profile.first_name = 'Testme'
     user.profile.last_name = 'Ifyoulike'
 
-
     render
 
     expect(rendered).to have_selector('.profile-details .full-name', text: 'Testme Ifyoulike')
