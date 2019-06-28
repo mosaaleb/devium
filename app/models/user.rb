@@ -43,8 +43,10 @@ class User < ApplicationRecord
   end
 
   def liked?(likable)
-    likable.kind_of?(Comment) ? liked_comment_ids.include?(likable.id) :
-                                liked_post_ids.include?(likable.id)
+    case 
+      when likable.kind_of?(Comment) then liked_comment_ids.include?(likable.id)
+      when likable.kind_of?(Post) then liked_comment_ids.include?(likable.id)
+    end
   end
 
   def adds_comment(comment)
