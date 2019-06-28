@@ -8,7 +8,9 @@
   </div>
 
   <div>
-    <em>published <%= link_to time_ago_in_words(comment.created_at), comment %> ago</em>
+    <em>
+      Published <%= time_ago_in_words(comment.created_at) %> ago
+    </em>
   </div>
 
   <div class="likes-box">

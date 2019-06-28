@@ -18,4 +18,10 @@ module ProfilesHelper
   def edit_profile_button(user)
     link_to 'Edit Profile',  edit_user_profile_path(user.username) if current_user == user
   end
+
+  def name_details(user)
+    if user.profile.first_name || user.profile.last_name
+      "Name: #{@user.profile.fullname.titlecase}"
+    end
+  end
 end
