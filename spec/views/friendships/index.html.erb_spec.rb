@@ -10,16 +10,35 @@ RSpec.describe "friendships/index.html.erb", type: :view do
     assign(:friends, [friend1, friend2])
   end
 
-  it 'have selector friends class' do
-    render
+  context 'when user has friends' do
+    it 'have selector friends class' do
+      render
 
-    expect(rendered).to have_selector('div.friends-list')
+      expect(rendered).to have_selector('div.friends-list')
+    end
+
+    it 'renders friends' do
+      render
+
+      expect(rendered).to have_selector('.mini-profile-card', count: 2)
+    end
+    
+    it 'renders all friends' do
+      render
+
+      expect(rendered).to have_selector('.mini-profile-card a')
+    end      
   end
 
-  it 'renders friends' do
-    render
+  context 'when user has no friends' do
+    it 'renders first request box' do
+      assign(:friends, [])
 
-    expect(rendered).to have_selector('.mini-profile-card', count: 2)
+      render
+
+      expect(rendered).to have_selector('.first-request')
+    end    
   end
+
 
 end

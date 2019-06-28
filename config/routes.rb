@@ -16,6 +16,13 @@ Rails.application.routes.draw do
     post 'like', to: 'likes#create'
     delete 'dislike', to: 'likes#destroy'
   end
+
+  # concern :likable do
+  #   resources :likes
+  # end
+  # resources :likes
+  # resources :posts, concerns: :likable
+  # resources :comments, concerns: :likable
   
   resources :posts, only: [:create, :edit, :update, :destroy], shallow: true, concerns: :likable do
     resources :comments, only: [:update, :destroy, :create], concerns: :likable

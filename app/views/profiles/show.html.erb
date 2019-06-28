@@ -16,16 +16,20 @@
   </div>
 
   <div class="profile-details">
+    <p class="full-name">
+      <%= name_details(@user) %>
+    </p>
+
     <p class="about-me">
       Bio: <%= @user.profile.about_me %>
     </p>
 
     <p class="date-of-birth">
-      Birthday: <%= @user.profile.date_of_birth.strftime("%B %d, %Y") %>
+      <%= @user.profile.date_of_birth.strftime("%B %d, %Y") %>
     </p>
 
-    <p class="full-name">
-      Name: <%= @user.profile.fullname %>
+    <p class="gender">
+      <%= @user.profile.gender.capitalize %>
     </p>
   </div>
 
