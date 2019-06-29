@@ -1,5 +1,5 @@
 module ProfilesHelper
-  
+
   def friendship_button(user) 
     case
       when current_user.nil?

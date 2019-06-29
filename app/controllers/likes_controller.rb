@@ -14,6 +14,10 @@ class LikesController < ApplicationController
   private
 
   def likable
-    Comment.find_by(id: params[:comment_id]) || Post.find_by(id: params[:post_id])
+    if params[:post_id]
+      @_post ||= Post.find params[:post_id] if params[:post_id]
+    elsif params[:comment_id]
+      @_comment ||= Comment.find params[:comment_id] if params[:comment_id]
+    end
   end
 end
