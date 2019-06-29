@@ -5,9 +5,9 @@ module PostsHelper
     when current_user.nil?
       link_to 'Like', new_user_session_path
     when current_user.liked?(post)
-      button_to 'Unlike', post_dislike_path(post), method: :delete
+      link_to image_tag('dislike.png'), post_dislike_path(post), method: :delete
     else
-      button_to 'Like', post_like_path(post)
+      link_to image_tag('like.png'), post_like_path(post), method: :post
     end
   end
 

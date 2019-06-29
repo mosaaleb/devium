@@ -35,7 +35,7 @@ RSpec.describe "newsfeeds/show.html.erb", type: :view do
   it 'renders a like button for posts' do
     render 
 
-    expect(rendered).to have_selector('form.button_to', count: 2)
+    expect(rendered).to have_selector('.likes-box a', count: 2)
   end
 
   it 'renders post likes count' do
