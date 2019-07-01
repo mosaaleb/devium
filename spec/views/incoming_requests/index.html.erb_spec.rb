@@ -11,16 +11,16 @@ RSpec.describe "incoming_requests/index.html.erb", type: :view do
     assign(:incoming_requests, [request1, request2])
   end
 
-  it 'render all friendship requests' do 
+  it 'render all incoming friendship requests' do 
     render
 
-    expect(rendered).to have_selector('.all-requests')
+    expect(rendered).to have_selector('.incoming-requests')
   end
 
   it 'render requests' do
     render
 
-    expect(rendered).to have_selector('.all-requests .request-box', count: 2)
+    expect(rendered).to have_selector('.incoming-requests .request-box', count: 2)
   end
 
   it 'renders accept or reject button' do

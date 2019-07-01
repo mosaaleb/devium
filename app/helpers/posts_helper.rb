@@ -1,10 +1,10 @@
-module PostsHelper
+# frozen_string_literal: true
 
+module PostsHelper
   def like_post_button(post)
-    case
-    when current_user.nil?
+    if current_user.nil?
       link_to 'Like', new_user_session_path
-    when current_user.liked?(post)
+    elsif current_user.liked?(post)
       link_to image_tag('dislike.png'), post_dislike_path(post), method: :delete
     else
       link_to image_tag('like.png'), post_like_path(post), method: :post
@@ -22,5 +22,4 @@ module PostsHelper
       link_to 'Delete', post_path(post), method: :delete
     end
   end
-
 end

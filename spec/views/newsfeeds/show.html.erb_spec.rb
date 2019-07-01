@@ -56,18 +56,4 @@ RSpec.describe "newsfeeds/show.html.erb", type: :view do
 
     expect(rendered).to have_selector('.post-comments')
   end
-
 end
-
-# Notes
-
-## render 'posts', model: post
-## expect(rendered).to have_selector('a', :href => '/issues/new')
-
-# assign(:widget, Widget.new)
-# render
-
-## assign(:events, [double(Post), double(Post)])
-## expect(view).to render_template(:partial => "_post", :count => 2)
-
-## https://relishapp.com/rspec/rspec-rails/docs/view-specs/view-spec#view-specs-can-stub-a-helper-method
