@@ -8,11 +8,13 @@ class FriendshipsController < ApplicationController
   
   def create
     current_user.accepts_friendship(friend)
-    redirect_to received_requests_user_path(current_user)
+    flash[:notice] = 'Friend Added!'
+    redirect_to received_requests_user_path(current_user.id)
   end
 
   def destroy
     current_user.deletes_friendship(friend)
+    flash[:notice] = 'Friend Removed!'
     redirect_to user_profile_path(friend)
   end
 
