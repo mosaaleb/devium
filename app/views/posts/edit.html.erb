@@ -1,5 +1,11 @@
-<% if @post.errors.full_messages.any? %>
-  <% @post.errors.full_messages.each do |error_message| %>
-    <li><%= error_message %></li>
+<div class="error-messages">
+  <% if @post.errors.full_messages.any? %>
+    <% @post.errors.full_messages.each do |error_message| %>
+      <li><%= error_message %></li>
+    <% end %>
   <% end %>
-<% end %>
+</div>
+
+<div class="form-edit-post">
+  <%= render 'form' %>
+</div>

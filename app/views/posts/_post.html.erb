@@ -4,6 +4,14 @@
     <h3><%= link_to post.user.username, user_profile_path(post.user) %></h3>
   </div>
 
+  <div class="post-edit-button">
+    <%= edit_post_button(post) %>
+  </div>
+
+  <div class="post-delete-button">
+    <%= delete_post_button(post) %>
+  </div>
+
   <div>
     <p><%= post.post_content %></p>
   </div>

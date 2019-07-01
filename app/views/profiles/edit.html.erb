@@ -1,11 +1,9 @@
-<div class="errors">
-
+<div class="error-messages">
   <% if @profile.errors.full_messages.any? %>
     <% @profile.errors.full_messages.each do |error_message| %>
       <li><%= error_message %></li>
     <% end %>
   <% end %>
-  
 </div>
 
 <div class="form-edit-profile">

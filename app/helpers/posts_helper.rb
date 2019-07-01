@@ -11,4 +11,16 @@ module PostsHelper
     end
   end
 
+  def edit_post_button(post)
+    if current_user && current_user == post.user
+      link_to 'Edit', edit_post_path(post)
+    end
+  end
+
+  def delete_post_button(post)
+    if current_user && current_user == post.user
+      link_to 'Delete', post_path(post), method: :delete
+    end
+  end
+
 end
