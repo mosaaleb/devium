@@ -17,7 +17,7 @@ RSpec.describe "Friendships", type: :request do
 
         post "/relationships/#{request1.sender.id}/accept_request"
 
-        expect(response).to redirect_to "/relationships/#{request1.receiver.username}/received_requests"
+        expect(response).to redirect_to "/received_requests"
       end
 
       it 'deletes the request after friendship creation' do

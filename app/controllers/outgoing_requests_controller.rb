@@ -1,7 +1,9 @@
 class OutgoingRequestsController < ApplicationController
   before_action :authenticate_user!
 
-  def index; end
+  def index
+    @outgoing_requests = current_user.outgoing_requests
+  end
 
   def create
     @receiver = User.find(params[:id])

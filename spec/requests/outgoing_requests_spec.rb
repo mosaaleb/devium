@@ -47,7 +47,7 @@ RSpec.describe "OutgoingRequests", type: :request do
   describe "GET relationships/:id/sent_requests" do
     context 'when not logged in' do
       it "redirects to sign_in page" do
-        get "/relationships/#{request1.receiver.id}/sent_requests"
+        get "/sent_requests"
       
         expect(response).to redirect_to('/accounts/sign_in')
       end
@@ -57,7 +57,7 @@ RSpec.describe "OutgoingRequests", type: :request do
       it 'has http sucess status' do
         sign_in request1.sender
 
-        get "/relationships/#{request1.receiver.id}/sent_requests"
+        get "/sent_requests"
         
         expect(response).to have_http_status 200
       end

@@ -9,7 +9,7 @@ class FriendshipsController < ApplicationController
   def create
     current_user.accepts_friendship(friend)
     flash[:notice] = 'Friend Added!'
-    redirect_to received_requests_user_path(current_user.id)
+    redirect_to received_requests_path
   end
 
   def destroy

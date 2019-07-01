@@ -16,26 +16,20 @@ Rails.application.routes.draw do
     post 'like', to: 'likes#create'
     delete 'dislike', to: 'likes#destroy'
   end
-
-  # concern :likable do
-  #   resources :likes
-  # end
-  # resources :likes
-  # resources :posts, concerns: :likable
-  # resources :comments, concerns: :likable
   
   resources :posts, only: [:create, :edit, :update, :destroy], shallow: true, concerns: :likable do
-    resources :comments, only: [:update, :destroy, :create], concerns: :likable
+    resources :comments, only: [:edit, :update, :destroy, :create], concerns: :likable
   end
+
+  get 'received_requests', to: 'incoming_requests#index'
+  get 'sent_requests', to: 'outgoing_requests#index'
 
   resources :users, only: :none, path: :relationships do
     member do
-      get 'received_requests', to: 'incoming_requests#index'
       delete 'reject_request', to: 'incoming_requests#destroy'
     end
     
     member do
-      get 'sent_requests', to: 'outgoing_requests#index'
       post 'send_request', to: 'outgoing_requests#create'
       delete 'remove_request', to: 'outgoing_requests#destroy'
     end
