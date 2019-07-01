@@ -1,0 +1,12 @@
+<%# TODO: find away to send without using each %>
+
+<% @incoming_requests.each do |request| %>
+  <div class="request-box">
+    <%= link_to request.sender.username, user_profile_path(request.sender) %>
+    <%= time_ago_in_words(request.created_at) %> ago
+    <div class="friendships-buttons">
+      <%= link_to 'Accept', accept_request_user_path(request.sender.id), method: :post, class: 'accept-button' %>
+      <%= link_to 'Reject', reject_request_user_path(request.sender.id), method: :delete, class: 'reject-button' %>
+    </div>
+  </div>
+<% end %>

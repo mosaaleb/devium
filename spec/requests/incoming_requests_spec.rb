@@ -21,6 +21,9 @@ RSpec.describe "IncomingRequests", type: :request do
         
         expect(response).to redirect_to('/')
       end
+
+      it 'redirect back to same page if user not authorized'
+
     end
   end
 

@@ -20,7 +20,7 @@ RSpec.describe "OutgoingRequests", type: :request do
 
         expect(response).to redirect_to('/')
       end
-    end   
+    end
   end
 
   describe "DELETE relationships/:id/remove_request" do
@@ -41,10 +41,10 @@ RSpec.describe "OutgoingRequests", type: :request do
         
         expect(response).to redirect_to('/')
       end
-    end   
+    end
   end
 
-  describe "GET relationships/:id/remove_request" do
+  describe "GET relationships/:id/sent_requests" do
     context 'when not logged in' do
       it "redirects to sign_in page" do
         get "/relationships/#{request1.receiver.id}/sent_requests"
@@ -54,13 +54,15 @@ RSpec.describe "OutgoingRequests", type: :request do
     end
 
     context 'when logged in' do
-      it "redirects back to same page" do
+      it 'has http sucess status' do
         sign_in request1.sender
 
         get "/relationships/#{request1.receiver.id}/sent_requests"
         
         expect(response).to have_http_status 200
       end
+
+      it 'redirects back to same page if not authorized'
     end
   end
 
