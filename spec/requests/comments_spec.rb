@@ -65,21 +65,21 @@ RSpec.describe "Comments", type: :request do
         put "/comments/#{comment.id}", params: { comment: { comment_content: 'I am the new comment' } }
 
         expect(response).to redirect_to '/'
-        expect(flash[:success]).to eq 'Comment updated!'
+        expect(flash[:notice]).to eq 'Comment updated!'
       end
 
       it 'render again if new comment is not valid' do
         put "/comments/#{comment.id}", params: { comment: { comment_content: '' } } 
 
-        expect(flash[:error]).to eq 'Comment cannot be updated!'
+        expect(flash[:alert]).to eq 'Comment cannot be updated!'
       end
 
       it 'authorize user for comment update' do
         sign_in user2
 
         put "/comments/#{comment.id}", params: { comment: { comment_content: 'I am the new comment' } }
-        # expect(response).to redirect_to "/#{comment.post.user.username}/#{comment.post.id}"
-        expect(flash[:error]).to include('You are not authorized to edit this comment')
+        
+        expect(flash[:alert]).to include('You are not authorized to edit this comment')
       end
     end
   end
@@ -98,6 +98,7 @@ RSpec.describe "Comments", type: :request do
         sign_in comment.user
 
         delete "/comments/#{comment.id}"
+        
         expect(response).to redirect_to '/'
       end
 
@@ -105,8 +106,8 @@ RSpec.describe "Comments", type: :request do
         sign_in user2
 
         delete "/comments/#{comment.id}"
-        # expect(response).to redirect_to "/#{comment.post.user.username}/#{comment.post.id}"
-        expect(flash[:error]).to include('You are not authorized to delete this comment')
+
+        expect(flash[:alert]).to include('You are not authorized to delete this comment')
       end
     end
   end
