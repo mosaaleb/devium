@@ -8,8 +8,8 @@ class Request < ApplicationRecord
   validate :sender_and_receiver_does_not_already_have_requests
 
   # Associations
-  belongs_to :receiver, class_name: 'User'
-  belongs_to :sender, class_name: 'User'
+  belongs_to :receiver, class_name: 'User', counter_cache: :received_requests_count
+  belongs_to :sender, class_name: 'User', counter_cache: :sent_requests_count
 
   # Private Methods
   private 

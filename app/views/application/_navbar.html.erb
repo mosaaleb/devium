@@ -1,10 +1,38 @@
-<div class="navbar">
-  <ul>
+<div class="navbar navbar-dark bg-dark navbar-expand-lg">
+
+  <div class="navbar-brand">
     <%= link_to 'PUT LOGO HERE', root_path %>
-    <%= link_to 'Profile', user_profile_path(current_user) %>
-    <%= link_to 'Pending Requests', received_requests_path %>
-    <%= link_to 'Sent Requests', sent_requests_path %>
-    <%= link_to 'Friends', friends_user_path(current_user.username) %>
-    <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-  </ul>
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+
+      <li class="nav-item">
+          <%= link_to "Pending Requests <span class='badge badge-secondary'>#{current_user.received_requests_count}</span>".html_safe, received_requests_path, class: 'nav-link' %>
+      </li>      
+
+      <li class="nav-item">
+        <%= link_to "Sent Requests <span class='badge badge-secondary'>#{current_user.sent_requests_count}</span>".html_safe, sent_requests_path, class: 'nav-link' %>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= avatar(current_user, :x_small) %>
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="navbarDropdown">
+          <%= link_to 'Profile', user_profile_path(current_user), class: 'dropdown-item nav-link' %>
+          <%= link_to 'Friends', friends_user_path(current_user.username), class: 'dropdown-item nav-link' %>
+          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'dropdown-item nav-link' %>
+        </div>
+
+      </li>
+
+    </ul>
+  </div>
+
 </div>

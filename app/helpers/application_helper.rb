@@ -7,7 +7,7 @@ module ApplicationHelper
     # default_image = link_to image_tag('dislike.png')
     #default_image = 'https://www.gstatic.com/webp/gallery3/2.png'
     gravatar_url = "//www.gravatar.com/avatar/#{email_digest}?&s=#{image_sizes[size]}"
-    image_tag gravatar_url, class: 'profile-image'
+    image_tag gravatar_url, class: 'rounded-circle'
   end
 
   def show_navbar
