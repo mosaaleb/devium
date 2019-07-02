@@ -10,14 +10,16 @@
   </head>
 
   <body>
-    <div class="alert-notice">
+    <%= show_navbar %>
+
+    <div class="alert-notice position-absolute">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     </div>
 
-    <%= show_navbar %>
-
-    <%= yield %>
+    <div class="container mt-2">
+      <%= yield %>
+    </div>
     
   </body>
 </html>
