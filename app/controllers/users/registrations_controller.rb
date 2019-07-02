@@ -1,21 +1,8 @@
 # frozen_string_literal: true
-
 class Users::RegistrationsController < Devise::RegistrationsController
-  
-  def new
-    @user = User.new
-    @profile = @user.build_profile
-  end
 
-  def create
-    @user = User.new sign_up_params
-    if @user.valid? && @user.profile&.valid?
-      @user.save
-      flash[:success] = 'Account successfully created!'
-      redirect_to root_path
-    else
-      render :new
-    end
+  def new
+    super { resource.build_profile }
   end
 
   private

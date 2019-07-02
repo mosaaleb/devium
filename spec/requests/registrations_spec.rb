@@ -69,11 +69,6 @@ RSpec.describe 'Registrations', type: :request do
 
         expect(response).to redirect_to('/')
       end
-
-      it 'shows an success message' do
-        post '/accounts', params: attributes
-        expect(flash[:success]).to eq 'Account successfully created!'
-      end
     end
 
     context 'when any attribute is missing' do
@@ -90,9 +85,7 @@ RSpec.describe 'Registrations', type: :request do
 
     context 'when profile or profile attributes are missing' do
       it 'does not create user nor profile' do
-        attributes[:user][:profile_attributes] = nil
-
-        post '/accounts', params: attributes
+        post '/accounts', params: empty_attributes
         user = User.find_by(username: attributes[:user][:username])
 
         expect(user).to be nil
