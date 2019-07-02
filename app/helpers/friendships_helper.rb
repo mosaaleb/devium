@@ -1,5 +1,5 @@
 module FriendshipsHelper
-  def show_friends(user)
+  def show_friends
     if @friends.empty?
       render 'first_friend_request'
     else
