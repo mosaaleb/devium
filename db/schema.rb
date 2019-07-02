@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_02_103823) do
+ActiveRecord::Schema.define(version: 2019_07_02_153611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(version: 2019_07_02_103823) do
     t.index "GREATEST(sender_id, receiver_id), LEAST(sender_id, receiver_id)", name: "index_requests_on_interchangable_sender_id_and_receiver_id", unique: true
     t.index "LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id)", name: "index_requests_on_interchangable_receiver_id_and_sender_id", unique: true
     t.index ["receiver_id"], name: "index_requests_on_receiver_id"
-    t.index ["sender_id", "receiver_id"], name: "index_requests_on_sender_id_and_receiver_id", unique: true
     t.index ["sender_id"], name: "index_requests_on_sender_id"
   end
 
@@ -93,6 +92,8 @@ ActiveRecord::Schema.define(version: 2019_07_02_103823) do
     t.integer "friendships_count", default: 0, null: false
     t.string "provider"
     t.string "uid"
+    t.integer "received_requests_count", default: 0, null: false
+    t.integer "sent_requests_count", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
