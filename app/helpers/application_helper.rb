@@ -10,4 +10,8 @@ module ApplicationHelper
     image_tag gravatar_url, class: 'profile-image'
   end
 
+  def show_navbar
+    render 'navbar' if signed_in?
+  end
+
 end

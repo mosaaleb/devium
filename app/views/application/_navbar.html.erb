@@ -1,0 +1,10 @@
+<div class="navbar">
+  <ul>
+    <%= link_to 'PUT LOGO HERE', root_path %>
+    <%= link_to 'Profile', user_profile_path(current_user) %>
+    <%= link_to 'Pending Requests', received_requests_path %>
+    <%= link_to 'Sent Requests', sent_requests_path %>
+    <%= link_to 'Friends', friends_user_path(current_user.username) %>
+    <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+  </ul>
+</div>
