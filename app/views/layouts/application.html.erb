@@ -11,11 +11,18 @@
 
   <body>
     <%= show_navbar %>
-
-    <div class="alert-notice position-absolute">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-    </div>
+        
+    <% if flash[:notice] %>
+      <div class="alert alert-success text-center">
+        <button type="button", class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:notice] %>
+      </div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger text-center">
+        <button type="button", class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:alert] %>
+      </div>
+    <% end %>    
 
     <div class="container mt-2">
       <%= yield %>

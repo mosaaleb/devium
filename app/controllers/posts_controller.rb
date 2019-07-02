@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   def update
     @user = @post.user
     if @post.update post_params
-      flash[:success] = 'Post successfully updated!'
+      flash[:notice] = 'Post successfully updated!'
       redirect_to user_post_path @post.user
     else
       render :edit
@@ -34,7 +34,8 @@ class PostsController < ApplicationController
   def destroy
     if @post.user == current_user
       @post.destroy
-      redirect_to user_profile_path @post.user
+      flash[:notice] = "Post deleted!"
+      redirect_back(fallback_location: root_path)      
     else
       redirect_to user_post_path @post.user
     end

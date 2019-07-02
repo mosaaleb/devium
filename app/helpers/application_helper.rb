@@ -13,5 +13,4 @@ module ApplicationHelper
   def show_navbar
     render 'navbar' if signed_in?
   end
-
 end
