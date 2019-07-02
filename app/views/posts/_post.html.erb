@@ -1,5 +1,9 @@
 <div class="post_box" style="border: 2px solid blue; margin: 10px auto; width: 70%">
 
+  <div class="user-avatar">
+    <%= avatar(post.user, :small) %>
+  </div>
+
   <div>
     <h3><%= link_to post.user.username, user_profile_path(post.user) %></h3>
   </div>

@@ -1,4 +1,9 @@
 <div style="background-color: #eee; margin: 10px auto; width: 70%;">
+
+  <div class="user-avatar">
+    <%= avatar(comment.user, :small) %>
+  </div>
+
   <div>
     <h3><%= link_to comment.user.username, user_profile_path(comment.user) %></h3>
   </div>

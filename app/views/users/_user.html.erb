@@ -1,4 +1,7 @@
 <div class="mini-profile-card">
+    <div class="user-avatar">
+      <%= avatar(user, :x_small) %>
+    </div>
   <%= link_to user.username, user_profile_path(user) %>
   <%= friendship_button(user) %>
 </div>
