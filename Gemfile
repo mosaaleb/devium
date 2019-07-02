@@ -14,7 +14,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'hirb'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise', '~> 4.6'
-
+gem 'omniauth-facebook'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use ActiveStorage variant

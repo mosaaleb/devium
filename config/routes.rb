@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   devise_for :users, path: 'accounts', controllers: {
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
   
   authenticated :user do
