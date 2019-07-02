@@ -12,6 +12,21 @@
     <%= f.label :email %><br />
     <%= f.email_field :email, autocomplete: "email" %>
   </div>
+  
+  <div class="profile-fields">
+    <%= f.fields_for :profile do |profile_form| %>
+      <div class="field">
+        <%= profile_form.label :age %>
+        <%= profile_form.date_field :date_of_birth %>
+      </div>
+
+      <div class="field">
+        <%= profile_form.label :gender %>
+        <%= profile_form.radio_button :gender, 'male' %> Male
+        <%= profile_form.radio_button :gender, 'female' %> Female
+      </div>
+    <% end %>
+  </div>
 
   <div class="field">
     <%= f.label :password %>
@@ -25,6 +40,7 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
+
 
   <div class="actions">
     <%= f.submit "Sign up" %>
