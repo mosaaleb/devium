@@ -1,40 +1,56 @@
-<div class="post_box">
+<div class="post_box row no-gutters-">
 
-  <div class="user-avatar">
+  <div class="card mb-3" style="max-width: 540px;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><span class="mr-1"><%= avatar(post.user, :small) %></span><%= link_to post.user.username, user_profile_path(post.user) %></h5>
+        <p class="card-text"><%= post.post_content %></p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="user-avatar col col-1 col-md-10 col-lg-7 ">
     <%= avatar(post.user, :small) %>
   </div>
 
-  <div>
-    <h3><%= link_to post.user.username, user_profile_path(post.user) %></h3>
-  </div>
+  <div class="col col-11 col-md-2 col-lg-5">
+    <div>
+      <h3><%= link_to post.user.username, user_profile_path(post.user) %></h3>
+    </div>
 
-  <div class="post-edit-button">
-    <%= edit_post_button(post) %>
-  </div>
+    <div class="post-edit-button">
+      <%= edit_post_button(post) %>
+    </div>
 
-  <div class="post-delete-button">
-    <%= delete_post_button(post) %>
-  </div>
+    <div class="post-delete-button">
+      <%= delete_post_button(post) %>
+    </div>
 
-  <div>
-    <p><%= post.post_content %></p>
-  </div>
+    <div>
+      <p><%= post.post_content %></p>
+    </div>
 
-  <div>
-    <em>published <%= link_to time_ago_in_words(post.created_at), post %> ago</em>
-  </div>
+    <div>
+      <em>published <%= link_to time_ago_in_words(post.created_at), post %> ago</em>
+    </div>
 
-  <div class="likes-box">
-    <%= like_post_button(post) %>
-    <p><%= post.likes_count %></p>
-  </div>
+    <div class="likes-box">
+      <%= like_post_button(post) %>
+      <p><%= post.likes_count %></p>
+    </div>
 
-  <div class="form-new-comment">
-    <%= render partial: 'comments/form', locals: { post: post } %>
-  </div>
+    <div class="form-new-comment">
+      <%= render partial: 'comments/form', locals: { post: post } %>
+    </div>
 
-  <div class="post-comments">
-    <%= render post.comments %>
+    <div class="post-comments">
+      <%= render post.comments %>
+    </div>
   </div>
 
 </div>

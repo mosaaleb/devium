@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2019_07_02_153611) do
     t.index "GREATEST(sender_id, receiver_id), LEAST(sender_id, receiver_id)", name: "index_requests_on_interchangable_sender_id_and_receiver_id", unique: true
     t.index "LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id)", name: "index_requests_on_interchangable_receiver_id_and_sender_id", unique: true
     t.index ["receiver_id"], name: "index_requests_on_receiver_id"
+    t.index ["sender_id", "receiver_id"], name: "index_requests_on_sender_id_and_receiver_id", unique: true
     t.index ["sender_id"], name: "index_requests_on_sender_id"
   end
 
