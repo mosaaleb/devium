@@ -3,7 +3,7 @@
 <% @incoming_requests.each do |request| %>
   <div class="request-box">
     <div class="user-avatar">
-      <%= avatar(reqeust.sender, :x_small) %>
+      <%= avatar(request.sender, :x_small) %>
     </div>
     <%= link_to request.sender.username, user_profile_path(request.sender) %>
     <%= time_ago_in_words(request.created_at) %> ago

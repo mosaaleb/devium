@@ -95,7 +95,7 @@ RSpec.describe 'Posts', type: :request do
 
         expect(post1.reload.post_content).to include('I am the updated version')
         expect(response).to redirect_to("/#{post1.user.username}/#{post1.id}")
-        expect(flash[:success]).to include('Post successfully updated!')
+        expect(flash[:notice]).to include('Post successfully updated!')
       end
     end
   end
@@ -124,7 +124,7 @@ RSpec.describe 'Posts', type: :request do
         delete "/posts/#{post1.id}"
 
         expect(Post.count).to be 0
-        expect(response).to redirect_to("/#{post1.user.username}")
+        expect(response).to redirect_to("/")
       end
     end
   end

@@ -1,56 +1,53 @@
-<div class="post_box row no-gutters-">
-
-  <div class="card mb-3" style="max-width: 540px;">
+<div class="card post_box mb-3 shadow">
   <div class="row no-gutters">
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title"><span class="mr-1"><%= avatar(post.user, :small) %></span><%= link_to post.user.username, user_profile_path(post.user) %></h5>
-        <p class="card-text"><%= post.post_content %></p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div class="col col-md-12">
+      <div class="mt-3">
+
+        <div class="row justify-content-between mx-1">
+          <h5>
+            <span class="user-avatar">
+              <%= avatar(post.user, :small) %>
+            </span>
+            <%= link_to post.user.username, user_profile_path(post.user) %>
+          </h5>
+
+          <div class="dropdown">
+            <%= show_dropdown_post_button(post) %>         
+            <div class="dropdown-menu dropdown-menu-right" arial-labelledby="drop-down-button">
+              <p><small class="post-edit-button dropdown-item text-muted"><%= edit_post_button(post) %></small></p>
+              <p><small class="post-delete-button dropdown-item text-muted"><%= delete_post_button(post) %></small></p>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="mx-1">
+          <%= post.post_content %>
+        </p>
+        <div class="row mx-1 justify-content-between">
+          <div class="likes-box">
+            <%= like_post_button(post) %>
+            <span class="badge badge-secondary"><%= post.likes_count %></span>
+          </div>
+          <p class=""><small class="text-muted">Published <%= link_to time_ago_in_words(post.created_at), post %> ago</small></p>
+        </div>
       </div>
+
+      <div class="card-footer">
+        <a class="btn btn-primary" data-toggle="collapse" href="#viewComments" role="button" aria-expanded="false" aria-controls="collapseExample">
+          View Comments
+        </a>
+        <a class="btn btn-primary" data-toggle="collapse" href="#addComment" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Add Comment
+        </a>
+      </div>
+      <div class="post-comments collapse" id="viewComments">
+        <small class="text-muted"><%= render post.comments %></small>
+      </div>
+      <div class="form-new-comment collapse" id="addComment">
+        <%= render partial: 'comments/form', locals: { post: post } %>
+      </div>
+
     </div>
   </div>
-</div>
-
-  <div class="user-avatar col col-1 col-md-10 col-lg-7 ">
-    <%= avatar(post.user, :small) %>
-  </div>
-
-  <div class="col col-11 col-md-2 col-lg-5">
-    <div>
-      <h3><%= link_to post.user.username, user_profile_path(post.user) %></h3>
-    </div>
-
-    <div class="post-edit-button">
-      <%= edit_post_button(post) %>
-    </div>
-
-    <div class="post-delete-button">
-      <%= delete_post_button(post) %>
-    </div>
-
-    <div>
-      <p><%= post.post_content %></p>
-    </div>
-
-    <div>
-      <em>published <%= link_to time_ago_in_words(post.created_at), post %> ago</em>
-    </div>
-
-    <div class="likes-box">
-      <%= like_post_button(post) %>
-      <p><%= post.likes_count %></p>
-    </div>
-
-    <div class="form-new-comment">
-      <%= render partial: 'comments/form', locals: { post: post } %>
-    </div>
-
-    <div class="post-comments">
-      <%= render post.comments %>
-    </div>
-  </div>
-
 </div>

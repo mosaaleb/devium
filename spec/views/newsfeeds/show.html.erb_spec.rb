@@ -41,8 +41,8 @@ RSpec.describe "newsfeeds/show.html.erb", type: :view do
   it 'renders post likes count' do
     render
 
-    expect(rendered).to have_selector('p', text: post1.likes_count)
-    expect(rendered).to have_selector('p', text: post2.likes_count)
+    expect(rendered).to have_selector('.likes-box', text: post1.likes_count)
+    expect(rendered).to have_selector('.likes-box', text: post2.likes_count)
   end
   
   it 'renders a form for new comment' do

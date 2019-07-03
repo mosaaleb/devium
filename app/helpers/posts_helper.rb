@@ -23,4 +23,10 @@ module PostsHelper
       link_to 'Delete', post_path(post), method: :delete
     end
   end
+
+  def show_dropdown_post_button(post)
+    if edit_post_button(post) && delete_post_button(post)
+      render 'posts/dropdown'
+    end
+  end
 end
