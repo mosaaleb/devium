@@ -1,31 +1,39 @@
-<div style="background-color: #eee; margin: 10px auto; width: 70%;">
+<div class="card ml-3 pt-3 my-2">
+  <div class="row no-gutters">
+    <div class="col col-md-12">
 
-  <div class="user-avatar">
-    <%= avatar(comment.user, :small) %>
+      <div class="row justify-content-between mx-3">
+        <h6>
+          <span class="user-avatar">
+            <%= image_tag avatar(comment.user, :x_small), class: 'rounded-circle' %>
+          </span>
+          <%= link_to comment.user.username, user_profile_path(comment.user) %>
+        </h6>
+
+        <div class="dropdown">
+          <%= show_dropdown_comment_button(comment) %>
+          <div class="dropdown-menu dropdown-menu-right" arial-labelledby="drop-down-button">
+            <p><small class="comment-edit-button dropdown-item text-muted"><%= edit_button(comment) %></small></p>
+            <p><small class="comment-delete-button dropdown-item text-muted"><%= delete_button(comment) %></small></p>
+          </div>
+        </div>
+      </div>
+
+      <p class="mx-3">
+        <%= comment.comment_content %>
+      </p>
+    
+      <div class="row mx-1 justify-content-between p-2">
+        <div class="likes-box">
+          <%= like_comment_button(comment) %>
+          <span class="badge badge-secondary"><%= comment.likes_count %></span>
+        </div>
+        
+        <div>
+          Published <%= time_ago_in_words(comment.created_at) %> ago
+        </div>
+      </div>
+
+    </div>
   </div>
-
-  <div>
-    <h3><%= link_to comment.user.username, user_profile_path(comment.user) %></h3>
-  </div>
-
-  <div>
-    <p><%= comment.comment_content %></p>
-  </div>
-
-  <div>
-    <em>
-      Published <%= time_ago_in_words(comment.created_at) %> ago
-    </em>
-  </div>
-
-  <div class="likes-box">
-    <%= like_comment_button(comment) %>
-    <p><%= comment.likes_count %></p>
-  </div>
-
-  <div class="comment-buttons">
-    <%= edit_button(comment) %>  
-    <%= delete_button(comment) %>
-  </div>
-
 </div>
