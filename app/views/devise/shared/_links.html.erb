@@ -22,6 +22,10 @@
   <%- resource_class.omniauth_providers.each do |provider| %>
     <div class="dropdown-divider"></div>
     <p>Or</p>
-    <p><%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: 'btn facebook-btn rounded-pill form-control' %></p>
+    <p>
+      <%= link_to omniauth_authorize_path(resource_name, provider),class: 'btn facebook-btn rounded-pill form-control' do %>
+        <%= fa_icon "facebook", text: "&nbsp; Sign in with #{OmniAuth::Utils.camelize(provider)}".html_safe %>
+      <% end %>
+    </p>
   <% end %>
 <% end %>
