@@ -1,19 +1,19 @@
-<div class="user-profile-box">
-
+<div class="user-profile-box bg-dark m-2 p-3">
+  
   <div class="user-avatar">
-    <%= avatar(@user, :x_large) %>
+    <%= image_tag avatar(@user, :profile), class: 'rounded-circle d-block mx-auto bg-white shadow-sm' %>
   </div>
 
-  <h1 class='username'>
+  <h1 class='username text-center'>
     <%= @user.username %>
   </h1>
 
-  <div class="friends-details">
-    <p><%= @user.friendships_count %> <%= link_to "Friends", friends_user_path(@user) %></p>
-  </div>
-
   <div class="edit-profile-button">
     <%= edit_profile_button(@user) %>
+  </div>
+
+  <div class="friends-details text-center">
+    <p><%= link_to "Friends <span class='badge badge-secondary'>#{@user.friendships_count}</span>".html_safe, friends_user_path(@user) %></p>
   </div>
 
   <div class="friendship_button">
@@ -37,7 +37,6 @@
       <%= @user.profile.gender.capitalize %>
     </p>
   </div>
-
 
 </div>
 

@@ -1,6 +1,6 @@
 <div class="mini-profile-card">
     <div class="user-avatar">
-      <%= avatar(user, :x_small) %>
+      <%= image_tag avatar(@user, :x_small), class: 'rounded-circle' %>
     </div>
   <%= link_to user.username, user_profile_path(user) %>
   <%= friendship_button(user) %>

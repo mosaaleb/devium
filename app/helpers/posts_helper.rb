@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module PostsHelper
-  
+
   def like_post_button(post)
     if current_user.nil?
       link_to 'Like', new_user_session_path
@@ -29,4 +29,5 @@ module PostsHelper
       render 'posts/dropdown'
     end
   end
+
 end

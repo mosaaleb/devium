@@ -1,7 +1,7 @@
 <% @outgoing_requests.each do |outgoing_request| %>
   <div class="request-box">
     <div class="user-avatar">
-      <%= avatar(outgoing_request.receiver, :x_small) %>
+      <%= image_tag avatar(outgoing_request.receiver, :x_small), class: 'rounded-circle' %>
     </div>
     <%= link_to outgoing_request.receiver.username,  user_profile_path(outgoing_request.receiver) %>
     <%= time_ago_in_words(outgoing_request.created_at) %> ago
