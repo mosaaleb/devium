@@ -1,0 +1,20 @@
+.bg-image {
+  background-image: url('bg1_opt');
+  background-size: cover;
+  background-position: center;
+}
+
+.facebook-btn {
+  background-color: #3b5998;
+  color: white;
+
+  &:hover {
+    background-color: #264891;
+    color: white;
+  }
+  
+  .dropdown-divider {
+    border-top: .5px solid rgba(50, 50, 50, 0.15);
+  }
+}
+

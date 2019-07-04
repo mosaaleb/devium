@@ -1,26 +1,54 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="row vh-100">
+  
+  <!-- The left half -->
+  <div class="bg-image col-md-7 d-none d-md-block">
+    <div class="d-flex vh-100 align-items-center">
+      <div class="col-12 text-center mx-auto text-white">
+        <h3 class="header-font">Devium</h3>
+        <h5 class="lead pb-2">Social Networking for Software Developers</h5>
+        <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+          <%= link_to "Sign up", new_registration_path(resource_name), class: 'btn btn-primary rounded-pill text-uppercase text-font' %>
+        <% end %>
+      </div>
     </div>
-  <% end %>
+  </div><!-- end -->
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+  <!-- The right half -->
+  <div class="col-md-5 my-auto">
+    <div class="login bg-light rounded py-5">
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <h2 class="h3 header-font">Welcome back!</h2>
+            
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="form-group mb-3 field">
+                <br>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+              </div>
+
+              <div class="form-group mb-3 field">
+                <br>
+                <%= f.password_field :password, autocomplete: "current-password", class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+              </div>
+
+              <% if devise_mapping.rememberable? %>
+                <div class="custom-control custom-checkbox mb-3 field">
+                  <%= f.check_box :remember_me, class: 'custom-control-input', checked: true %>
+                  <%= f.label :remember_password, class: 'custom-control-label' %>
+                </div>
+              <% end %>
+
+              <div class="actions">
+                <%= f.submit "Login", class: 'btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm' %>
+              </div>
+            <% end %>
+
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end -->
+</div>

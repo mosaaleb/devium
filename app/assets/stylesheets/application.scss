@@ -1,1 +1,12 @@
 @import "bootstrap";
+@import 'base/fonts';
+@import "custom/sign_up";
+@import 'base/defaults';
+
+.message {
+  position: absolute;
+  width: 70%;
+  z-index: 2000;
+  top: 7%;
+  left: 15%;
+}
