@@ -1,88 +1,79 @@
 <div class="row vh-100">
 
   <!-- The left half -->
-  <div class="col-md-7 vh-100">
-    <div class="signup shadow rounded py-5 mx-5 bg-light w-100">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-10 mx-auto">
-            <p class="h1">Welcome to <span class="h1 header-font">Devium</span></p>
-            <p class="lead">Let's get you all set up so you can meet your amazing peers</p>
-            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-              <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="col-md-7 my-auto">
+    <div class="signup shadow rounded py-4 bg-light mx-4">
+      <div class="col-lg-10 mx-auto">
+        <p class="h2 header-font">Welcome to <span class="h1 text-primary">Devium</span></p>
+        <p class="lead">Let's get you all set up so you can meet other amazing devs.</p>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
 
-              <div class="form-group">
-                <%= f.label :username %>
-                <%= f.text_field :username, autocomplete: "username", autofocus: true, class: 'form-control form-control-lg rounded-pill border-0 shadow-sm px-4' %>
-              </div>
+          <div class="form-group">
+            <%= f.text_field :username, placeholder: "Username", autocomplete: "username", autofocus: true, class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+          </div>
 
-              <div class="form-group">
-                <%= f.label :email %>
-                <%= f.email_field :email, autocomplete: "email", class: 'form-control form-control-lg rounded-pill border-0 shadow-sm px-4' %>
-              </div>
+          <div class="form-group">
+            <%= f.email_field :email, placeholder: "Email", autocomplete: "email", class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+          </div>
+          
+          <div class="profile-fields date row">
+            <%= f.fields_for :profile do |profile_form| %>
               
-              <div class="profile-fields date">
-                <%= f.fields_for :profile do |profile_form| %>
-                  <div class="form-group">
-                    <%= profile_form.label :age %>
-                    <%= profile_form.date_field :date_of_birth, class: 'form-control form-control-lg rounded-pill border-0 shadow-sm px-4' %>
-                  </div>
-
-                  <div>
-                    <%= profile_form.label :gender %><br>
-                    <div class="form-group custom-control custom-radio">
-                      <%= profile_form.radio_button :gender, 'male', class: 'custom-control-input', id: 'customRadio1', name: 'gender' %> 
-                      <label class="custom-control-label" for="customRadio1">Male</label>
-                    </div>
-                    <div class="form-group custom-control custom-radio">
-                      <%= profile_form.radio_button :gender, 'female', class: 'custom-control-input', id: 'customRadio2', name: 'gender' %>
-                      <label class="custom-control-label" for="customRadio2">Female</label>
-                    </div>
-                    
-                    
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-primary">
-                        <input type="radio" name="options" id="option2"> Male
-                      </label>
-                      <label class="btn btn-primary rounded-left">
-                        <input type="radio" name="options" id="option3"> Female
-                      </label>
-                    </div>
-
-
-                  </div>
-                <% end %>
+              <div class="form-group col col-sm-6 col-md">
+                <%= profile_form.date_field :date_of_birth, placeholder: "Age", class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
               </div>
 
-              <div class="form-group">
-                <%= f.label :password %>
-                <% if @minimum_password_length %>
-                <em>(<%= @minimum_password_length %> characters minimum)</em>
-                <% end %><br />
-                <%= f.password_field :password, autocomplete: "new-password", class: 'form-control form-control-lg rounded-pill border-0 shadow-sm px-4' %>
-              </div>
-
-              <div class="form-group">
-                <%= f.label :password_confirmation %><br />
-                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control form-control-lg rounded-pill border-0 shadow-sm px-4' %>
-              </div>
-
-
-              <div class="actions form-group">
-                <%= f.submit "Sign up", class: 'btn btn-primary text-uppercase mb-2 rounded-pill shadow-sm form-control form-control-lg font-weight-bold' %>
+              <div class="col col-sm-6 col-md mb-3 my-auto">
+                <span>I am </span>
+                <div class="field custom-control custom-radio custom-control-inline">
+                    <%= profile_form.radio_button :gender, 'male', type: "radio", id: "customRadio1", class: "custom-control-input" %>
+                    <label class="custom-control-label" for="customRadio1">Male</label>
+                </div>
+                
+                <div class="field custom-control custom-radio custom-control-inline">                    
+                  <%= profile_form.radio_button :gender, 'female', type: "radio", id: "customRadio2", class: "custom-control-input" %>
+                  <label class="custom-control-label" for="customRadio2">Female</label>
+                </div>
               </div>
             <% end %>
           </div>
-        </div>
+
+          <div class="form-group">
+            <% if @minimum_password_length %>
+              <%= f.password_field :password, placeholder: "Password (#{@minimum_password_length} characters minimum)", autocomplete: "new-password", class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+            <% end %>
+          </div>
+
+          <div class="form-group">
+            <%= f.password_field :password_confirmation, placeholder: "Password Confirmation", autocomplete: "new-password", class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+          </div>
+
+
+          <div class="actions form-group">
+            <%= f.submit "Sign up", class: 'mt-4 btn btn-primary text-uppercase mb-2 rounded-pill shadow-sm form-control font-weight-bold' %>
+          </div>
+          <p>Already have an account? <%= link_to "Sign in", new_user_session_path %></p>
+          
+          <%- if devise_mapping.omniauthable? %>
+            <%- resource_class.omniauth_providers.each do |provider| %>
+            <div class="dropdown-divider"></div>
+            <p class="font-weight-bold h6 text-center">Or</p>
+            <p>
+              <%= link_to omniauth_authorize_path(resource_name, provider),class: 'btn facebook-btn rounded-pill form-control form-control-lg font-weight-bold' do %>
+                <%= fa_icon "facebook", text: "&nbsp; Sign up with #{OmniAuth::Utils.camelize(provider)}".html_safe %>
+              <% end %>
+            </p>
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
     </div>
 
   </div><!-- end -->
 
   <!-- The right half -->
-  <div class="col-md-5">
-    
+  <div class="bg-sign-up col-md-5 d-none d-md-block">
   </div><!-- end -->
 
 </div>
-
