@@ -21,9 +21,9 @@
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
   <div class="dropdown-divider"></div>
-  <p>Or</p>
+  <p class="font-weight-bold h6">Or</p>
   <p>
-    <%= link_to omniauth_authorize_path(resource_name, provider),class: 'btn facebook-btn rounded-pill form-control' do %>
+    <%= link_to omniauth_authorize_path(resource_name, provider),class: 'btn facebook-btn rounded-pill form-control form-control-lg font-weight-bold' do %>
       <%= fa_icon "facebook", text: "&nbsp; Sign in with #{OmniAuth::Utils.camelize(provider)}".html_safe %>
     <% end %>
   </p>

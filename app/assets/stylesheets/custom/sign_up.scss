@@ -1,9 +1,9 @@
 .bg-image {
   background:
     linear-gradient(
-    rgba(0, 0, 0, 0.1),
-    rgba(4, 4, 43, 0.5),
-    rgba(0, 0, 0, 0.8)),
+    rgba(20, 211, 227, 0.1),
+    rgba(20, 211, 227, 0.4),
+    rgba(20, 211, 227, 0.2)),
     image-url(bg1_opt);
   background-size: cover;
   background-position: center;
@@ -12,8 +12,6 @@
 .facebook-btn {
   background-color: #3b5998;
   color: white;
-  height: 50px;
-  line-height: 35px;
 
   &:hover {
     background-color: #264891;
