@@ -3,3 +3,26 @@
 body {
   @include text-font;
 }
+
+html {
+  font-size: 1rem;
+}
+
+@include media-breakpoint-up(xs) {
+  html {
+    font-size: .85rem;
+  }
+}
+
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: .9rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 1rem;
+  }
+}
