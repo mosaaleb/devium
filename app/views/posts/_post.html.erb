@@ -4,10 +4,12 @@
       <div class="mt-3">
         <div class="row justify-content-between mx-1">
           <h5>
-            <span class="user-avatar">
-              <%= image_tag avatar(post.user, :x_small), class: 'rounded-circle' %>
-            </span>
-            <%= link_to post.user.username, user_profile_path(post.user) %>
+            <%= link_to user_profile_path(post.user), class: 'text-decoration-none' do %>
+              <span class="user-avatar">
+                <%= image_tag avatar(post.user, :x_small), class: 'rounded-circle' %>
+              </span>
+              <%= post.user.username %>  
+            <% end %>
           </h5>
 
           <div class="dropdown">
