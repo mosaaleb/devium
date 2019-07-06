@@ -1,6 +1,6 @@
 
 <% @outgoing_requests.each do |outgoing_request| %>
-  <div class="card mb-4 mx-auto p-4 shadow" style="max-width: 768px;"><!-- Each request box starts -->  
+  <div class="card mb-4 mx-auto p-2 shadow" style="max-width: 768px;"><!-- Each request box starts -->  
     <div class="row no-gutters request-box">   
 
       <div class="user-avatar col-4 my-auto"><!-- Left half starts -->
@@ -14,7 +14,7 @@
 
           <div class="row mt-5 pt-5 px-0 my-auto">
 
-            <p class="col-md card-text"><em><small class="text-muted">Sent <%= time_ago_in_words(outgoing_request.created_at) %> ago</small></em></p>
+            <p class="col-md card-text my-md-auto"><em><small class="text-muted">Sent <%= time_ago_in_words(outgoing_request.created_at) %> ago</small></em></p>
             <div class="col-md cancel-request-button card-text">
               <%= link_to 'Cancel Request', remove_request_user_path(outgoing_request.receiver.id), method: :delete, class: "btn btn-primary btn-sm float-md-right" %>
             </div>
