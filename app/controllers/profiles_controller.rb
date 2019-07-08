@@ -21,6 +21,7 @@ class ProfilesController < ApplicationController
     @profile = current_user.profile
     if @profile.update profile_params
       flash[:notice] = 'Profile updated successfully!'
+      redirect_back(fallback_location: root_path)
     else
       render :edit
     end
