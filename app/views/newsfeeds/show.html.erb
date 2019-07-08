@@ -4,11 +4,13 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-md-3 d-none d-md-block"><!-- Mini profile start -->
-      <%= render 'profiles/mini_profile' %>
+    <div class="mini-profile col-md-4 d-none d-md-block"><!-- Mini profile start -->
+      <%# <div class="sticky-top"> %>
+        <%= render 'profiles/mini_profile' %>
+      <%# </div> %>
     </div><!-- Mini profile end -->
 
-    <div class="col-md-9"><!-- Newsfeed content start -->
+    <div class="col-md"><!-- Newsfeed content start -->
       <div class="container form-new-post">
         <%= render partial: 'posts/form' %>
       </div>
