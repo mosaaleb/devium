@@ -5,10 +5,12 @@
 @import "custom/sign_up";
 @import 'base/defaults';
 @import 'partials/navbar';
+@import 'newsfeeds';
 
 .message {
   position: absolute;
+  width: 50%;
+  left: 25%;
   z-index: 2000;
-  bottom: 5%;
-  left: 5%;
+  top: 9%;
 }
