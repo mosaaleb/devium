@@ -1,5 +1,5 @@
-<div class="profile border border-primary card py-2 px-2 sticky-top sticky-offset shadow">
-  
+<div class="profile card py-2 px-2 sticky-top sticky-offset shadow">
+
   <div class="user-avatar">
     <%= image_tag avatar(current_user, :x_large), class: 'rounded-circle bg-white shadow-sm d-block mx-auto' %>
   </div>
@@ -16,13 +16,21 @@
 
   <ul class="nav flex-column">
     <li class="nav-item">
-      <%= link_to 'Profile', user_profile_path(current_user), class: 'nav-link'%>
+      <%= link_to user_profile_path(current_user), class: 'nav-link' do %>
+        <%= fa_icon 'user', class: 'fa-lg' %> Profile
+      <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to 'Settings', edit_user_profile_path(current_user), class: 'nav-link'%>
+      <%= link_to edit_user_profile_path(current_user), class: 'nav-link' do %>
+        <%= fa_icon 'cog', class: 'fa-lg' %> Settings
+      <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to 'Sent requests', sent_requests_path(current_user), class: 'nav-link'%>
+      <%= link_to sent_requests_path(current_user), class: 'nav-link' do %>
+        <%= fa_icon 'plus-circle', class: 'fa-lg', data: {'fa-transform': 'rotate-90'} %> Sent requests
+      <% end %>
+      
     </li>
   </ul>
+
 </div>
