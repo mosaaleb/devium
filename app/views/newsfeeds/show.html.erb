@@ -1,7 +1,22 @@
-<div class="form-new-post mx-lg-5 shadow">
-  <%= render partial: 'posts/form' %>
-</div>
 
-<div class="all-posts mx-lg-5">
-  <%= render @timeline_posts %>
+<%#= TODO: Position fixed for side mini profie %>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3 d-none d-md-block"><!-- Mini profile start -->
+      <%= render 'profiles/mini_profile' %>
+    </div><!-- Mini profile end -->
+
+    <div class="col-md-9"><!-- Newsfeed content start -->
+      <div class="container form-new-post">
+        <%= render partial: 'posts/form' %>
+      </div>
+
+      <div class="container">
+        <%= render @timeline_posts %>
+      </div>
+    </div><!-- Newsfeed content end -->
+
+  </div>
 </div>

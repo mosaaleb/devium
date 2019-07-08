@@ -1,0 +1,28 @@
+<div class="profile border border-primary card py-2 px-2">
+  
+  <div class="user-avatar">
+    <%= image_tag avatar(current_user, :x_large), class: 'rounded-circle bg-white shadow-sm d-block mx-auto' %>
+  </div>
+
+  <div class="text-center h2">
+    <%= current_user.username %>
+  </div>
+
+  <div class="h6">
+    <%= current_user.profile.about_me %>
+  </div>
+
+  <div class="dropdown-divider"></div>
+
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <%= link_to 'Profile', user_profile_path(current_user), class: 'nav-link'%>
+    </li>
+    <li class="nav-item">
+      <%= link_to 'Settings', edit_user_profile_path(current_user), class: 'nav-link'%>
+    </li>
+    <li class="nav-item">
+      <%= link_to 'Sent requests', sent_requests_path(current_user), class: 'nav-link'%>
+    </li>
+  </ul>
+</div>
