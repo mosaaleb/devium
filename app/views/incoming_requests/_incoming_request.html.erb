@@ -1,8 +1,7 @@
 <%# TODO: find away to send without using each %>
-
 <% @incoming_requests.each do |request| %>
   <div class="card mb-4 mx-auto p-2 shadow" style="max-width: 768px;"><!-- Each request box starts -->  
-    <div class="row no-gutters request-box">   
+    <div class="row no-gutters request-box">
 
       <div class="user-avatar col-4 my-auto"><!-- Left half starts -->
         <%= image_tag avatar(request.sender, :profile), class: 'rounded-circle card-img img-thumbnail' %>
@@ -21,14 +20,14 @@
             <div class="col-md friendships-buttons card-text">
               <div class="float-md-right">
                 <%= link_to 'Accept', accept_request_user_path(request.sender.id), method: :post, class: 'btn btn-primary btn-sm accept-button' %>
-                <%= link_to 'Reject', reject_request_user_path(request.sender.id), method: :delete, class: 'btn btn-primary btn-sm ml-3 reject-button' %>
+                <%= link_to 'Reject', reject_request_user_path(request.sender.id), method: :delete, class: 'btn btn-danger btn-sm ml-3 reject-button' %>
               </div>
             </div>
-          
+
           </div>
 
-        </div>        
-      </div><!-- Right half ends -->      
+        </div>
+      </div><!-- Right half ends -->
 
     </div>
   </div><!-- Each request box ends -->

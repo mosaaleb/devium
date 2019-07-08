@@ -7,11 +7,11 @@ module ProfilesHelper
       when current_user == user
         return
       when current_user.already_friends?(user)
-        link_to 'Remove Friend', remove_friend_user_path(user.id), method: :delete
+        link_to 'Remove Friend', remove_friend_user_path(user.id), method: :delete, class: 'btn btn-danger btn-sm'
       when current_user.already_sent_request?(user)
-        link_to 'Cancel Request', remove_request_user_path(user.id), method: :delete
+        link_to 'Cancel Request', remove_request_user_path(user.id), method: :delete, class: 'btn btn-danger btn-sm'
       else
-        link_to 'Send Request', send_request_user_path(user.id), method: :post
+        link_to 'Send Request', send_request_user_path(user.id), method: :post, class: 'btn btn-primary btn-sm'
     end
   end
 
