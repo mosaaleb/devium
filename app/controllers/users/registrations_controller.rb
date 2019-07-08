@@ -5,7 +5,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super { resource.build_profile }
   end
 
-  private
+  protected
+
+  def after_update_path_for(resource)
+    request.referrer
+  end
 
   def sign_up_params
     params.require(:user).permit(:email, :username, :password, profile_attributes: [:date_of_birth, :gender])
