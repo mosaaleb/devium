@@ -1,54 +1,62 @@
-<%# image_tag(user.avatar.variant(resize: "100x100")) %>
+  <%# image_tag(user.avatar.variant(resize: "100x100")) %>
+<div class="container">
 
-<div class="user-profile-box bg-light card">
+  <div class="user-profile-box bg-light card shadow pl-md-3 mx-lg-5">
+    <div class="row">
+      
+      <div class="user-avatar col-md-4 img-fluid p-3 border-right">
+        <%= image_tag avatar(@user, :profile), class: 'img-fluid rounded-circle d-block shadow-sm mx-auto' %>
+      </div>
 
-  <div class="cover">
-    <%= image_tag('cover.jpg', class: 'img-thumbnail')%>
+      <div class="text-center text-md-left col-md-8 mt-2">
+        <div class="float-md-left">
+        <h1 class='username header-font'>
+          <%= @user.username %>
+        </h1>
+
+        <div class="edit-profile-button">
+          <%= edit_profile_button(@user) %>
+        </div>
+
+        <div class="friends-details">
+          <p><%= link_to "Friends <span class='badge badge-secondary'>#{@user.friendships_count}</span>".html_safe, friends_user_path(@user) %></p>
+        </div>
+
+        <div class="friendship_button">
+          <%= friendship_button(@user) %>
+        </div>
+
+        <div class="profile-details pr-md-3">
+          <p class="full-name">
+            <h6><%= name_details(@user) %></h6>
+          </p>
+
+          <p class="about-me">
+            <b>Bio:</b> <%= @user.profile.about_me %>
+          </p>
+          
+          <hr>
+
+          <div class="row pb-2">
+            <h6 class="gender col col-md-12">
+              <%= gender_icon(@user) %>              
+              <%= @user.profile.gender.capitalize %>
+            </h6>
+
+            <h6 class="date-of-birth col col-md-12">
+              <%= fa_icon "gift", class: "fa-lg text-primary" %>
+              <%= @user.profile.date_of_birth.strftime("%B %d, %Y") %>
+            </h6>
+          </div>
+        </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <div class="user-avatar position-absolute">
-    <%= image_tag avatar(@user, :profile), class: 'rounded-circle d-block mx-auto bg-white shadow-sm' %>
+  <div class="all-posts mt-3 mx-lg-5">
+    <%= render @posts %>
   </div>
 
-  <div class="card-body">
-    <h1 class='username text-center header-font'>
-      <%= @user.username %>
-    </h1>
-
-    <div class="edit-profile-button">
-      <%= edit_profile_button(@user) %>
-    </div>
-
-    <div class="friends-details text-center">
-      <p><%= link_to "Friends <span class='badge badge-secondary'>#{@user.friendships_count}</span>".html_safe, friends_user_path(@user) %></p>
-    </div>
-
-    <div class="friendship_button">
-      <%= friendship_button(@user) %>
-    </div>
-
-    <div class="profile-details">
-      <p class="full-name">
-        <%= name_details(@user) %>
-      </p>
-
-      <p class="about-me">
-        Bio: <%= @user.profile.about_me %>
-      </p>
-
-      <p class="date-of-birth">
-        <%= @user.profile.date_of_birth.strftime("%B %d, %Y") %>
-      </p>
-
-      <p class="gender">
-        <%= @user.profile.gender.capitalize %>
-      </p>
-    </div>
-
-  </div>
 </div>
-
-<div class="all-posts">
-  <%= render @posts %>
-</div>
-
