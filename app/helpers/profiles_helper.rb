@@ -21,7 +21,15 @@ module ProfilesHelper
 
   def name_details(user)
     if user.profile.first_name || user.profile.last_name
-      "Name: #{@user.profile.fullname.titlecase}"
+      @user.profile.fullname.titlecase
+    end
+  end
+
+  def gender_icon(user)
+    if user.profile.gender == "male"
+      fa_icon "male", class: "fa-lg text-primary"
+    else
+      fa_icon "female", class: "fa-lg text-success"
     end
   end
 end

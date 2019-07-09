@@ -5,12 +5,12 @@ $black: #0a0a0a;
 $white: #ffffff;
 
 $primary-color: #41337a;
-$primary-dark-color: darken($color-primary, 40%);
-$primary-light-color: lighten($color-primary, 40%);
+$primary-dark-color: darken($primary-color, 40%);
+$primary-light-color: lighten($primary-color, 40%);
 
 $secondary-color: #6ea4bf;
-$secondary-dark-color: darken($color-secondary, 40%);
-$secondary-light-color: lighten($color-secondary, 40%);
+$secondary-dark-color: darken($secondary-color, 40%);
+$secondary-light-color: lighten($secondary-color, 40%);
 
 $outline-color: #ecfee8;
 
