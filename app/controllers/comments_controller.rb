@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_comment, only: [:update, :destroy]
+  before_action(only: [:update, :destroy]) { authorize_user(@comment.user) }
 
   def edit
     @comment = Comment.find(params[:id])
@@ -19,10 +20,7 @@ class CommentsController < ApplicationController
   end
 
   def update
-    if  current_user != @comment.user
-      flash[:alert] = 'You are not authorized to edit this comment'
-      redirect_to user_post_path @comment.post.user
-    elsif @comment.update comment_params
+    if @comment.update comment_params
       flash[:notice] = 'Comment updated!'
       redirect_to root_path
     else
@@ -31,14 +29,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    if current_user == @comment.user
-      @comment.destroy
-      flash[:notice] = 'Comment deleted!'
-      redirect_to root_path
-    else
-      redirect_to user_post_path @comment.post.user
-      flash[:alert] = 'You are not authorized to delete this comment'
-    end
+    @comment.destroy
+    flash[:notice] = 'Comment deleted!'
+    redirect_to root_path
   end
 
   private 

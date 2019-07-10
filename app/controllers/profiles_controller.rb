@@ -1,3 +1,4 @@
+# TODO: Find a way to redirect titlecased urls to their downcase counterparts
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: :show
   

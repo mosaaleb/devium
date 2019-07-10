@@ -2,7 +2,8 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :set_post, except: :create
-
+  before_action(only: [:update, :destroy, :edit]) { authorize_user(@post.user) }
+  
   def show
   end
 
@@ -18,7 +19,6 @@ class PostsController < ApplicationController
   end
 
   def edit
-    redirect_to user_post_path @post.user unless @post.user == current_user
   end
 
   def update
@@ -32,13 +32,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if @post.user == current_user
-      @post.destroy
-      flash[:notice] = "Post deleted!"
-      redirect_back(fallback_location: root_path)      
-    else
-      redirect_to user_post_path @post.user
-    end
+    @post.destroy
+    flash[:notice] = "Post deleted!"
+    redirect_back(fallback_location: root_path)
   end
 
   private

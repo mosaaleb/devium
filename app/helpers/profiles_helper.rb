@@ -44,7 +44,7 @@ module ProfilesHelper
   end
 
   def birth_icon(user)
-    return unless user.profile.gender
+    return unless user.profile.date_of_birth
 
     fa_icon "gift", class: "fa-lg text-primary"
   end
