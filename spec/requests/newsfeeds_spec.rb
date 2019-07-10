@@ -8,7 +8,7 @@ RSpec.describe "Newsfeeds", type: :request do
       it "redirects to sign_in page" do
         get '/'
         
-        expect(response.body).to include("Log in")
+        expect(response.body).to include("login")
       end
     end
     

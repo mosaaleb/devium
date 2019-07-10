@@ -7,12 +7,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def after_update_path_for(resource)
+  def after_update_path_for(_resource)
     request.referrer
   end
 
   def sign_up_params
-    params.require(:user).permit(:email, :username, :password, profile_attributes: [:date_of_birth, :gender])
+    params.require(:user).permit(:email, :username, :password, profile_attributes: [:first_name, :last_name])
   end
 
 end

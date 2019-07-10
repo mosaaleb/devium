@@ -10,8 +10,8 @@ RSpec.describe 'Registrations', type: :request do
         username: 'nameneww',
         email: 'email@email.com',
         profile_attributes: {
-          date_of_birth: Date.new(2000, 2, 3),
-          gender: :female
+          first_name: 'firstname',
+          last_name: 'lastname'
         }
       }
     }
@@ -24,8 +24,8 @@ RSpec.describe 'Registrations', type: :request do
         username: nil,
         email: nil,
         profile_attributes: {
-          date_of_birth: nil,
-          gender: nil
+          first_name: '',
+          last_name: ''
         }
       }
     }
@@ -61,7 +61,7 @@ RSpec.describe 'Registrations', type: :request do
 
         user = User.find_by(username: attributes[:user][:username])
 
-        expect(user.profile.gender).to eq 'female'
+        expect(user.profile.first_name).to eq 'firstname'
       end
 
       it 'redirects to home page' do
@@ -78,8 +78,8 @@ RSpec.describe 'Registrations', type: :request do
         expect(response.body).to include CGI.escapeHTML("Email can't be blank")
         expect(response.body).to include CGI.escapeHTML("Password can't be blank")
         expect(response.body).to include CGI.escapeHTML("Username can't be blank")
-        expect(response.body).to include CGI.escapeHTML("date of birth can't be blank")
-        expect(response.body).to include CGI.escapeHTML("gender can't be blank")
+        expect(response.body).to include CGI.escapeHTML("Profile first name can't be blank")
+        expect(response.body).to include CGI.escapeHTML("Profile last name can't be blank")
       end
     end
 
@@ -92,14 +92,14 @@ RSpec.describe 'Registrations', type: :request do
         expect(Profile.count).to be 0
       end
 
-      it 'displays age ineligibity error messages' do
-        attributes[:user][:profile_attributes][:date_of_birth] = Date.new(2010, 1, 2)
+      # it 'displays age ineligibity error messages' do
+      #   attributes[:user][:profile_attributes][:date_of_birth] = Date.new(2010, 1, 2)
 
-        post '/accounts', params: attributes
+      #   post '/accounts', params: attributes
 
-        expect(response.body)
-          .to include CGI.escapeHTML('You are ineligible to register for devmedium')
-      end
+      #   expect(response.body)
+      #     .to include CGI.escapeHTML('You are ineligible to register for devmedium')
+      # end
     end
   end
 end

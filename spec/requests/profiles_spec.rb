@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "Profiles", type: :request do
   let(:user) { create :user }
   let(:another_user) { create :user }
-  let(:profile_params) { { profile: { date_of_birth: Date.new(1990, 1, 1), gender: :male } } }
-  let(:invalid_params) { { profile: { date_of_birth: Date.new(2015, 1, 1), about_me: 'a' * 402 } } }
+  let(:profile_params) { { profile: { first_name: 'name', last_name: 'lastname' } } }
+  let(:invalid_params) { { profile: { first_name: '', last_name: '' } } }
 
   describe 'Get /username' do
     it 'redirect to user profile page' do
@@ -70,9 +70,8 @@ RSpec.describe "Profiles", type: :request do
 
         put "/#{user.username}", params: invalid_params
 
-        expect(response.body).to include("About me is too long")
-        expect(response.body).to include("You are ineligible to register")
-        
+        expect(response.body).to include CGI.escapeHTML("First name can't be blank")
+        expect(response.body).to include CGI.escapeHTML("Last name can't be blank")
       end
     end
   end

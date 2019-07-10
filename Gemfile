@@ -17,6 +17,7 @@ gem 'devise', '~> 4.6'
 gem 'omniauth-facebook'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
+gem "font-awesome-rails"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use ActiveStorage variant
@@ -37,7 +38,6 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem "font-awesome-rails"
 end
 
 group :test do

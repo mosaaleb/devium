@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :profile do
-    date_of_birth { Date.new(2001,2,3) }
-    gender { 'male' }
+    sequence(:first_name) { |n| "first#{n}" }
+    sequence(:last_name) { |n| "last#{n}" }
   end
 end

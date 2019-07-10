@@ -15,9 +15,9 @@ RSpec.describe "Friendships", type: :request do
       it "redirects to user friendship requests page" do
         sign_in request1.receiver
 
-        post "/relationships/#{request1.sender.id}/accept_request"
+        post "/relationships/#{request1.sender.id}/accept_request", headers: { 'HTTP_REFERER' => 'http://www.example.com/received_requests' }
 
-        expect(response).to redirect_to "/received_requests"
+        expect(response).to redirect_to('/received_requests')
       end
 
       it 'deletes the request after friendship creation' do
@@ -46,7 +46,7 @@ RSpec.describe "Friendships", type: :request do
       it "redirects to sign_in page" do
         sign_in friendship.user
 
-        delete "/relationships/#{friendship.friend.id}/remove_friend"
+        delete "/relationships/#{friendship.friend.id}/remove_friend", headers: { 'HTTP_REFERER' => "http://www.example.com/#{friendship.friend.username}" }
 
         expect(response).to redirect_to "/#{friendship.friend.username}"
       end

@@ -102,10 +102,12 @@ RSpec.describe "profiles/show.html.erb", type: :view do
 
     render
 
-    expect(rendered).to have_selector('.profile-details .full-name', text: 'Testme Ifyoulike')
+    expect(rendered).to have_selector('.full-name', text: 'Testme Ifyoulike')
   end
 
   it 'shows gender' do
+    user.profile.gender = 'male'
+
     render
 
     expect(rendered).to have_selector('.profile-details .gender', text: "#{user.profile.gender.capitalize}")
