@@ -34,7 +34,7 @@ RSpec.describe 'Posts', type: :request do
         sign_in post1.user
       end
       it 'is not expected to access another user edit post page' do
-        get "/posts/#{post2.id}/edit"
+        get "/posts/#{post2.id}/edit", headers: { 'HTTP_REFERER' => "http://www.example.com/#{post2.user.username}/#{post2.id}" }
 
         expect(response).to redirect_to("/#{post2.user.username}/#{post2.id}")
       end
@@ -115,7 +115,7 @@ RSpec.describe 'Posts', type: :request do
       end
 
       it 'redirects to the other user post page' do
-        delete "/posts/#{post2.id}"
+        delete "/posts/#{post2.id}", headers: { 'HTTP_REFERER' => "http://www.example.com/#{post2.user.username}/#{post2.id}" }
 
         expect(response).to redirect_to("/#{post2.user.username}/#{post2.id}")
       end

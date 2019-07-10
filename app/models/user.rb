@@ -39,11 +39,11 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.password = Devise.friendly_token[0, 20]
       user.email = auth.info.email
-      user.username = auth.info.name.split(' ')[0]   # assuming the user model has a name
+      user.username = auth.info.name.titlecase.split.join   # assuming the user model has a name
 
       user.build_profile(
-        gender: :male,
-        date_of_birth: Date.new(2000, 10, 10)
+        first_name: auth.info.name.split(" ")[0],
+        last_name: auth.info.name.split(" ")[1]
       )
       # user.image = auth.info.image # assuming the user model has an image
       # If you are using confirmable and the provider(s) you use validate emails, 

@@ -79,7 +79,7 @@ RSpec.describe "Comments", type: :request do
 
         put "/comments/#{comment.id}", params: { comment: { comment_content: 'I am the new comment' } }
         
-        expect(flash[:alert]).to include('You are not authorized to edit this comment')
+        expect(flash[:alert]).to include('You are not authorized!')
       end
     end
   end
@@ -107,7 +107,7 @@ RSpec.describe "Comments", type: :request do
 
         delete "/comments/#{comment.id}"
 
-        expect(flash[:alert]).to include('You are not authorized to delete this comment')
+        expect(flash[:alert]).to include('You are not authorized!')
       end
     end
   end

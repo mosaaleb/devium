@@ -20,21 +20,12 @@
           <div class="profile-fields date row">
             <%= f.fields_for :profile do |profile_form| %>
               
-              <div class="form-group col col-sm-6 col-md">
-                <%= profile_form.date_field :date_of_birth, placeholder: "Age", class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+              <div class="form-group col-md-6 col-md">
+                <%= profile_form.text_field :first_name, placeholder: "First Name", class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
               </div>
 
-              <div class="col col-sm-6 col-md mb-3 my-auto">
-                <span>I am </span>
-                <div class="field custom-control custom-radio custom-control-inline">
-                    <%= profile_form.radio_button :gender, 'male', type: "radio", id: "customRadio1", class: "custom-control-input" %>
-                    <label class="custom-control-label" for="customRadio1">Male</label>
-                </div>
-                
-                <div class="field custom-control custom-radio custom-control-inline">
-                  <%= profile_form.radio_button :gender, 'female', type: "radio", id: "customRadio2", class: "custom-control-input" %>
-                  <label class="custom-control-label" for="customRadio2">Female</label>
-                </div>
+              <div class="form-group  col-md-6 col-md">
+                <%= profile_form.text_field :last_name, placeholder: "Last Name", class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
               </div>
             <% end %>
           </div>
