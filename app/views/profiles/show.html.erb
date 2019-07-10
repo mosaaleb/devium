@@ -1,4 +1,4 @@
-  <%# image_tag(user.avatar.variant(resize: "100x100")) %>
+<%# image_tag(user.avatar.variant(resize: "100x100")) %>
 <div class="container">
 
   <div class="user-profile-box bg-light card shadow pl-md-3 mx-lg-5">
@@ -10,8 +10,8 @@
 
       <div class="text-center text-md-left col-md-8 mt-2">
         <div class="float-md-left">
-        <h1 class='username header-font'>
-          <%= @user.username %>
+        <h1 class='full-name header-font'>
+          <%= @user.profile.fullname.titlecase %>
         </h1>
 
         <div class="edit-profile-button">
@@ -27,9 +27,6 @@
         </div>
 
         <div class="profile-details pr-md-3">
-          <p class="full-name">
-            <h6><%= name_details(@user) %></h6>
-          </p>
 
           <p class="about-me">
             <b>Bio:</b> <%= @user.profile.about_me %>
@@ -37,16 +34,17 @@
           
           <hr>
 
-          <div class="row pb-2">
-            <h6 class="gender col col-md-12">
-              <%= gender_icon(@user) %>              
-              <%= @user.profile.gender.capitalize %>
+          <div class="gender row pb-2">
+            <h6 class=" col col-md-12">
+              <%= gender_icon(@user) %> 
+              <%= gender_details(@user) %>
             </h6>
 
             <h6 class="date-of-birth col col-md-12">
-              <%= fa_icon "gift", class: "fa-lg text-primary" %>
-              <%= @user.profile.date_of_birth.strftime("%B %d, %Y") %>
+              <%= birth_icon(@user) %>
+              <%= show_birth_date(@user) %>
             </h6>
+
           </div>
         </div>
         </div>

@@ -13,13 +13,13 @@ describe 'comments/_comment.html.erb', type: :view do
     it 'renders delete comments button' do
       render partial: 'comments/comment.html.erb', locals: { comment: comment }
 
-      expect(rendered).not_to have_selector('.comment-buttons .delete-comment-button')
+      expect(rendered).not_to have_selector('.delete-comment-button')
     end
 
     it 'renders edit comments button' do
       render partial: 'comments/comment.html.erb', locals: { comment: comment }
 
-      expect(rendered).not_to have_selector('.comment-buttons .edit-comment-button')
+      expect(rendered).not_to have_selector('.edit-comment-button')
     end
   end
 
@@ -31,13 +31,13 @@ describe 'comments/_comment.html.erb', type: :view do
     it 'renders delete comments button' do
       render partial: 'comments/comment.html.erb', locals: { comment: comment }
 
-      expect(rendered).to have_selector('.comment-buttons .delete-comment-button')
+      expect(rendered).to have_selector('.dropdown .comment-delete-button')
     end
 
     it 'renders edit comments button' do
       render partial: 'comments/comment.html.erb', locals: { comment: comment }
 
-      expect(rendered).to have_selector('.comment-buttons .edit-comment-button')
+      expect(rendered).to have_selector('.dropdown .comment-edit-button')
     end
   end
 end
