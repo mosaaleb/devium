@@ -1,3 +1,5 @@
+# TODO: refactor gender icon
+
 module ProfilesHelper
 
   def friendship_button(user) 
@@ -19,17 +21,32 @@ module ProfilesHelper
     link_to 'Edit Profile',  edit_user_profile_path(user.username) if current_user == user
   end
 
-  def name_details(user)
-    if user.profile.first_name || user.profile.last_name
-      @user.profile.fullname.titlecase
-    end
+  def gender_details(user)
+    return unless user.profile.gender
+    
+    user.profile.gender.capitalize
   end
 
   def gender_icon(user)
+    return unless user.profile.gender
+
     if user.profile.gender == "male"
       fa_icon "male", class: "fa-lg text-primary"
-    else
+    elsif user.profile.gender == "female"
       fa_icon "female", class: "fa-lg text-success"
     end
   end
+
+  def show_birth_date(user)
+    return unless user.profile.date_of_birth
+
+    user.profile.date_of_birth.strftime("%B %d, %Y")
+  end
+
+  def birth_icon(user)
+    return unless user.profile.gender
+
+    fa_icon "gift", class: "fa-lg text-primary"
+  end
+
 end
