@@ -5,11 +5,11 @@
       <%= link_to 'Devium', root_path, class: 'h2' %>
     </div>
 
-    <% if signed_in? %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
+    <% if signed_in? %>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
 
@@ -37,7 +37,19 @@
         </ul>
       </div>
     <% else %>
-      <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+
+          <li class="nav-item">
+            <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
+          </li>
+          
+        </ul>
+      </div>
     <% end %>
   </div>
 </div>
