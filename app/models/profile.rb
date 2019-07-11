@@ -1,9 +1,9 @@
 class Profile < ApplicationRecord
-  # Enums
-  enum gender: [:female, :male]
-
   # Associations
   belongs_to :user
+
+  # Enums
+  enum gender: [:female, :male]
 
   # Validations
   #validate :age_is_present_and_permitted

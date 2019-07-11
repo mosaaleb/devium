@@ -1,11 +1,12 @@
 <div class="profile card py-2 px-2 sticky-top sticky-offset shadow">
 
   <div class="user-avatar">
-    <%= image_tag avatar(current_user, :x_large), class: 'rounded-circle bg-white shadow-sm d-block mx-auto' %>
+    <%#= image_tag avatar(current_user, :x_large), class: 'rounded-circle bg-white shadow-sm d-block mx-auto' %>
+    <%= image_tag choose_avatar(current_user, :x_large), class: 'rounded-circle bg-white shadow-sm d-block mx-auto', size: '100x100' %>
   </div>
 
   <div class="text-center h2">
-    <%= current_user.username %>
+    <%= current_user.fullname %>
   </div>
 
   <div class="text-center">

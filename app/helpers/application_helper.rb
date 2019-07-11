@@ -7,6 +7,14 @@ module ApplicationHelper
     gravatar_url
   end
 
+  def choose_avatar(user, size)
+    if user.image_path
+      return user.image_path
+    else
+      avatar(user, size)
+    end
+  end
+
   def show_navbar
     render 'navbar' if signed_in?
   end
