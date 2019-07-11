@@ -5,35 +5,39 @@
       <%= link_to 'Devium', root_path, class: 'h2' %>
     </div>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <% if signed_in? %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
 
-        <li class="nav-item">
-            <%= link_to "Pending Requests <span class='badge badge-secondary'>#{current_user.received_requests_count}</span>".html_safe, received_requests_path, class: 'nav-link' %>
-        </li> 
+          <li class="nav-item">
+              <%= link_to "Pending Requests <span class='badge badge-secondary'>#{current_user.received_requests_count}</span>".html_safe, received_requests_path, class: 'nav-link' %>
+          </li> 
 
-        <li class="nav-item">
-          <%= link_to "Sent Requests <span class='badge badge-secondary'>#{current_user.sent_requests_count}</span>".html_safe, sent_requests_path, class: 'nav-link' %>
-        </li>
+          <li class="nav-item">
+            <%= link_to "Sent Requests <span class='badge badge-secondary'>#{current_user.sent_requests_count}</span>".html_safe, sent_requests_path, class: 'nav-link' %>
+          </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag avatar(current_user, :small), class: 'rounded-circle' %>
-          </a>
+          <li class="nav-item dropdown">
+            <a class="nav-link p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= image_tag avatar(current_user, :small), class: 'rounded-circle' %>
+            </a>
 
-          <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="navbarDropdown">
-            <%= link_to 'Profile', user_profile_path(current_user), class: 'dropdown-item nav-link' %>
-            <%= link_to 'Friends', friends_user_path(current_user.username), class: 'dropdown-item nav-link' %>
-            <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'dropdown-item nav-link' %>
-          </div>
+            <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="navbarDropdown">
+              <%= link_to 'Profile', user_profile_path(current_user), class: 'dropdown-item nav-link' %>
+              <%= link_to 'Friends', friends_user_path(current_user.username), class: 'dropdown-item nav-link' %>
+              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'dropdown-item nav-link' %>
+            </div>
 
-        </li>
+          </li>
 
-      </ul>
-    </div>
+        </ul>
+      </div>
+    <% else %>
+      <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
+    <% end %>
   </div>
 </div>

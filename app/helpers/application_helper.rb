@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def show_navbar
-    render 'navbar' if signed_in?
+    render 'navbar' unless controller_name == "sessions" || controller_name == "registrations"
   end
 
   def resource_name
