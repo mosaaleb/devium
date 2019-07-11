@@ -1,3 +1,5 @@
+# TODO: Usernames generated from facebook user name must be unique
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -11,7 +13,7 @@ class User < ApplicationRecord
   # Associations
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
-
+  
   has_many :outgoing_requests, foreign_key: "sender_id", 
             dependent: :destroy, class_name: 'Request'
   has_many :outgoing_pending_friends, through: :outgoing_requests, source: :receiver
@@ -34,6 +36,15 @@ class User < ApplicationRecord
   has_many :liked_comments, through: :likes, source: :likable, source_type: 'Comment'
   has_many :liked_posts, through: :likes, source: :likable, source_type: 'Post'
 
+  # Delegations
+  delegate :first_name,
+           :last_name, 
+           :gender, 
+           :date_of_birth, 
+           :about_me, 
+           :fullname, 
+           :image_path, to: :profile
+
   # Class methods
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -43,59 +54,11 @@ class User < ApplicationRecord
 
       user.build_profile(
         first_name: auth.info.name.split(" ")[0],
-        last_name: auth.info.name.split(" ")[1]
+        last_name: auth.info.name.split(" ")[1],
+        image_path: auth.info.image
       )
-      # user.image = auth.info.image # assuming the user model has an image
-      # If you are using confirmable and the provider(s) you use validate emails, 
-      # uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
     end
   end
-
-
-  # def self.from_omniauth(auth)
-  #   byebug
-  #   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-  #     user.email = auth.info.email
-  #     user.password = Devise.friendly_token[0, 20]
-  #     # user.name = auth.info.name   # assuming the user model has a name
-  #     # user.image = auth.info.image # assuming the user model has an image
-  #     user.username = auth.info.name   # assuming the user model has a name
-  #     # If you are using confirmable and the provider(s) you use validate emails, 
-  #     # uncomment the line below to skip the confirmation emails.
-  #     # user.skip_confirmation!
-  #     if user.persisted?
-  #       user.build_profile(
-  #         first_name: auth.info.first_name,
-  #         last_name: auth.info.last_name,
-  #         date_of_birth: auth.info.birthday,
-  #         gender: auth.info.gender,
-  #         about_me: "Test")
-  #     end
-  #     return user
-  #   end
-  # end
-
-
-  # def self.from_omniauth(auth)
-  #   byebug
-  #   if user = User.find_by_email(auth.info.email)  # search your db for a user with email coming from fb
-  #     return user  #returns the user so you can sign him/her in
-  #   else
-  #     user = User.create(provider: auth.provider,    # Create a new user if a user with same email not present
-  #                        uid: auth.uid,
-  #                        email: auth.info.email,
-  #                        password: Devise.friendly_token[0,20])
-  #     user.build_profile(
-  #       gender: :male,
-  #       date_of_birth: Date.new(2000, 10, 10)
-  #     )
-  #       # you need to check how to access these attributes from auth hash by using a debugger or pry
-  #                         #your other profile attributes
-  #     return user
-  
-  #   end
-  # end
 
   def self.new_with_session(params, session)
     super.tap do |user|
