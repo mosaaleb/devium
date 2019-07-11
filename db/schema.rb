@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_06_191115) do
+ActiveRecord::Schema.define(version: 2019_07_11_111607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2019_07_06_191115) do
     t.text "about_me", default: "Apparently, this user prefers to keep an air of mystery about them."
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_path"
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
   end
 
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 2019_07_06_191115) do
     t.index "GREATEST(sender_id, receiver_id), LEAST(sender_id, receiver_id)", name: "index_requests_on_interchangable_sender_id_and_receiver_id", unique: true
     t.index "LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id)", name: "index_requests_on_interchangable_receiver_id_and_sender_id", unique: true
     t.index ["receiver_id"], name: "index_requests_on_receiver_id"
+    t.index ["sender_id", "receiver_id"], name: "index_requests_on_sender_id_and_receiver_id", unique: true
     t.index ["sender_id"], name: "index_requests_on_sender_id"
   end
 
