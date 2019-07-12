@@ -13,15 +13,12 @@ class Profile < ApplicationRecord
 
   # Instance Methods
   def fullname
-    "#{first_name} #{last_name}"
+    "#{first_name} #{last_name}".proper_titlecase
   end
-
-  # Private methods
-  #private
 
   # def age_is_present_and_permitted
   #   if date_of_birth.present? && Date.today.year - date_of_birth.year < 13
-  #     errors.add(:date_of_birth, 'You are ineligible to register for devmedium')
+  #     errors.add(:date_of_birth, 'You are ineligible to register for Devium')
   #   end
   # end
 end

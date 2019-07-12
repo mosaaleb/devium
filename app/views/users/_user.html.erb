@@ -5,7 +5,7 @@
 
       <div class="col-4 user-avatar">
         <%= image_tag avatar(@user, :small), class: 'rounded-circle' %>
-        <%= link_to user.username, user_profile_path(user) %>
+        <%= link_to user.fullname, user_profile_path(user) %>
       </div>
       
       <div class="col-8 my-auto">
