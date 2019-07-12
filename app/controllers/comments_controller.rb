@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build comment_params
     current_user.adds_comment(@comment)
     if @comment.save
-      flash[:success] = 'Comment successfully added!'
+      flash[:notice] = 'Comment added!'
       redirect_back(fallback_location: root_path)
     else
       render 'newsfeeds/show'

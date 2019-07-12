@@ -31,7 +31,7 @@ RSpec.describe "Comments", type: :request do
         params = { comment: { comment_content: 'I am a comment' } }
 
         post "/posts/#{comment.post.id}/comments", params: params
-        expect(flash[:success]).to eq('Comment successfully added!')
+        expect(flash[:notice]).to eq('Comment added!')
       end
     end
 
