@@ -6,7 +6,7 @@ RSpec.feature "RegisterationWithFacebooks", type: :feature do
     visit root_path
     expect(page).to have_content("Sign in with Facebook")
     sign_in_with_facebook
-    expect(page).to have_content('firstname lastname')
+    expect(page).to have_content('Firstname Lastname')
   end
 
   it 'has facebook image as profile image' do
