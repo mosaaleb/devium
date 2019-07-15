@@ -1,0 +1,22 @@
+@import 'fonts';
+
+// Colors
+$black: #0a0a0a;
+$white: #ffffff;
+
+$primary-color: #41337a;
+$primary-dark-color: darken($primary-color, 40%);
+$primary-light-color: lighten($primary-color, 40%);
+
+$secondary-color: #6ea4bf;
+$secondary-dark-color: darken($secondary-color, 40%);
+$secondary-light-color: lighten($secondary-color, 40%);
+
+$outline-color: #ecfee8;
+
+// Fonts
+@mixin text-font {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+}
+

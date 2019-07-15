@@ -1,0 +1,29 @@
+@import 'variables';
+
+body {
+  @include text-font;
+  background-color: #f0f0f0;
+}
+
+html {
+  font-size: 1rem;
+}
+
+@include media-breakpoint-up(xs) {
+  html {
+    font-size: .85rem;
+  }
+}
+
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: .9rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 1rem;
+  }
+}

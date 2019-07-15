@@ -1,0 +1,26 @@
+.bg-sign-up {
+  background:
+    linear-gradient(
+    rgba(20, 211, 227, 0.1),
+    rgba(20, 211, 227, 0.4),
+    rgba(20, 211, 227, 0.2)),
+    image-url(bg2);
+  background-size: cover;
+  background-position: center;
+}
+
+.facebook-btn {
+  background-color: #3b5998;
+  color: white;
+
+  &:hover {
+    background-color: #264891;
+    color: white;
+  }
+  
+  .dropdown-divider {
+    border-top: .5px solid rgba(50, 50, 50, 0.15);
+  }
+
+}
+

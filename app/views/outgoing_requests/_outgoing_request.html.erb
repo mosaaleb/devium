@@ -1,0 +1,29 @@
+
+<% @outgoing_requests.each do |outgoing_request| %>
+  <div class="card mb-4 mx-auto p-2 shadow" style="max-width: 768px;"><!-- Each request box starts -->  
+    <div class="row no-gutters request-box">   
+
+      <div class="user-avatar col-4 my-auto"><!-- Left half starts -->
+        <%= image_tag avatar(outgoing_request.receiver, :profile), class: 'rounded-circle card-img img-thumbnail' %>
+      </div><!-- Left half ends -->
+
+      <div class="col-8"><!-- Right half starts -->
+        <div class="card-body">        
+          <h5 class="card-title"><%= link_to outgoing_request.receiver.username,  user_profile_path(outgoing_request.receiver) %></h5>
+          <p class="card-text"><%= outgoing_request.receiver.profile.about_me %></p>
+
+          <div class="row mt-5 pt-5 px-0 my-auto">
+
+            <p class="col-md card-text my-md-auto"><em><small class="text-muted">Sent <%= time_ago_in_words(outgoing_request.created_at) %> ago</small></em></p>
+            <div class="col-md cancel-request-button card-text">
+              <%= link_to 'Cancel Request', remove_request_user_path(outgoing_request.receiver.id), method: :delete, class: "btn btn-primary btn-sm float-md-right" %>
+            </div>
+
+          </div>
+
+        </div>
+      </div><!-- Right half ends -->
+
+    </div>
+  </div><!-- Each request box ends -->
+<% end %>
