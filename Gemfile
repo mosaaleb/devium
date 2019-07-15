@@ -15,6 +15,7 @@ gem 'hirb'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise', '~> 4.6'
 gem 'omniauth-facebook'
+gem "omniauth-rails_csrf_protection"
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem "font-awesome-rails"
