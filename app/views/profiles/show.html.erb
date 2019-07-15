@@ -1,0 +1,63 @@
+<%# TODO: image_tag(user.avatar.variant(resize: "100x100")) %>
+<%# TODO: Generate custom picture for gravatar based on username %>
+
+<div class="container">
+
+  <div class="user-profile-box bg-light card shadow pl-md-3 mx-lg-5">
+    <div class="row">
+      
+      <div class="user-avatar col-md-4 img-fluid p-3 border-right">
+        <%#= image_tag avatar(@user, :profile), class: 'img-fluid rounded-circle d-block shadow-sm mx-auto' %>
+        <%= image_tag choose_avatar(@user, :x_large), class: 'rounded-circle bg-white shadow-sm d-block mx-auto', size: '200x200' %>
+      </div>
+
+      <div class="text-center text-md-left col-md-8 mt-2">
+        <div class="float-md-left">
+        <h1 class='full-name header-font'>
+          <%= @user.profile.fullname %>
+        </h1>
+
+        <div class="edit-profile-button">
+          <%= edit_profile_button(@user) %>
+        </div>
+
+        <div class="friends-details">
+          <p><%= link_to "Friends <span class='badge badge-secondary'>#{@user.friendships_count}</span>".html_safe, friends_user_path(@user) %></p>
+        </div>
+
+        <div class="friendship_button">
+          <%= friendship_button(@user) %>
+        </div>
+
+        <div class="profile-details pr-md-3">
+
+          <p class="about-me">
+            <b>Bio:</b> <%= @user.profile.about_me %>
+          </p>
+          
+          <hr>
+
+          <div class="gender row pb-2">
+            <h6 class=" col col-md-12">
+              <%= gender_icon(@user) %> 
+              <%= gender_details(@user) %>
+            </h6>
+
+            <h6 class="date-of-birth col col-md-12">
+              <%= birth_icon(@user) %>
+              <%= show_birth_date(@user) %>
+            </h6>
+
+          </div>
+        </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="all-posts mt-3 mx-lg-5">
+    <%= render @posts %>
+  </div>
+
+</div>

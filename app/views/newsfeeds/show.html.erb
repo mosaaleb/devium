@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+
+    <div class="mini-profile col-md-4 d-none d-md-block"><!-- Mini profile start -->
+      <%= render 'profiles/mini_profile' %>
+    </div><!-- Mini profile end -->
+
+    <div class="col-md newsfeed"><!-- Newsfeed content start -->
+      <div class="container form-new-post">
+        <%= render partial: 'posts/form' %>
+      </div>
+
+      <div class="container">
+        <%= render @timeline_posts %>
+      </div>
+    </div><!-- Newsfeed content end -->
+
+  </div>
+</div>

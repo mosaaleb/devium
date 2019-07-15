@@ -1,18 +1,24 @@
 class Profile < ApplicationRecord
+  # Associations
+  belongs_to :user
+
   # Enums
   enum gender: [:female, :male]
- 
+
   # Validations
-  validate :age_is_present_and_permitted
-  validates :date_of_birth, :gender, presence: true
+  #validate :age_is_present_and_permitted
+  #validates :date_of_birth, :gender, presence: true
+  validates :first_name, :last_name, presence: true
   validates :about_me, length: { maximum: 400 }
 
-  # Private methods
-  private
-
-  def age_is_present_and_permitted
-    if date_of_birth.present? && Date.today.year - date_of_birth.year < 13
-      errors.add(:date_of_birth, 'You are ineligible to register for devmedium')
-    end
+  # Instance Methods
+  def fullname
+    "#{first_name} #{last_name}".proper_titlecase
   end
+
+  # def age_is_present_and_permitted
+  #   if date_of_birth.present? && Date.today.year - date_of_birth.year < 13
+  #     errors.add(:date_of_birth, 'You are ineligible to register for Devium')
+  #   end
+  # end
 end

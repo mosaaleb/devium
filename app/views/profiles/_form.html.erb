@@ -1,0 +1,40 @@
+<div>
+
+  <%= form_for [@profile.user, @profile] do |f| %>
+    
+    <div class="field form-group">
+      <%= f.text_field :first_name, placeholder: 'First Name', class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.text_field :last_name, placeholder: 'Last Name', class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+    </div>
+
+    <div class="col col-sm-6 col-md mb-3">
+      <span>I am </span>
+      <div class="field custom-control custom-radio custom-control-inline">
+          <%= f.radio_button :gender, 'male', type: "radio", id: "customRadio1", class: "custom-control-input" %>
+          <label class="custom-control-label" for="customRadio1">Male</label>
+      </div>
+      
+      <div class="field custom-control custom-radio custom-control-inline">
+        <%= f.radio_button :gender, 'female', type: "radio", id: "customRadio2", class: "custom-control-input" %>
+        <label class="custom-control-label" for="customRadio2">Female</label>
+      </div>
+    </div>
+
+    <div class="field form-group">
+      <%= f.text_area :about_me, class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.date_field :date_of_birth, class: 'form-control rounded-pill border-0 shadow-sm px-4' %>
+    </div>
+
+    <div class="submit form-group">
+      <%= f.submit 'Update Profile', class: 'mt-3 btn btn-primary text-uppercase mb-2 rounded-pill shadow-sm font-weight-bold' %>
+    </div>
+
+  <% end %>
+
+</div>

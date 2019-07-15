@@ -1,24 +1,21 @@
-# README
+# :computer: Devium
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Intro
+This is rails clone to facebook.
 
-Things you may want to cover:
+## Live Version
+The live version of this project is [here]().
 
-* Ruby version
+## Features
+- Sending friend requests.
+- Accepting friend requests.
+- Remove friends.
+- Add posts.
+- Add comment to posts.
+- Having newsfeed page based on the friends list.
+- Ability to login with facebook.
+- Edit setting and profile information.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Contributors
+- [Saheed](https://github.com/suretrust)
+- [Muhammad](https://github.com/mosaaleb)

@@ -6,8 +6,8 @@ class Friendship < ApplicationRecord
   validate :user_and_friend_are_not_the_same_person
   
   # Associations
-  belongs_to :user
-  belongs_to :friend, class_name: 'User'
+  belongs_to :user, counter_cache: true
+  belongs_to :friend, class_name: 'User', counter_cache: true
   
   # Private Methods
   private
