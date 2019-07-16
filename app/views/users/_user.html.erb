@@ -3,12 +3,12 @@
   <div class="offset-md-2 col-md-8 mini-profile-card card mb-3 p-2 shadow-sm">
     <div class="row">
 
-      <div class="col-4 user-avatar">
+      <div class="col-8 user-avatar">
         <%= image_tag avatar(user, :small), class: 'rounded-circle' %>
         <%= link_to user.fullname, user_profile_path(user) %>
       </div>
       
-      <div class="col-8 my-auto">
+      <div class="col-4 my-auto">
         <div class="float-right">
           <%= friendship_button(user) %>
         </div>
