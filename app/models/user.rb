@@ -68,6 +68,10 @@ class User < ApplicationRecord
     end
   end
 
+  def self.all_except(user)
+    where.not(id: user)
+  end
+
   # Instance methods
 
   def liked(likable)
