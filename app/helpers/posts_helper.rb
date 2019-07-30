@@ -30,4 +30,8 @@ module PostsHelper
     end
   end
 
+  def autolink(text)
+    text.gsub(/#\w+/) { |hashtag| link_to hashtag, hashtag_path(hashtag[1..-1]) }.html_safe
+  end
+
 end
