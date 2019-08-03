@@ -9,4 +9,6 @@ class Post < ApplicationRecord
 
   # Scope
   default_scope { order(created_at: :desc) }
+
+  scope :search, -> (term:) { where("post_content like ?", "%#{term}%") }
 end
