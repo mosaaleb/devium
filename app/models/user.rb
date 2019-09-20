@@ -1,11 +1,11 @@
-# TODO: Usernames generated from facebook user name must be unique
+# frozen_string_literal: true
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :validatable,
-  :omniauthable, omniauth_providers: %i[facebook]
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: %i[facebook]
 
   # Validations
   validates :username, presence: true, uniqueness: true
@@ -13,13 +13,13 @@ class User < ApplicationRecord
   # Associations
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
-  
-  has_many :outgoing_requests, foreign_key: "sender_id", 
-            dependent: :destroy, class_name: 'Request'
+
+  has_many :outgoing_requests, foreign_key: 'sender_id',
+                               dependent: :destroy, class_name: 'Request'
   has_many :outgoing_pending_friends, through: :outgoing_requests, source: :receiver
 
-  has_many :incoming_requests, foreign_key: "receiver_id", 
-            dependent: :destroy, class_name: 'Request'
+  has_many :incoming_requests, foreign_key: 'receiver_id',
+                               dependent: :destroy, class_name: 'Request'
   has_many :incoming_pending_friends, through: :incoming_requests, source: :sender
 
   has_many :friendships, dependent: :destroy
@@ -36,13 +36,15 @@ class User < ApplicationRecord
   has_many :liked_comments, through: :likes, source: :likable, source_type: 'Comment'
   has_many :liked_posts, through: :likes, source: :likable, source_type: 'Post'
 
+  has_many :notifications, foreign_key: :recepient_id
+
   # Delegations
   delegate :first_name,
-           :last_name, 
-           :gender, 
-           :date_of_birth, 
-           :about_me, 
-           :fullname, 
+           :last_name,
+           :gender,
+           :date_of_birth,
+           :about_me,
+           :fullname,
            :image_path, to: :profile
 
   # Class methods
@@ -50,11 +52,11 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.password = Devise.friendly_token[0, 20]
       user.email = auth.info.email
-      user.username = auth.info.name.titlecase.split.join   # assuming the user model has a name
+      user.username = auth.info.name.titlecase.split.join
 
       user.build_profile(
-        first_name: auth.info.name.split(" ")[0],
-        last_name: auth.info.name.split(" ")[1],
+        first_name: auth.info.name.split(' ')[0],
+        last_name: auth.info.name.split(' ')[1],
         image_path: auth.info.image
       )
     end
@@ -62,8 +64,8 @@ class User < ApplicationRecord
 
   def self.new_with_session(params, session)
     super.tap do |user|
-      if (data = session["devise.facebook_data"]) && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
+      if (data = session['devise.facebook_data']) && session['devise.facebook_data']['extra']['raw_info']
+        user.email = data['email'] if user.email.blank?
       end
     end
   end
@@ -77,7 +79,7 @@ class User < ApplicationRecord
   def liked(likable)
     likable.kind_of?(Comment) ? liked_comments << likable : liked_posts << likable
   end
-  
+
   def disliked(likable)
     likable.kind_of?(Comment) ? liked_comments.destroy(likable) : liked_posts.destroy(likable)
   end
@@ -127,7 +129,7 @@ class User < ApplicationRecord
   def all_friends
     friends + inverse_friends
   end
-  
+
   def to_param
     username
   end
@@ -142,5 +144,4 @@ class User < ApplicationRecord
     request = self.incoming_requests.find_by(sender_id: friend.id)
     request.destroy
   end
-
 end

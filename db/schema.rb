@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_11_111607) do
+ActiveRecord::Schema.define(version: 2019_09_20_185803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,18 @@ ActiveRecord::Schema.define(version: 2019_07_11_111607) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "recipient_id"
+    t.integer "actor_id"
+    t.datetime "read_at"
+    t.string "action"
+    t.string "notifiable_type"
+    t.bigint "notifiable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id"
     t.text "post_content"
@@ -79,6 +91,7 @@ ActiveRecord::Schema.define(version: 2019_07_11_111607) do
     t.index "GREATEST(sender_id, receiver_id), LEAST(sender_id, receiver_id)", name: "index_requests_on_interchangable_sender_id_and_receiver_id", unique: true
     t.index "LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id)", name: "index_requests_on_interchangable_receiver_id_and_sender_id", unique: true
     t.index ["receiver_id"], name: "index_requests_on_receiver_id"
+    t.index ["sender_id", "receiver_id"], name: "index_requests_on_sender_id_and_receiver_id", unique: true
     t.index ["sender_id"], name: "index_requests_on_sender_id"
   end
 

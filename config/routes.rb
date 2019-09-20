@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
+  resources :notification, only: [:index]
   resources :hashtag, only: :show
 
   get 'all-users', to: 'users#index'
@@ -56,7 +57,3 @@ Rails.application.routes.draw do
   end
 
 end
-
-# /:id/likes/:likable_type
-# /:id/dislikes/:likable_type
-# /:user_username/requests/:receiver_id
