@@ -1,7 +1,8 @@
-# TODO: Find a way to redirect titlecased urls to their downcase counterparts
+# frozen_string_literal: true
+
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: :show
-  
+
   def show
     @user = User.find_by(username: params[:user_username])
 
@@ -33,5 +34,4 @@ class ProfilesController < ApplicationController
   def profile_params
     params.require(:profile).permit(:date_of_birth, :first_name, :last_name, :gender, :about_me)
   end
-
 end

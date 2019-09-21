@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Profile < ApplicationRecord
   # Associations
   belongs_to :user
 
   # Enums
-  enum gender: [:female, :male]
+  enum gender: %i[female male]
 
   # Validations
   #validate :age_is_present_and_permitted

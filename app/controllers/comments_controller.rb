@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_comment, only: [:update, :destroy]
-  before_action(only: [:update, :destroy]) { authorize_user(@comment.user) }
+  before_action :set_comment, only: %i[update destroy]
+  before_action(only: %i[update destroy]) { authorize_user(@comment.user) }
 
   def edit
     @comment = Comment.find(params[:id])
@@ -34,7 +36,7 @@ class CommentsController < ApplicationController
     redirect_to root_path
   end
 
-  private 
+  private
 
   def comment_params
     params.require(:comment).permit(:comment_content)
