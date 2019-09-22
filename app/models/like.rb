@@ -4,5 +4,5 @@ class Like < ApplicationRecord
   # Associations
   belongs_to :user
   belongs_to :likable, counter_cache: true, polymorphic: true
-  has_many :notifiactions, as: :notifiable, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 end
