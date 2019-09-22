@@ -31,6 +31,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   has_many :comments, dependent: :destroy
+  has_many :commented_posts, through: :comments, dependent: :destroy, source: :post
 
   has_many :likes, dependent: :destroy
   has_many :liked_comments, through: :likes, source: :likable, source_type: 'Comment'
@@ -77,18 +78,18 @@ class User < ApplicationRecord
   # Instance methods
 
   def liked(likable)
-    likable.kind_of?(Comment) ? liked_comments << likable : liked_posts << likable
+    likable.is_a?(Comment) ? liked_comments << likable : liked_posts << likable
   end
 
   def disliked(likable)
-    likable.kind_of?(Comment) ? liked_comments.destroy(likable) : liked_posts.destroy(likable)
+    likable.is_a?(Comment) ? liked_comments.destroy(likable) : liked_posts.destroy(likable)
   end
 
   def liked?(likable)
-    if likable.kind_of?(Comment)
-      return liked_comment_ids.include?(likable.id)
-    elsif likable.kind_of?(Post)
-      return liked_post_ids.include?(likable.id)
+    if likable.is_a?(Comment)
+      liked_comment_ids.include?(likable.id)
+    elsif likable.is_a?(Post)
+      liked_post_ids.include?(likable.id)
     end
   end
 
@@ -122,7 +123,7 @@ class User < ApplicationRecord
   end
 
   def deletes_friendship(friend)
-    friends.destroy(friend) 
+    friends.destroy(friend)
     inverse_friends.destroy(friend)
   end
 
@@ -141,7 +142,7 @@ class User < ApplicationRecord
   private
 
   def remove_request_upon_friendship_created(friend)
-    request = self.incoming_requests.find_by(sender_id: friend.id)
+    request = incoming_requests.find_by(sender_id: friend.id)
     request.destroy
   end
 end
