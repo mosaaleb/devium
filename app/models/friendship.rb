@@ -18,14 +18,10 @@ class Friendship < ApplicationRecord
     combinations = ["user_id = #{user_id} AND friend_id = #{friend_id}",
                     "user_id = #{friend_id} AND friend_id = #{user_id}"]
 
-    if Friendship.where(combinations.join(' OR ')).exists?
-      errors.add(:user_id, 'already friends')
-    end
+    errors.add(:user_id, 'already friends') if Friendship.where(combinations.join(' OR ')).exists?
   end
 
   def user_and_friend_are_not_the_same_person
-    if user == friend
-      errors.add(:user_id, 'can\'t friend yourself')
-    end
+    errors.add(:user_id, 'can\'t friend yourself') if user == friend
   end
 end
