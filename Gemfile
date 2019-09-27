@@ -1,44 +1,44 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.1'
 
-gem 'rails', '~> 5.2.3'
+gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootstrap', '~> 4.3.1'
+gem 'coffee-rails', '~> 4.2'
+gem 'devise', '~> 4.7'
+gem 'font-awesome-rails'
+gem 'hirb'
+gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
+gem 'omniauth-facebook'
+gem 'omniauth-rails_csrf_protection'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
-gem 'sass-rails', '~> 5.0'# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
+gem 'rails', '~> 5.2.3'
+gem 'sass-rails', '~> 5.0' # Use Uglifier as compressor for JavaScript assets
 gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
-gem 'hirb'
-gem 'bootsnap', '>= 1.1.0', require: false
-gem 'devise', '~> 4.7'
-gem 'omniauth-facebook'
-gem "omniauth-rails_csrf_protection"
-gem 'bootstrap', '~> 4.3.1'
-gem 'jquery-rails'
-gem "font-awesome-rails"
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'uglifier', '>= 1.3.0'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-byebug'
+  gem 'rspec-rails'
 end
 
 group :development do
   gem 'guard-livereload', '~> 2.5', require: false
-  gem 'pry-rails'
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'pry-rails'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :test do
@@ -51,4 +51,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
