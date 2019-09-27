@@ -18,7 +18,7 @@ class Comment < ApplicationRecord
 
   def create_notification
     (post.subscribers + [post.user] - [user]).each do |subscriber|
-      Notification.create(actor: user, recipient: subscriber, action: 'commented', notifiable: self)
+      Notification.create(actor: user, recipient: subscriber, action: 'commented', notifiable: post)
     end
   end
 end
