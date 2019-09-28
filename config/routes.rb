@@ -2,12 +2,12 @@
 
 Rails.application.routes.draw do
 
+  resources :notifications, only: [:index]
   devise_for :users, path: 'accounts', controllers: {
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
-  resources :notification, only: [:index]
   resources :hashtag, only: :show
 
   get 'all-users', to: 'users#index'
