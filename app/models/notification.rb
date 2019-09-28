@@ -8,4 +8,7 @@ class Notification < ApplicationRecord
 
   # Validations
   validates :action, presence: true
+
+  # Scopes
+  scope :unread, -> { where(read_at: nil) }
 end
