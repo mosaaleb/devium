@@ -26,6 +26,18 @@
           </li>
 
           <li class="nav-item dropdown">
+            <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= fa_icon 'bell', class: 'nav-link fa-lg mt-1 mr-1' %>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="navbarDropdown">
+              <%= link_to 'Profile', user_profile_path(current_user), class: 'dropdown-item nav-link' %>
+              <%= link_to 'Friends', friends_user_path(current_user.username), class: 'dropdown-item nav-link' %>
+              <%= link_to 'Mark all as read', destroy_user_session_path, method: :delete, class: 'dropdown-item nav-link' %>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">
             <a class="nav-link p-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= image_tag avatar(current_user, :small), class: 'rounded-circle' %>
             </a>
@@ -37,7 +49,6 @@
             </div>
 
           </li>
-
         </ul>
       </div>
     <% else %>
