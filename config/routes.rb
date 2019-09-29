@@ -31,12 +31,12 @@ Rails.application.routes.draw do
 
   get 'received_requests', to: 'incoming_requests#index'
   get 'sent_requests', to: 'outgoing_requests#index'
-  
+
   resources :users, only: :none, path: :relationships do
     member do
       delete 'reject_request', to: 'incoming_requests#destroy'
     end
-    
+
     member do
       post 'send_request', to: 'outgoing_requests#create'
       delete 'remove_request', to: 'outgoing_requests#destroy'
@@ -51,6 +51,10 @@ Rails.application.routes.draw do
   resources :users, only: :none, path: '', param: :username do
     member do
       get 'friends', to: 'friendships#index'
+    end
+
+    member do
+      put 'mark_notification_read', to: 'notifications#update'
     end
     resource :profile, path: '', only: %i[show edit update]
     resources :posts, path: '', only: :show
