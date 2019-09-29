@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FriendshipsController < ApplicationController
   before_action :authenticate_user!
 
@@ -5,7 +7,7 @@ class FriendshipsController < ApplicationController
     @user = User.find_by(username: params[:username])
     @friends = @user.all_friends
   end
-  
+
   def create
     current_user.accepts_friendship(friend)
     flash[:notice] = 'Friend Added!'

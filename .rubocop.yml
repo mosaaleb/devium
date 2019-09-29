@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - "bin/*"
     - "db/*"
+    - "db/migrate/*"
     - "config/*"
     - "config/*/*"
     - "Guardfile"
