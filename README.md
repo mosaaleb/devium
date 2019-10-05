@@ -19,6 +19,8 @@ The live version of this project is [Devium](https://deviumio.herokuapp.com/).
 - Having newsfeed page based on the friends list.
 - Ability to login with facebook.
 - Edit setting and profile information.
+- Adding hashtags
+- Notification system.
 
 ## Contributors
 - [Saheed](https://github.com/suretrust)
