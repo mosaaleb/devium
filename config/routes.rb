@@ -2,7 +2,11 @@
 
 Rails.application.routes.draw do
 
-  resources :notifications, only: [:index]
+  resources :notifications, only: [:index] do
+    post :mark_as_read, to: 'notifications#update', on: :collection
+    post :mark_as_read, to: 'notifications#update', ok: :member
+  end
+
   devise_for :users, path: 'accounts', controllers: {
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
@@ -53,9 +57,6 @@ Rails.application.routes.draw do
       get 'friends', to: 'friendships#index'
     end
 
-    member do
-      put 'mark_notification_read', to: 'notifications#update'
-    end
     resource :profile, path: '', only: %i[show edit update]
     resources :posts, path: '', only: :show
   end
