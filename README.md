@@ -53,5 +53,8 @@ You can run all unit tests with:
 
 ## Contributors
 - [Saheed](https://github.com/suretrust)
-- [Muhammad](https://github.com/mosaaleb)
+- Muhammad
+  - [GitHub](https://github.com/mosaaleb)
+  - [LinkedIn](https://www.linkedin.com/in/muhammadebeid/)
+  - [muhammed.ebeid@gmail.com](muhammed.ebeid@gmail.com)
 
