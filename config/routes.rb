@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   resources :notifications, only: [:index] do
     post :mark_as_read, to: 'notifications#update', on: :collection
     post :mark_as_read, to: 'notifications#update', ok: :member
@@ -28,7 +27,7 @@ Rails.application.routes.draw do
     post 'like', to: 'likes#create'
     delete 'dislike', to: 'likes#destroy'
   end
-  
+
   resources :posts, only: %i[create edit update destroy], shallow: true, concerns: :likable do
     resources :comments, only: %i[edit update destroy create], concerns: :likable
   end
@@ -60,5 +59,4 @@ Rails.application.routes.draw do
     resource :profile, path: '', only: %i[show edit update]
     resources :posts, path: '', only: :show
   end
-
 end
