@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @notifications = current_user.notifications.unread
+    notifications
   end
 
   def update
@@ -14,7 +14,6 @@ class NotificationsController < ApplicationController
     else
       notifications.update_all(read_at: Time.zone.now)
     end
-    render json: { sucess: true }
   end
 
   private
