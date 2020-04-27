@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   resources :notifications, only: [:index] do
     post :mark_as_read, to: 'notifications#update', on: :collection
-    post :mark_as_read, to: 'notifications#update', ok: :member
+    post :mark_as_read, to: 'notifications#update', on: :member
   end
 
   devise_for :users, path: 'accounts', controllers: {

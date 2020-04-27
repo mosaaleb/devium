@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class NotificationsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    @notifications = Notification.where(recipient: current_user).unread
+    @notifications = current_user.notifications.unread
   end
 
   def update
@@ -10,8 +12,14 @@ class NotificationsController < ApplicationController
       notification = Notification.find(params[:id])
       notification.update(read_at: Time.zone.now)
     else
-      notifications = Notification.where(recipient: current_user).unread
-      notifications.update_all(read_at: time.zone.now)
+      notifications.update_all(read_at: Time.zone.now)
     end
+    render json: { sucess: true }
+  end
+
+  private
+
+  def notifications
+    @notifications ||= current_user.notifications.unread
   end
 end
