@@ -1,0 +1,16 @@
+<li class="p-2">
+  <%= link_to post_path(notification.notifiable.post,
+              anchor: dom_id(notification.notifiable)) do %>
+    <div class="media py-1">
+      <%= image_tag avatar(notification.actor, :x_small), class: 'rounded-circle' %>
+    </div>
+    <p>
+      <strong><%= notification.actor.fullname %></strong>
+      <%= notification.action %>
+      <%= truncate(notification.notifiable.comment_content, length: 20) %>
+      on
+      <%= notification_original_author_name(notification.notifiable.post.user) %>
+      post
+    </p>
+  <% end %>
+</li>
