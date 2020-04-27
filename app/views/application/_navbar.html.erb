@@ -25,7 +25,7 @@
           </li> 
 
           <li class="nav-item">
-            <%= link_to  received_requests_path, class: 'nav-link' do %>
+            <%= link_to received_requests_path, class: 'nav-link' do %>
               <p>
                 Pending Requests
                 <span class="badge badge-secondary">
@@ -49,8 +49,7 @@
           <li class="nav-item dropdown" data-behavior="notifications">
             <a
               class="nav-link p-0"
-              href="#"
-              id="navbarDropdown"
+              id="notification-dropdown"
               role="button"
               data-toggle="dropdown"
               aria-haspopup="true"
@@ -66,7 +65,11 @@
               data-behavior="notification-items"
               class="dropdown-menu dropdown-menu-right bg-dark"
             >
-              <%= link_to 'Mark all as read', mark_as_read_notifications_path, method: :post, class: 'dropdown-item nav-link' %>
+              <%= link_to 'Mark all as read',
+                          mark_as_read_notifications_path,
+                          method: :post,
+                          class: 'dropdown-item nav-link'
+              %>
             </div>
           </li>
 

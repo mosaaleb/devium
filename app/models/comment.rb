@@ -16,9 +16,16 @@ class Comment < ApplicationRecord
   # Private method
   private
 
+  def comment_recipients
+    post.subscribers + [post.user] - [user]
+  end
+
   def create_notification
-    (post.subscribers + [post.user] - [user]).each do |subscriber|
-      Notification.create(actor: user, recipient: subscriber, action: 'commented', notifiable: self)
+    comment_recipients.each do |recipient|
+      Notification.create(actor: user,
+                          recipient: recipient,
+                          action: 'commented',
+                          notifiable: self)
     end
   end
 end

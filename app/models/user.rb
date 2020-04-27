@@ -14,30 +14,42 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   accepts_nested_attributes_for :profile
 
-  has_many :outgoing_requests, foreign_key: 'sender_id',
-                               dependent: :destroy, class_name: 'Request'
-  has_many :outgoing_pending_friends, through: :outgoing_requests, source: :receiver
+  has_many :outgoing_requests,
+           foreign_key: 'sender_id',
+           dependent: :destroy, class_name: 'Request'
 
-  has_many :incoming_requests, foreign_key: 'receiver_id',
-                               dependent: :destroy, class_name: 'Request'
-  has_many :incoming_pending_friends, through: :incoming_requests, source: :sender
+  has_many :outgoing_pending_friends,
+           through: :outgoing_requests, source: :receiver
+
+  has_many :incoming_requests,
+           foreign_key: 'receiver_id',
+           dependent: :destroy, class_name: 'Request'
+
+  has_many :incoming_pending_friends,
+           through: :incoming_requests, source: :sender
 
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
 
-  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy
+  has_many :inverse_friendships,
+           class_name: 'Friendship',
+           foreign_key: 'friend_id', dependent: :destroy
+
   has_many :inverse_friends, through: :inverse_friendships, source: :user
 
   has_many :posts, dependent: :destroy
 
   has_many :comments, dependent: :destroy
-  has_many :commented_posts, through: :comments, dependent: :destroy, source: :post
+  has_many :commented_posts,
+           through: :comments, dependent: :destroy, source: :post
 
   has_many :likes, dependent: :destroy
-  has_many :liked_comments, through: :likes, source: :likable, source_type: 'Comment'
-  has_many :liked_posts, through: :likes, source: :likable, source_type: 'Post'
+  has_many :liked_comments,
+           through: :likes, source: :likable, source_type: 'Comment'
+  has_many :liked_posts,
+           through: :likes, source: :likable, source_type: 'Post'
 
-  has_many :notifications, foreign_key: :recepient_id
+  has_many :notifications, foreign_key: :recipient_id
 
   # Delegations
   delegate :first_name,
