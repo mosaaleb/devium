@@ -1,0 +1,18 @@
+<%= link_to post_path(notification.notifiable,
+                      anchor: dom_id(notification.notifier)),
+            class: 'dropdown-item' do
+%>
+  <div class="media py-1">
+    <%= image_tag avatar(notification.actor, :x_small), class: 'rounded-circle' %>
+  </div>
+  <div>
+    <%= notification.actor.fullname %>
+    <%= notification.notifier_type.underscore.sub(/e?$/, 'ed') %>
+    <div class="bg-info p-2 bg-light">
+      <%= truncate(notification.notifier.comment_content, length: 60) %>
+    </div>
+    on
+    <%= objective(notification.notifiable.user) %>
+    <%= notification.notifiable_type.underscore %>
+  </div>
+<% end %>

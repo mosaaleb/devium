@@ -77,7 +77,8 @@ class User < ApplicationRecord
 
   def self.new_with_session(params, session)
     super.tap do |user|
-      if (data = session['devise.facebook_data']) && session['devise.facebook_data']['extra']['raw_info']
+      if (data = session['devise.facebook_data']) &&
+         (session['devise.facebook_data']['extra']['raw_info'])
         user.email = data['email'] if user.email.blank?
       end
     end
@@ -88,13 +89,16 @@ class User < ApplicationRecord
   end
 
   # Instance methods
-
   def liked(likable)
     likable.is_a?(Comment) ? liked_comments << likable : liked_posts << likable
   end
 
   def disliked(likable)
-    likable.is_a?(Comment) ? liked_comments.destroy(likable) : liked_posts.destroy(likable)
+    if likable.is_a(Comment)
+      liked_comments.destroy(likable)
+    else
+      liked_posts.destroy(likable)
+    end
   end
 
   def liked?(likable)
