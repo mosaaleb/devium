@@ -24,8 +24,8 @@ class Comment < ApplicationRecord
     comment_recipients.each do |recipient|
       Notification.create(actor: user,
                           recipient: recipient,
-                          action: 'commented',
-                          notifiable: self)
+                          notifier: self,
+                          notifiable: post)
     end
   end
 end
