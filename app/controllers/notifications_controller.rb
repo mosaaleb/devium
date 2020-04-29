@@ -12,7 +12,7 @@ class NotificationsController < ApplicationController
       notification = Notification.find(params[:id])
       notification.update(read_at: Time.zone.now)
     else
-      notifications.update_all(read_at: Time.zone.now)
+      notifications.find_each { |n| n.update(read_at: Time.zone.now) }
     end
   end
 

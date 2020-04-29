@@ -1,7 +1,7 @@
-<%= link_to post_path(notification.notifiable,
-                      anchor: dom_id(notification.notifier)),
-            class: 'dropdown-item' do
-%>
+<%= link_to post_path(notification.notifiable, anchor: dom_id(notification.notifier)),
+            class: 'dropdown-item',
+            'data-behavior': 'notification-link-item',
+            id: notification.id do %>
   <div class="media py-1">
     <%= image_tag avatar(notification.actor, :x_small), class: 'rounded-circle' %>
   </div>
