@@ -15,7 +15,7 @@ class Like < ApplicationRecord
   def create_notification
     Notification.create(actor: user,
                         recipient: likable.user,
-                        action: 'liked',
+                        notifier: self,
                         notifiable: likable)
   end
 end
