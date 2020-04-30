@@ -19,13 +19,17 @@ class Notification
     $("[data-behavior='notification-items']").append(items)
     $("[data-behavior='notification-link-item']").on 'click', @markAsRead
 
-  markAsRead: (e) => 
+  markAsRead: (e) =>
     $.ajax(
       url: "/notifications/#{e.currentTarget.id}/mark_as_read"
       dataType: "JSON"
       data: { authenticity_token: $('[name="csrf-token"]')[0].content }
       method: "POST"
+      success: @updateNotificationCount
     )
+
+  updateNotificationCount: () =>
+    $("[data-behavior='unread-count']").text(length - 1)
 
 jQuery ->
   new Notification

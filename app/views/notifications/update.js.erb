@@ -1,2 +1,2 @@
 $('#notification-dropdown').dropdown('toggle');
-$("[data-behavior='unread-count']").text(0);
+$("[data-behavior='unread-count']").text(<%= @notifications.count %>)
