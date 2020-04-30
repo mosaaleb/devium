@@ -14,6 +14,10 @@ class NotificationsController < ApplicationController
     else
       notifications.find_each { |n| n.update(read_at: Time.zone.now) }
     end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
