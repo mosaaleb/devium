@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -7,34 +9,33 @@ RSpec.describe User, type: :model do
   let(:post) { create :post }
   let(:comment) { create :comment }
   let(:profile) { create :profile }
-  
-  describe 'Associations' do
 
+  describe 'Associations' do
     it 'has one profile' do
       assc = described_class.reflect_on_association(:profile)
       expect(assc.macro).to eq :has_one
     end
-    
+
     it 'has many friend requests' do
       assc = described_class.reflect_on_association(:outgoing_requests)
       expect(assc.macro).to eq :has_many
     end
-    
+
     it 'has many pending_friends' do
       assc = described_class.reflect_on_association(:outgoing_pending_friends)
       expect(assc.macro).to eq :has_many
     end
-    
+
     it 'has many friendships' do
       assc = described_class.reflect_on_association(:friendships)
       expect(assc.macro).to eq :has_many
     end
-    
+
     it 'has many friends' do
       assc = described_class.reflect_on_association(:friends)
       expect(assc.macro).to eq :has_many
     end
-    
+
     it 'has many inverse friendships' do
       assc = described_class.reflect_on_association(:inverse_friendships)
       expect(assc.macro).to eq :has_many
@@ -60,20 +61,19 @@ RSpec.describe User, type: :model do
       expect(assc.macro).to eq :has_many
     end
 
-    context ' when called upon friendships method' do      
+    context ' when called upon friendships method' do
       it 'returns friendships' do
-        expect(friendship.user.friendships.first).to eq(friendship) 
+        expect(friendship.user.friendships.first).to eq(friendship)
       end
     end
 
     context 'when called upon inverse_friendships method' do
       it 'returns inverse friendships' do
-        expect(friendship.friend.inverse_friendships.first).to eq(friendship) 
+        expect(friendship.friend.inverse_friendships.first).to eq(friendship)
       end
     end
 
-      
-    context 'when user creates a post' do     
+    context 'when user creates a post' do
       it 'adds the posts to user_posts' do
         user.posts << post
         expect(user.posts.last).to eq(post)
@@ -87,7 +87,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'when user create a comment' do     
+    context 'when user create a comment' do
       it 'adds the comment to user_comments' do
         user.comments << comment
         expect(user.comments.last).to eq(comment)
@@ -100,12 +100,10 @@ RSpec.describe User, type: :model do
         user.destroy
         expect(Comment.count).to eq 0
       end
-    end  
-
+    end
   end
 
   describe 'Validations' do
-
     context 'when username is missing' do
       it 'is invalid' do
         user.username = nil
@@ -118,7 +116,5 @@ RSpec.describe User, type: :model do
         expect(user.valid?).to be true
       end
     end
-
   end
 end
-

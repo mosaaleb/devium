@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class IncomingRequestsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
     @incoming_requests = current_user.incoming_requests
   end

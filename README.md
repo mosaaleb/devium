@@ -31,6 +31,8 @@ The live version of this project is hosted in heroku =>
 - Having newsfeed page based on the friends list.
 - Ability to login with facebook.
 - Edit setting and profile information.
+- Adding hashtags
+- Notification system.
 
 
 ## Coming Features:

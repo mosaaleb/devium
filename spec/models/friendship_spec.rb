@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Friendship, type: :model do
@@ -12,10 +14,10 @@ RSpec.describe Friendship, type: :model do
         user.friendships.create friend: friend
 
         friendship = user.friendships.build friend: friend
-        expect { friendship.save validate: false}.to raise_error(ActiveRecord::RecordNotUnique)
+        expect { friendship.save validate: false }.to raise_error(ActiveRecord::RecordNotUnique)
 
         inverse_friendship = friend.friendships.build friend: user
-        expect { inverse_friendship.save validate: false}.to raise_error(ActiveRecord::RecordNotUnique)
+        expect { inverse_friendship.save validate: false }.to raise_error(ActiveRecord::RecordNotUnique)
       end
     end
   end
@@ -27,7 +29,7 @@ RSpec.describe Friendship, type: :model do
 
         friendship = user.friendships.create friend: friend
         expect(friendship.errors[:user_id]).to include('already friends')
-        
+
         inverse_friendship = friend.friendships.create friend: user
         expect(inverse_friendship.errors[:user_id]).to include('already friends')
       end
@@ -68,7 +70,7 @@ RSpec.describe Friendship, type: :model do
       it 'returns friends and inverse_friends' do
         user.friendships.create friend: friend
         friend.friendships.create friend: user2
-        
+
         expect(friend.all_friends).to include(user && user2)
       end
     end

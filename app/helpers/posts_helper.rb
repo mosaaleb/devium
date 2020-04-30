@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PostsHelper
-
   def like_post_button(post)
     if current_user.nil?
       link_to 'Like', new_user_session_path
@@ -33,5 +32,4 @@ module PostsHelper
   def autolink(text)
     text.gsub(/#\w+/) { |hashtag| link_to hashtag, hashtag_path(hashtag[1..-1]) }.html_safe
   end
-
 end

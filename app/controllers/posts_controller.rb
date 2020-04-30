@@ -1,11 +1,11 @@
+# frozen_string_literal: true
 
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :set_post, except: :create
-  before_action(only: [:update, :destroy, :edit]) { authorize_user(@post.user) }
-  
-  def show
-  end
+  before_action(only: %i[update destroy edit]) { authorize_user(@post.user) }
+
+  def show; end
 
   def create
     @post = current_user.posts.build post_params
@@ -18,8 +18,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @user = @post.user
@@ -33,7 +32,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    flash[:notice] = "Post deleted!"
+    flash[:notice] = 'Post deleted!'
     redirect_back(fallback_location: root_path)
   end
 
