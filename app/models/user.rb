@@ -89,12 +89,12 @@ class User < ApplicationRecord
   end
 
   # Instance methods
-  def liked(likable)
+  def like(likable)
     likable.is_a?(Comment) ? liked_comments << likable : liked_posts << likable
   end
 
-  def disliked(likable)
-    if likable.is_a(Comment)
+  def dislike(likable)
+    if likable.is_a?(Comment)
       liked_comments.destroy(likable)
     else
       liked_posts.destroy(likable)

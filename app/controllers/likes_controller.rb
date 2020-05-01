@@ -4,12 +4,12 @@ class LikesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    current_user.liked(likable)
+    current_user.like(likable)
     redirect_back(fallback_location: root_path)
   end
 
   def destroy
-    current_user.disliked(likable)
+    current_user.dislike(likable)
     redirect_back(fallback_location: root_path)
   end
 
