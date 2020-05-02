@@ -19,7 +19,7 @@ RSpec.describe 'Likes', type: :request do
     context 'when logged in' do
       before do
         sign_in user
-        post "/comments/#{comment.id}/like"
+        post "/comments/#{comment.id}/like?type='Comment'"
       end
 
       it 'redirects back or fallback to home page' do

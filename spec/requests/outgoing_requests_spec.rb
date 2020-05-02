@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "OutgoingRequests", type: :request do
+RSpec.describe 'OutgoingRequests', type: :request do
   let(:request1) { create :request }
-  
-  describe "POST relationships/:id/:send_request" do
+
+  describe 'POST relationships/:id/:send_request' do
     context 'when not logged in' do
-      it "redirects to sign_in page" do
+      it 'redirects to sign_in page' do
         post "/relationships/#{request1.receiver.id}/send_request"
 
         expect(response).to redirect_to('/accounts/sign_in')
@@ -13,9 +15,8 @@ RSpec.describe "OutgoingRequests", type: :request do
     end
 
     context 'when logged in' do
-      it "redirects back to same page" do
+      it 'redirects back to same page' do
         sign_in request1.sender
-
         post "/relationships/#{request1.receiver.id}/send_request"
 
         expect(response).to redirect_to('/')
@@ -23,32 +24,30 @@ RSpec.describe "OutgoingRequests", type: :request do
     end
   end
 
-  describe "DELETE relationships/:id/remove_request" do
-
+  describe 'DELETE relationships/:id/remove_request' do
     context 'when not logged in' do
-      it "redirects to sign_in page" do
+      it 'redirects to sign_in page' do
         delete "/relationships/#{request1.receiver.id}/remove_request"
-      
+
         expect(response).to redirect_to('/accounts/sign_in')
       end
     end
 
     context 'when logged in' do
-      it "redirects back to same page" do
+      it 'redirects back to same page' do
         sign_in request1.sender
-
         delete "/relationships/#{request1.receiver.id}/remove_request"
-        
+
         expect(response).to redirect_to('/')
       end
     end
   end
 
-  describe "GET relationships/:id/sent_requests" do
+  describe 'GET relationships/:id/sent_requests' do
     context 'when not logged in' do
-      it "redirects to sign_in page" do
-        get "/sent_requests"
-      
+      it 'redirects to sign_in page' do
+        get '/sent_requests'
+
         expect(response).to redirect_to('/accounts/sign_in')
       end
     end
@@ -56,14 +55,11 @@ RSpec.describe "OutgoingRequests", type: :request do
     context 'when logged in' do
       it 'has http sucess status' do
         sign_in request1.sender
+        get '/sent_requests'
 
-        get "/sent_requests"
-        
-        expect(response).to have_http_status 200
+        expect(response).to have_http_status :ok
       end
 
-      it 'redirects back to same page if not authorized'
     end
   end
-
 end
