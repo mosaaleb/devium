@@ -2,21 +2,21 @@
 
 module PostsHelper
   def edit_post_button(post)
-    if current_user && current_user == post.user
-      link_to 'Edit', edit_post_path(post)
-    end
+    return unless current_user && current_user == post.user
+
+    link_to 'Edit', edit_post_path(post)
   end
 
   def delete_post_button(post)
-    if current_user && current_user == post.user
-      link_to 'Delete', post_path(post), method: :delete
-    end
+    return unless current_user && current_user == post.user
+
+    link_to 'Delete', post_path(post), method: :delete
   end
 
   def show_dropdown_post_button(post)
-    if edit_post_button(post) && delete_post_button(post)
-      render 'posts/dropdown'
-    end
+    return unless edit_post_button(post) && delete_post_button(post)
+
+    render 'posts/dropdown'
   end
 
   def autolink(text)

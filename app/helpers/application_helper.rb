@@ -2,9 +2,10 @@
 
 module ApplicationHelper
   def avatar(user, size)
-    image_sizes = { x_small: 30, small: 45, medium: 80, large: 100, x_large: 130, profile: 300 }
+    sizes = { x_small: 30, small: 45, medium: 80,
+              large: 100, x_large: 130, profile: 300 }
     email_digest = Digest::MD5.hexdigest(user.email.downcase)
-    gravatar_url = "//www.gravatar.com/avatar/#{email_digest}?&s=#{image_sizes[size]}"
+    gravatar_url = "//www.gravatar.com/avatar/#{email_digest}?&s=#{sizes[size]}"
     gravatar_url
   end
 
@@ -15,7 +16,7 @@ module ApplicationHelper
   end
 
   def show_navbar
-    render 'navbar' unless controller_name == 'sessions' || controller_name == 'registrations'
+    render 'navbar' if current_user
   end
 
   def resource_name
