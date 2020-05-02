@@ -1,2 +1,15 @@
+# frozen_string_literal: true
+
 module LikesHelper
+  def like_button(likable)
+    if current_user.liked?(likable)
+      link_to image_tag('dislike'),
+              polymorphic_path([:dislike, likable], type: likable.class),
+              method: :delete
+    else
+      link_to image_tag('like'),
+              polymorphic_path([:like, likable], type: likable.class),
+              method: :post
+    end
+  end
 end

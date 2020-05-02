@@ -15,8 +15,16 @@
           <div class="dropdown">
             <%= show_dropdown_post_button(post) %>
             <div class="dropdown-menu dropdown-menu-right" arial-labelledby="drop-down-button">
-              <p><small class="post-edit-button dropdown-item text-muted"><%= edit_post_button(post) %></small></p>
-              <p><small class="post-delete-button dropdown-item text-muted"><%= delete_post_button(post) %></small></p>
+              <p>
+                <small class="post-edit-button dropdown-item text-muted">
+                  <%= edit_post_button(post) %>
+                </small>
+              </p>
+              <p>
+                <small class="post-delete-button dropdown-item text-muted">
+                  <%= delete_post_button(post) %>
+                </small>
+              </p>
             </div>
           </div>
         </div>
@@ -27,27 +35,50 @@
 
         <div class="row mx-1 justify-content-between">
           <div class="likes-box post-likes">
-            <%= like_post_button(post) %>
-            <span class="badge badge-secondary"><%= post.likes_count %></span>
+            <%= like_button(post) %>
+            <span class="badge badge-secondary">
+              <%= post.likes_count %>
+            </span>
           </div>
-          <p><small class="text-muted">Published <%= link_to time_ago_in_words(post.created_at), post %> ago</small></p>
+          <p>
+            <small class="text-muted">
+              Published
+              <%= link_to time_ago_in_words(post.created_at), post %> ago
+            </small>
+          </p>
         </div>
       </div>
 
       <div class="card-footer">
-        <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#viewComments<%= post.id%>" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <a
+          class="btn btn-primary btn-sm"
+          data-toggle="collapse"
+          href="#viewComments<%= post.id%>"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        >
           <small>
             View Comments
           </small>
         </a>
-        <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#addComment<%= post.id%>" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <a
+          class="btn btn-primary btn-sm"
+          data-toggle="collapse"
+          href="#addComment<%= post.id%>"
+          role="button"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        >
           <small>
             Add Comment
           </small>
         </a>
       </div>
       <div class="post-comments collapse show pb-1" id="viewComments<%= post.id%>">
-        <small class="text-muted"><%= render post.comments %></small>
+        <small class="text-muted">
+          <%= render post.comments %>
+        </small>
       </div>
       <div class="form-new-comment collapse form-group" id="addComment<%= post.id%>">
         <%= render partial: 'comments/form', locals: { post: post } %>

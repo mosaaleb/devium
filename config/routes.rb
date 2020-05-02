@@ -24,8 +24,10 @@ Rails.application.routes.draw do
   end
 
   concern :likable do
-    post 'like', to: 'likes#create'
-    delete 'dislike', to: 'likes#destroy'
+    member do
+      post 'like', to: 'likes#create'
+      delete 'dislike', to: 'likes#destroy'
+    end
   end
 
   resources :posts, only: %i[create edit update destroy], shallow: true, concerns: :likable do
