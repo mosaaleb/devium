@@ -13,6 +13,8 @@ class Like < ApplicationRecord
   private
 
   def create_notification
+    return if user == likable.user
+
     Notification.create(actor: user,
                         recipient: likable.user,
                         notifier: self,
