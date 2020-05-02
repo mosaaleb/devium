@@ -83,7 +83,7 @@ RSpec.describe User, type: :model do
     context 'when user is destroyed' do
       it 'is expected to destroy dependent posts' do
         post
-        expect { post.user.destroy }.to change { Post.count }.by(-1)
+        expect { post.user.destroy }.to change(Post, :count).by(-1)
       end
     end
 
@@ -94,7 +94,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'user is deleted' do
+    context 'when user is deleted' do
       it 'is expected to destroy dependent comments' do
         user.comments << comment
         user.destroy
