@@ -1,14 +1,13 @@
-<%# TODO: image_tag(user.avatar.variant(resize: "100x100")) %>
-<%# TODO: Generate custom picture for gravatar based on username %>
-
 <div class="container">
 
   <div class="user-profile-box bg-light card shadow pl-md-3 mx-lg-5">
     <div class="row">
-      
+
       <div class="user-avatar col-md-4 img-fluid p-3 border-right">
-        <%#= image_tag avatar(@user, :profile), class: 'img-fluid rounded-circle d-block shadow-sm mx-auto' %>
-        <%= image_tag choose_avatar(@user, :x_large), class: 'rounded-circle bg-white shadow-sm d-block mx-auto', size: '200x200' %>
+        <%= image_tag choose_avatar(@user, :x_large),
+            class: 'rounded-circle bg-white shadow-sm d-block mx-auto',
+            size: '200x200' 
+        %>
       </div>
 
       <div class="text-center text-md-left col-md-8 mt-2">
@@ -22,7 +21,13 @@
         </div>
 
         <div class="friends-details">
-          <p><%= link_to "Friends <span class='badge badge-secondary'>#{@user.friendships_count}</span>".html_safe, friends_user_path(@user) %></p>
+          <p>
+          <%= link_to friends_user_path(@user)  do %>
+            Friends
+            <span class='badge badge-secondary'>
+              <%= @user.friendships_count %>
+            </span>
+          <% end %>
         </div>
 
         <div class="friendship_button">
@@ -32,7 +37,8 @@
         <div class="profile-details pr-md-3">
 
           <p class="about-me">
-            <b>Bio:</b> <%= @user.profile.about_me %>
+            <b>Bio:</b>
+            <%= @user.profile.about_me %>
           </p>
           
           <hr>
