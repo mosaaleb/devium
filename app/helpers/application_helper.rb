@@ -15,8 +15,12 @@ module ApplicationHelper
     avatar(user, size)
   end
 
+  def entry_pages?
+    controller_name.in? %w[sessions registrations]
+  end
+
   def show_navbar
-    render 'navbar' if current_user
+    render 'navbar' unless entry_pages?
   end
 
   def resource_name
