@@ -49,7 +49,7 @@ RSpec.describe Comment, type: :model do
   describe 'Association' do
     context 'when user likes a comment' do
       it 'returns numbers of likes associated with a comment' do
-        user2.liked(comment2)
+        user2.like(comment2)
         expect(comment2.likes_count).to eq 1
       end
     end
@@ -58,23 +58,28 @@ RSpec.describe Comment, type: :model do
       it 'is expected to destroy dependent comments' do
         post.comments << comment
         post.destroy
-        expect(Comment.count).to be 0
+        expect(described_class.count).to be 0
       end
     end
   end
 
   context 'when created' do
     before do
-      john.comments.create(comment_content: 'I am a comment', post_id: followed_post.id)
+      john.comments.create(comment_content: 'I am a comment',
+                           post_id: followed_post.id)
     end
 
     it 'creates notification for commented post original author' do
-      expect(Notification.where(recipient: followed_post.user)).to_not be_empty
+      expect(Notification.where(recipient: followed_post.user))
+        .not_to be_empty
     end
+
     it 'creates notification for commented post subscribers' do
-      aida.comments.create(comment_content: 'I am a comment', post_id: followed_post.id)
+      aida.comments.create(comment_content: 'I am a comment',
+                           post_id: followed_post.id)
       expect(Notification.count).to be 3
     end
+
     it 'does not create a notification for comment author' do
       expect(Notification.where(recipient: john)).to be_empty
     end

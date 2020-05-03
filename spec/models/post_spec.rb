@@ -44,7 +44,7 @@ RSpec.describe Post, type: :model do
 
   describe 'Associations' do
     it 'has many likes' do
-      user2.liked(post2)
+      user2.like(post2)
       expect(post2.likes.count).to eq 1
     end
 
@@ -53,7 +53,7 @@ RSpec.describe Post, type: :model do
       expect(assc.macro).to eq :has_many
     end
 
-    context 'post subscribers' do
+    context 'with post subscribers' do
       it 'has many subscribers' do
         assc = described_class.reflect_on_association(:subscribers)
         expect(assc.macro).to eq :has_many
@@ -67,7 +67,7 @@ RSpec.describe Post, type: :model do
 
     context 'when user likes post' do
       it 'returns numbers of likes associated with the post' do
-        user2.liked(post2)
+        user2.like(post2)
         expect(post2.likes_count).to eq 1
       end
     end

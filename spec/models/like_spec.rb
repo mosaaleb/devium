@@ -34,15 +34,15 @@ RSpec.describe Like, type: :model do
 
     context 'when user is deleted' do
       it 'is expected to destroy dependent likes' do
-        user.liked(post)
-        expect { user.destroy }.to change { Like.count }.by(-1)
+        user.like(post)
+        expect { user.destroy }.to change(described_class, :count).by(-1)
       end
     end
 
     context 'when post is deleted' do
       it 'is expected to destroy dependent likes' do
-        user.liked(post)
-        expect { post.destroy }.to change { Like.count }.by(-1)
+        user.like(post)
+        expect { post.destroy }.to change(described_class, :count).by(-1)
       end
     end
   end
