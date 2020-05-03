@@ -2,6 +2,8 @@
 
 module LikesHelper
   def like_button(likable)
+    return unless current_user
+
     if current_user.liked?(likable)
       link_to image_tag('dislike'),
               polymorphic_path([:dislike, likable], type: likable.class),

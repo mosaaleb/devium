@@ -9,21 +9,21 @@ describe 'comments/_comment.html.erb', type: :view do
     assign(:comment, comment)
   end
 
-  context 'when comment.user is not equal to current_user' do
-    it 'renders delete comments button' do
+  context 'when no logged in/logged in user is not the owner of the comment' do
+    it 'does not renders delete comments button' do
       render partial: 'comments/comment.html.erb', locals: { comment: comment }
 
       expect(rendered).not_to have_selector('.delete-comment-button')
     end
 
-    it 'renders edit comments button' do
+    it 'does not renders edit comments button' do
       render partial: 'comments/comment.html.erb', locals: { comment: comment }
 
       expect(rendered).not_to have_selector('.edit-comment-button')
     end
   end
 
-  context 'when comment.user equals current_user' do
+  context 'when logged in user is the owner of the comment' do
     before do
       sign_in comment.user
     end

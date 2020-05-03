@@ -12,7 +12,10 @@
 
         <div class="dropdown">
           <%= show_dropdown_comment_button(comment) %>
-          <div class="dropdown-menu dropdown-menu-right" arial-labelledby="drop-down-button">
+          <div
+            class="dropdown-menu dropdown-menu-right"
+            arial-labelledby="drop-down-button"
+          >
             <p>
               <small class="comment-edit-button dropdown-item text-muted">
                 <%= edit_button(comment) %>
@@ -34,7 +37,9 @@
       <div class="row mx-1 justify-content-between p-2">
         <div class="likes-box comment-likes">
           <%= like_button(comment) %>
-          <span class="badge badge-secondary"><%= comment.likes_count %></span>
+          <span class="badge badge-secondary">
+            <%= comment.likes_count %>
+          </span>
         </div>
         
         <div>
