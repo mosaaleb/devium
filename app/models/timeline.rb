@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
 class Timeline
-  attr_reader :user
-
-  def initialize(user)
-    @user = user
+  def initialize(users)
+    @users = users
   end
 
   def posts
     Post
-      .where(user_id: timeline_ids)
+      .where(user_id: users)
       .order(created_at: :desc)
+  end
+
+  def to_partial_path
+    'timelines/timeline'
   end
 
   private
 
-  def timeline_ids
-    user.friend_ids + user.inverse_friend_ids + [user.id]
-  end
+  attr_reader :users
 end

@@ -3,6 +3,6 @@
 class NewsfeedsController < ApplicationController
   def show
     @post = current_user.posts.new
-    @timeline = Timeline.new(current_user)
+    @newsfeed = Newsfeed.new(current_user)
   end
 end
