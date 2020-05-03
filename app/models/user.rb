@@ -127,10 +127,6 @@ class User < ApplicationRecord
     username
   end
 
-  def timeline_posts
-    Post.where(user_id: friend_ids + inverse_friend_ids + [id])
-  end
-
   private
 
   def remove_request_upon_friendship_created(friend)

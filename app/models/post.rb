@@ -12,7 +12,5 @@ class Post < ApplicationRecord
   validates :post_content, presence: true, length: { maximum: 400 }
 
   # Scopes
-  default_scope { order(created_at: :desc) }
-
   scope :search, ->(term:) { where('post_content like ?', "%#{term}%") }
 end
