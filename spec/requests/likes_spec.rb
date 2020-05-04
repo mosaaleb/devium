@@ -19,7 +19,7 @@ RSpec.describe 'Likes', type: :request do
     context 'when logged in' do
       before do
         sign_in user
-        post "/comments/#{comment.id}/like"
+        post "/comments/#{comment.id}/like", params: { type: 'Comment' }
       end
 
       it 'redirects back or fallback to home page' do
@@ -44,7 +44,7 @@ RSpec.describe 'Likes', type: :request do
     context 'when logged in' do
       before do
         sign_in user
-        post "/posts/#{post1.id}/like"
+        post "/posts/#{post1.id}/like", params: { type: 'Post' }
       end
 
       it 'redirects back or fallback to home page' do
@@ -70,7 +70,7 @@ RSpec.describe 'Likes', type: :request do
       before do
         sign_in user
         user.like(comment)
-        delete "/comments/#{comment.id}/dislike"
+        delete "/comments/#{comment.id}/dislike", params: { type: 'Comment' }
       end
 
       it 'redirects back or fallback to home page' do
@@ -96,7 +96,7 @@ RSpec.describe 'Likes', type: :request do
       before do
         sign_in user
         user.like(post1)
-        delete "/posts/#{post1.id}/dislike"
+        delete "/posts/#{post1.id}/dislike", params: { type: 'Post' }
       end
 
       it 'redirects back or fallback to home page' do
