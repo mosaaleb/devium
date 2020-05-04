@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class Timeline
-  def initialize(users)
+  def initialize(users, scope = Post)
     @users = users
+    @scope = scope
   end
 
   def posts
-    Post
+    scope
       .where(user_id: users)
       .order(created_at: :desc)
   end
@@ -17,5 +18,5 @@ class Timeline
 
   private
 
-  attr_reader :users
+  attr_reader :users, :scope
 end

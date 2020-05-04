@@ -14,10 +14,12 @@ RSpec.describe Friendship, type: :model do
         user.friendships.create friend: friend
 
         friendship = user.friendships.build friend: friend
-        expect { friendship.save validate: false }.to raise_error(ActiveRecord::RecordNotUnique)
+        expect { friendship.save validate: false }
+          .to raise_error(ActiveRecord::RecordNotUnique)
 
         inverse_friendship = friend.friendships.build friend: user
-        expect { inverse_friendship.save validate: false }.to raise_error(ActiveRecord::RecordNotUnique)
+        expect { inverse_friendship.save validate: false }
+          .to raise_error(ActiveRecord::RecordNotUnique)
       end
     end
   end
@@ -31,7 +33,8 @@ RSpec.describe Friendship, type: :model do
         expect(friendship.errors[:user_id]).to include('already friends')
 
         inverse_friendship = friend.friendships.create friend: user
-        expect(inverse_friendship.errors[:user_id]).to include('already friends')
+        expect(inverse_friendship.errors[:user_id])
+          .to include('already friends')
       end
     end
   end
@@ -48,7 +51,8 @@ RSpec.describe Friendship, type: :model do
     context 'when called upon inverse_relationships' do
       it 'returns all inverse_friendships' do
         user.friendships.create friend: friend
-        expect(user.friendships.first.id).to eq(friend.inverse_friendships.first.id)
+        expect(user.friendships.first.id)
+          .to eq(friend.inverse_friendships.first.id)
       end
     end
 
@@ -78,7 +82,8 @@ RSpec.describe Friendship, type: :model do
     context 'when user is destroyed' do
       it 'is expected to destroy dependent friendships' do
         friendship
-        expect { friendship.user.destroy }.to change { Friendship.count }.by(-1)
+        expect { friendship.user.destroy }
+          .to change(described_class, :count).by(-1)
       end
     end
   end
