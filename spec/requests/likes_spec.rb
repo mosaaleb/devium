@@ -19,11 +19,12 @@ RSpec.describe 'Likes', type: :request do
     context 'when logged in' do
       before do
         sign_in user
-        post "/comments/#{comment.id}/like", params: { type: 'Comment' }
+        post "/comments/#{comment.id}/like",
+             params: { type: 'Comment', format: :js }
       end
 
-      it 'redirects back or fallback to home page' do
-        expect(response).to redirect_to '/'
+      it 'have ok http status' do
+        expect(response).to have_http_status(:ok)
       end
 
       it 'increase comment likes count by one' do
@@ -44,11 +45,12 @@ RSpec.describe 'Likes', type: :request do
     context 'when logged in' do
       before do
         sign_in user
-        post "/posts/#{post1.id}/like", params: { type: 'Post' }
+        post "/posts/#{post1.id}/like",
+             params: { type: 'Post', format: :js }
       end
 
-      it 'redirects back or fallback to home page' do
-        expect(response).to redirect_to '/'
+      it 'have ok http status' do
+        expect(response).to have_http_status(:ok)
       end
 
       it 'increase post likes count by one' do
@@ -70,11 +72,12 @@ RSpec.describe 'Likes', type: :request do
       before do
         sign_in user
         user.like(comment)
-        delete "/comments/#{comment.id}/dislike", params: { type: 'Comment' }
+        delete "/comments/#{comment.id}/dislike",
+               params: { type: 'Comment', format: :js }
       end
 
-      it 'redirects back or fallback to home page' do
-        expect(response).to redirect_to '/'
+      it 'have ok http status' do
+        expect(response).to have_http_status(:ok)
       end
 
       it 'decrease comments likes count by one' do
@@ -96,11 +99,12 @@ RSpec.describe 'Likes', type: :request do
       before do
         sign_in user
         user.like(post1)
-        delete "/posts/#{post1.id}/dislike", params: { type: 'Post' }
+        delete "/posts/#{post1.id}/dislike",
+               params: { type: 'Post', format: :js }
       end
 
-      it 'redirects back or fallback to home page' do
-        expect(response).to redirect_to '/'
+      it 'have ok http status' do
+        expect(response).to have_http_status(:ok)
       end
 
       it 'descrease post likes count by one' do
