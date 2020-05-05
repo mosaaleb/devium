@@ -28,6 +28,7 @@ The live version of this project is hosted in heroku =>
 - Remove friends.
 - Add posts.
 - Add comment to posts.
+- Add likes to either posts or comments
 - Having newsfeed page based on the friends list.
 - Ability to login with facebook.
 - Edit setting and profile information.
@@ -36,7 +37,7 @@ The live version of this project is hosted in heroku =>
 
 
 ## Coming Features:
-- [ ] Notification system **(ongoing)**
+- [ ] mention users on comments or posts.
 
 **Having specific feature in mind?** Please [Submit](https://github.com/mosaaleb/devium/labels/enhancement) it
 
