@@ -1,0 +1,4 @@
+var likable_type = '<%= @likable.class.name.underscore %>';
+var likable_id = '<%= @likable.id %>';
+var post = $('#' + likable_type + '_' + likable_id);
+post.replaceWith("<%= j render @likable %>");

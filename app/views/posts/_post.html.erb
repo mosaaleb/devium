@@ -1,4 +1,4 @@
-<div class="card post_box mb-4 shadow">
+<div class="card post_box mb-4 shadow" id='post_<%= post.id %>'>
   <div class="row no-gutters">
     <div class="col col-md-12">
       <div class="mt-3">
@@ -14,7 +14,9 @@
 
           <div class="dropdown">
             <%= show_dropdown_post_button(post) %>
-            <div class="dropdown-menu dropdown-menu-right" arial-labelledby="drop-down-button">
+            <div class="dropdown-menu dropdown-menu-right"
+                 arial-labelledby="drop-down-button"
+            >
               <p>
                 <small class="post-edit-button dropdown-item text-muted">
                   <%= edit_post_button(post) %>

@@ -1,4 +1,4 @@
-<div class="card ml-3 pt-3 my-2">
+<div class="card ml-3 pt-3 my-2" id=<%= "comment_#{comment.id}" %>>
   <div class="row no-gutters">
     <div class="col col-md-12">
 
@@ -30,10 +30,10 @@
         </div>
       </div>
 
-      <p class="mx-3" id=<%= "comment_#{comment.id}" %>>
+      <p class="mx-3">
         <%= comment.comment_content %>
       </p>
-    
+
       <div class="row mx-1 justify-content-between p-2">
         <div class="likes-box comment-likes">
           <%= like_button(comment) %>
