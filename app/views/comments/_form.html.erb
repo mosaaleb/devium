@@ -1,6 +1,10 @@
 <div class="form-group mx-3">
   <%= form_for [post, Comment.new] do |f| %>
-    <%= f.text_field :comment_content, placeholder: 'Comment on this post.', class: 'form-control mb-2', required: true, autocomplete: 'off' %>
+    <%= f.text_field :comment_content,
+                     placeholder: 'Comment on this post.',
+                     class: 'form-control mb-2',
+                     required: true,
+                     autocomplete: 'off' %>
     <%= f.submit 'Comment', class: 'btn btn-primary btn-sm' %>
   <% end %>
 </div>

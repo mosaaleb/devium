@@ -50,6 +50,7 @@ group :test do
   gem 'faker'
   gem 'launchy'
   gem 'rspec-html-matchers'
+  gem 'selenium-webdriver'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
