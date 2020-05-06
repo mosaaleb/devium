@@ -19,7 +19,7 @@ module ApplicationHelper
     controller_name.in? %w[sessions registrations]
   end
 
-  def show_navbar
+  def navbar
     render 'navbar' unless entry_pages?
   end
 
