@@ -1,6 +1,9 @@
 <div class="form-group">
-  <%= form_for @post do |f| %>
-    <%= f.text_area :post_content, placeholder: 'What\'s happening?', class: 'form-control form-control-lg' %>
-    <%= f.submit 'Publish', class: 'd-block ml-auto btn btn-primary mt-2' %>
+  <%= form_for @post , remote: true do |f| %>
+    <%= f.text_area :post_content,
+                    placeholder: "What's happening?",
+                    class: 'form-control form-control-lg' %>
+    <%= f.submit 'Publish',
+                 class: 'd-block ml-auto btn btn-primary mt-2' %>
   <% end %>
 </div>

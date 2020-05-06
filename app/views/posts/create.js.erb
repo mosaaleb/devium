@@ -1,0 +1,10 @@
+$('#timeline').prepend("<%= j render @post %>");
+
+var prependedPost = $("#timeline #post_<%= @post.id %>");
+prependedPost
+  .hide()
+  .slideDown(300, 'swing')
+  .css('opacity', 0)
+  .animate({ opacity: 1 }, { queue: false, duration: 500 });
+
+$('#post_post_content').val('');

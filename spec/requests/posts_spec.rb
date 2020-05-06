@@ -10,7 +10,7 @@ RSpec.describe 'Posts', type: :request do
     it 'returns success' do
       get "/#{post1.user.username}/#{post1.id}"
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
 
     it 'includes post_content in the body' do
@@ -33,8 +33,10 @@ RSpec.describe 'Posts', type: :request do
       before do
         sign_in post1.user
       end
+
       it 'is not expected to access another user edit post page' do
-        get "/posts/#{post2.id}/edit", headers: { 'HTTP_REFERER' => "http://www.example.com/#{post2.user.username}/#{post2.id}" }
+        get "/posts/#{post2.id}/edit",
+            headers: { 'HTTP_REFERER' => "http://www.example.com/#{post2.user.username}/#{post2.id}" }
 
         expect(response).to redirect_to("/#{post2.user.username}/#{post2.id}")
       end
@@ -42,32 +44,33 @@ RSpec.describe 'Posts', type: :request do
       it 'returns success' do
         get "/posts/#{post1.id}/edit"
 
-        expect(response).to have_http_status 200
+        expect(response).to have_http_status :ok
       end
     end
   end
 
   describe 'POST /posts' do
     context 'when logged in and parameters are valid' do
-      it 'redirects to home page' do
+      before do
         sign_in post1.user
-
-        post_params = { post: { post_content: 'Test post.' } }
-
+        post_params = { post: post1.attributes, format: :js }
         post '/posts', params: post_params
+      end
 
-        expect(response).to redirect_to('/')
-        expect(flash[:notice]).to eq('Post published!')
+      it 'have ok http status' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'contains the new published post' do
+        expect(response.body).to include(post1.post_content)
       end
     end
 
     context 'when logged in and parameters are invalid' do
       it 'renders same page with error messages' do
-        sign_in post1.user
-
-        post_params = { post: { post_content: '' } }
-
-        post "/posts", params: post_params
+        sign_in post2.user
+        params = { post: post2.attributes, format: :js }
+        post '/posts', params: params
 
         expect(flash[:alert]).to include("Post content can't be blank")
       end
@@ -124,7 +127,7 @@ RSpec.describe 'Posts', type: :request do
         delete "/posts/#{post1.id}"
 
         expect(Post.count).to be 0
-        expect(response).to redirect_to("/")
+        expect(response).to redirect_to('/')
       end
     end
   end

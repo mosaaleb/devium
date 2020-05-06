@@ -9,12 +9,13 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build post_params
-    if @post.save
-      flash[:notice] = 'Post published!'
-      redirect_to root_path
-    else
-      flash[:alert] = @post.errors.full_messages[0]
-      redirect_back(fallback_location: root_path)
+
+    respond_to do |format|
+      if @post.save
+        format.js { flash[:notice] = 'Post published!' }
+      else
+        format.js { flash[:alert] = @post.errors.full_messages[0] }
+      end
     end
   end
 
