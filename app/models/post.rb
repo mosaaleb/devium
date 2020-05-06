@@ -10,7 +10,4 @@ class Post < ApplicationRecord
 
   # Validations
   validates :post_content, presence: true, length: { maximum: 400 }
-
-  # Scopes
-  scope :search, ->(term:) { where('post_content like ?', "%#{term}%") }
 end

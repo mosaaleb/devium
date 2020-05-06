@@ -1,8 +1,8 @@
 <div class="container">
   <div class="col-md">
     <h3>
-      #<%= @hashtag %>
+      #<%= @search.term %>
     </h3>
-    <%= render @posts_containing_hashtag %>
+    <%= render @search.result %>
   </div>
 </div>
