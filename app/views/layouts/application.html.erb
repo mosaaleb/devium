@@ -14,11 +14,14 @@
 
   <body>
     <%= navbar %>
-    <%= render "flash" %>
+
+    <div class="flash-messages">
+      <%= render "flash" %>
+    </div>
 
     <div class="container-fluid">
       <%= yield %>
     </div>
-    
+
   </body>
 </html>

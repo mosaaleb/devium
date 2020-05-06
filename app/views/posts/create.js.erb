@@ -1,10 +1,19 @@
-$('#timeline').prepend("<%= j render @post %>");
+$(document).ready(function () {
+  $('#new_post').on("ajax:success", function () {
+    $('#timeline').prepend("<%= j render @post %>");
 
-var prependedPost = $("#timeline #post_<%= @post.id %>");
-prependedPost
-  .hide()
-  .slideDown(300, 'swing')
-  .css('opacity', 0)
-  .animate({ opacity: 1 }, { queue: false, duration: 500 });
+    var prependedPost = $("#timeline #post_<%= @post.id %>");
+    prependedPost
+      .hide()
+      .slideDown(300, 'swing')
+      .css('opacity', 0)
+      .animate({ opacity: 1 }, { queue: false, duration: 500 });
 
-$('#post_post_content').val('');
+    $('#post_post_content').val('');
+    console.log("<%= flash[:notice] %>")
+  }).on("ajax:error", function () {
+    console.log('something wrong happend!');
+  });
+});
+
+$('.flash-messages').html("<%= j render 'flash' %>").show();
