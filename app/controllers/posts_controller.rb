@@ -33,8 +33,6 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    flash[:notice] = 'Post deleted!'
-    redirect_back(fallback_location: root_path)
   end
 
   private

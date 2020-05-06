@@ -10,7 +10,7 @@ module PostsHelper
   def delete_post_button(post)
     return unless current_user && current_user == post.user
 
-    link_to 'Delete', post_path(post), method: :delete
+    link_to 'Delete', post_path(post), method: :delete, remote: true
   end
 
   def show_dropdown_post_button(post)

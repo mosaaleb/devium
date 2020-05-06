@@ -1,0 +1,7 @@
+var deletedPost = $("#timeline #post_<%= @post.id %>");
+deletedPost
+  .slideUp(500, 'swing')
+  .css('opacity', 1)
+  .animate({ opacity: 0 }, { queue: false, duration: 300 }, function() {
+    $(this).remove();
+  });
