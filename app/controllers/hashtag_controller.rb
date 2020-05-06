@@ -2,12 +2,12 @@
 
 class HashtagController < ApplicationController
   def show
-    @search = SearchHashtags.new(Post, hashtag)
+    @search_hashtag = SearchHashtags.new(Post, hashtag)
   end
 
   private
 
   def hashtag
-    params[:id]
+    "##{params[:id]}"
   end
 end
