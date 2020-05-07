@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_28_200427) do
+ActiveRecord::Schema.define(version: 2020_05_07_204207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,19 @@ ActiveRecord::Schema.define(version: 2020_04_28_200427) do
     t.index ["likable_type", "likable_id"], name: "index_likes_on_likable_type_and_likable_id"
     t.index ["user_id", "likable_id", "likable_type"], name: "index_likes_on_user_id_and_likable_id_and_likable_type", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "mentions", force: :cascade do |t|
+    t.bigint "mentioned_id"
+    t.bigint "mentioner_id"
+    t.string "mentionable_type"
+    t.bigint "mentionable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mentionable_type", "mentionable_id"], name: "index_mentions_on_mentionable_type_and_mentionable_id"
+    t.index ["mentioned_id", "mentioner_id", "mentionable_type", "mentionable_id"], name: "mention_idx_mentionable_mentioner_mentioned", unique: true
+    t.index ["mentioned_id"], name: "index_mentions_on_mentioned_id"
+    t.index ["mentioner_id"], name: "index_mentions_on_mentioner_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -120,6 +133,8 @@ ActiveRecord::Schema.define(version: 2020_04_28_200427) do
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "likes", "users"
+  add_foreign_key "mentions", "users", column: "mentioned_id"
+  add_foreign_key "mentions", "users", column: "mentioner_id"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "requests", "users", column: "receiver_id"
