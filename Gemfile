@@ -49,8 +49,11 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'launchy'
+  gem 'rails-controller-testing'
   gem 'rspec-html-matchers'
   gem 'selenium-webdriver'
+  gem 'shoulda'
+  gem 'shoulda-matchers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

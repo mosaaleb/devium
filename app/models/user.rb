@@ -48,7 +48,13 @@ class User < ApplicationRecord
   has_many :liked_posts,
            through: :likes, source: :likable, source_type: 'Post'
 
-  has_many :notifications, foreign_key: :recipient_id
+  has_many :notifications,
+           foreign_key: :recipient_id,
+           dependent: :destroy
+
+  has_many :mentions,
+           foreign_key: :mentioned_id,
+           dependent: :destroy
 
   # Delegations
   delegate :first_name,
