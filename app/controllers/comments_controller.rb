@@ -1,5 +1,3 @@
-# TODO: create comment if not valid gives error
-
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
