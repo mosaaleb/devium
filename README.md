@@ -1,5 +1,5 @@
 # :computer: Devium
-![screenshot](screeshot.png)
+![screenshot](screenshot.png)
 
 Devium is social networking platform for developers.
 You can connect with your peer develpers and interact with them.
