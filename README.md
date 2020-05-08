@@ -1,15 +1,24 @@
-
 # :computer: Devium
-Devium is social networking platform for developers. You can connect with our peers and interact with them. Devium is built with Rails, and fully tested.
+![screenshot](screeshot.png)
 
+Devium is social networking platform for developers.
+You can connect with your peer develpers and interact with them.
+Devium is built with Rails, and fully tested with RSpec and Capybara.
 
 ## Intro
 This is a part of Rails curriculum on [Microverse](https://www.microverse.org/), originally built for educational purposes.
 
+## Setup
+
+```bash
+~ git clone git@github.com:mosaaleb/devium.git
+~ cd devium
+~ rails db:migrate:reset
+~ rails s
+```
 
 ## Live Version
-The live version of this project is hosted in heroku =>
-
+The live version of this project is hosted in heroku 
 [Devium](https://deviumio.herokuapp.com/).
 
 
@@ -34,25 +43,27 @@ The live version of this project is hosted in heroku =>
 - Edit setting and profile information.
 - Adding hashtags
 - Notification system.
-
+- Mentioning friends in comments or posts.
 
 ## Coming Features:
-- [ ] mention users on comments or posts.
+- [x] mention users on comments or posts.
 
-**Having specific feature in mind?** Please [Submit](https://github.com/mosaaleb/devium/labels/enhancement) it
-
+**Having specific feature in mind?**
+Please [Submit](https://github.com/mosaaleb/devium/labels/enhancement) it
 
 ### Testing
-The app is fully tested with `1:2.6` Code to Test Ratio
-Included Tests:
+The app is fully tested with `1:2.2` Code to Test Ratio
+
+**Included Tests:**
 - Model Tests (rspec)
 - Request Tests (rspec)
 - View Tests (rspec)
 - Integration Tests (capybara)
 
-You can run all unit tests with:
-`rspec`
+#### Running the tests:
+You can run all the tests by simply running:
 
+`rspec`
 
 ## Contributors
 - [Saheed](https://github.com/suretrust)
