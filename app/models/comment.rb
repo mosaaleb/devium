@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Comment < ApplicationRecord
+  include Mentionable
+
   # Callbacks
   after_create :create_notification
 
@@ -9,7 +11,6 @@ class Comment < ApplicationRecord
   belongs_to :post, counter_cache: true
   has_many :likes, as: :likable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
-  has_many :mentions, as: :mentionable, dependent: :destroy
 
   # Validations
   validates :comment_content, presence: true, length: { maximum: 200 }

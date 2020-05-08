@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'models/concerns/mentionable_spec'
 
 RSpec.describe Comment, type: :model do
-  let(:john) { create :user }
-  let(:aida) { create :user }
   let(:followed_post) { create :post }
+  let(:aida) { create :user }
+  let(:john) { create :user }
+
+  it_behaves_like 'mentionable'
 
   describe 'Validations' do
     it { is_expected.to validate_presence_of(:comment_content) }
@@ -16,7 +19,6 @@ RSpec.describe Comment, type: :model do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:post) }
     it { is_expected.to have_many(:likes) }
-    it { is_expected.to have_many(:mentions) }
     it { is_expected.to have_many(:notifications) }
   end
 

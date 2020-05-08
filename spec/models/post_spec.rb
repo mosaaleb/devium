@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'models/concerns/mentionable_spec'
 
 RSpec.describe Post, type: :model do
+  it_behaves_like 'mentionable'
+
   describe 'Validations' do
     it { is_expected.to validate_presence_of(:post_content) }
     it { is_expected.to validate_length_of(:post_content).is_at_most(400) }
