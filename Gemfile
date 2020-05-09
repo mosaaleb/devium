@@ -50,6 +50,7 @@ group :test do
   gem 'faker'
   gem 'launchy'
   gem 'rails-controller-testing'
+  gem 'rspec-activemodel-mocks'
   gem 'rspec-html-matchers'
   gem 'selenium-webdriver'
   gem 'shoulda'

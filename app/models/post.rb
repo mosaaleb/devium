@@ -12,4 +12,6 @@ class Post < ApplicationRecord
 
   # Validations
   validates :post_content, presence: true, length: { maximum: 400 }
+
+  alias_attribute :content, :post_content
 end
