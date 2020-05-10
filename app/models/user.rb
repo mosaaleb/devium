@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  extend FacebookOmniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[facebook]
-  extend FacebookOmniauthable
 
   # Validations
   validates :username, presence: true, uniqueness: true

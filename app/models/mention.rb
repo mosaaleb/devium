@@ -13,8 +13,6 @@ class Mention < ApplicationRecord
   validates :mentioned, uniqueness:
             { scope: %i[mentioner_id mentionable_id mentionable_type] }
 
-  private
-
   def create_notification
     Notification.create(actor: mentioner,
                         recipient: mentioned,
