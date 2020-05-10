@@ -1,0 +1,14 @@
+<%= link_to post_path(notification.notifiable),
+            class: 'dropdown-item',
+            'data-behavior': 'notification-link-item',
+            id: notification.id do %>
+  <div class="media py-1">
+    <%= image_tag avatar(notification.actor, :x_small), class: 'rounded-circle' %>
+  </div>
+  <div>
+    <%= notification.actor.fullname %>
+    <%= notification.notifier_type.underscore.sub(/e?$/, 'ed') %>
+    you in his
+    <%= notification.notifiable_type.underscore %>
+  </div>
+<% end %>

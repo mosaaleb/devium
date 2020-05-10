@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    notifications
+    @notifications = current_user.notifications.unread
   end
 
   def update

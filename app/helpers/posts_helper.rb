@@ -20,10 +20,9 @@ module PostsHelper
   end
 
   def autolink(text)
-    text.gsub(/#\w+/) do |hashtag|
-      link_to hashtag, hashtag_path(hashtag[1..-1])
-    end.gsub(/@\w+/) do |mention|
-      link_to mention, user_profile_path(mention[1..-1])
-    end.html_safe
+    text
+      .gsub(/#\w+/) { |x| link_to x, hashtag_path(x[1..-1]) }
+      .gsub(/@\w+/) { |y| link_to y, user_profile_path(y[1..-1]) }
+      .html_safe
   end
 end
