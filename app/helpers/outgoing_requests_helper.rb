@@ -1,2 +1,0 @@
-module OutgoingRequestsHelper
-end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FriendshipsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :index
 
   def index
     @user = User.find_by(username: params[:username])
@@ -23,6 +23,6 @@ class FriendshipsController < ApplicationController
   private
 
   def friend
-    User.find(params[:id])
+    @friend ||= User.find(params[:id])
   end
 end

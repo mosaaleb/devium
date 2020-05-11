@@ -2,13 +2,13 @@
 
 module CommentsHelper
   def edit_button(comment)
-    return unless current_user && current_user == comment.user
+    return unless current_user == comment.user
 
     link_to 'Edit', edit_comment_path(comment), class: 'edit-comment-button'
   end
 
   def delete_button(comment)
-    return unless current_user && current_user == comment.user
+    return unless current_user == comment.user
 
     link_to 'Delete', comment_path(comment),
             method: :delete, class: 'delete-comment-button'

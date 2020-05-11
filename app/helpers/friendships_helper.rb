@@ -1,24 +1,27 @@
 # frozen_string_literal: true
 
-# TODO: refactor friendship and request controller to authorize user (first_friend_button) method
 module FriendshipsHelper
-  def show_friends
-    if @friends.empty?
+  def show_friends(friends)
+    if friends.empty?
       render 'first_friend_request'
     else
-      render @friends
+      render friends
     end
   end
 
   def first_friend_button(user)
     return if current_user == user
 
-    if current_user.nil?
-      link_to "Be #{@user.fullname}'s first friend", new_user_session_path
-    elsif current_user.already_sent_request?(user)
-      link_to 'Cancel Request', remove_request_user_path(user.id), method: :delete
+    if current_user.already_sent_request?(user)
+      button_to 'Cancel Request',
+                remove_request_user_path(user.id),
+                method: :delete,
+                class: 'ml-auto btn btn-danger mt-2'
     else
-      link_to "Be #{@user.fullname}'s first friend", send_request_user_path(user.id), method: :post
+      button_to "Be #{user.fullname}'s first friend",
+                send_request_user_path(user.id),
+                method: :post,
+                class: 'ml-auto btn btn-primary mt-2'
     end
   end
 end

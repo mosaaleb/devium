@@ -1,24 +1,28 @@
 # frozen_string_literal: true
 
-# TODO: refactor gender icon
-
 module ProfilesHelper
   def friendship_button(user)
-    if current_user.nil?
-      link_to 'Send Request', new_user_session_path
-    elsif current_user == user
-      nil
-    elsif current_user.already_friends?(user)
-      link_to 'Remove Friend', remove_friend_user_path(user.id), method: :delete, class: 'btn btn-danger btn-sm'
+    return if current_user == user
+
+    if current_user.already_friends?(user)
+      button_to 'Remove Friend',
+                remove_friend_user_path(user.id),
+                method: :delete, class: 'btn btn-danger btn-sm'
     elsif current_user.already_sent_request?(user)
-      link_to 'Cancel Request', remove_request_user_path(user.id), method: :delete, class: 'btn btn-danger btn-sm'
+      button_to 'Cancel Request',
+                remove_request_user_path(user.id),
+                method: :delete, class: 'btn btn-danger btn-sm'
     else
-      link_to 'Send Request', send_request_user_path(user.id), method: :post, class: 'btn btn-primary btn-sm'
+      button_to 'Send Request',
+                send_request_user_path(user.id),
+                method: :post, class: 'btn btn-primary btn-sm'
     end
   end
 
   def edit_profile_button(user)
-    link_to 'Edit Profile', edit_user_profile_path(user.username) if current_user == user
+    return unless current_user == user
+
+    link_to 'Edit Profile', edit_user_profile_path(user.username)
   end
 
   def gender_details(user)

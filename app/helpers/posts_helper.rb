@@ -2,13 +2,13 @@
 
 module PostsHelper
   def edit_post_button(post)
-    return unless current_user && current_user == post.user
+    return unless current_user == post.user
 
     link_to 'Edit', edit_post_path(post)
   end
 
   def delete_post_button(post)
-    return unless current_user && current_user == post.user
+    return unless current_user == post.user
 
     link_to 'Delete', post_path(post), method: :delete, remote: true
   end
