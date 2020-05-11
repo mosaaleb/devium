@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-class Guest
-  def id
-    User.none
-  end
-
+class Guest < User
   def liked?(_)
     false
   end
