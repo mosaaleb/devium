@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :hashtag, only: :show
 
-  get 'all-users', to: 'users#index'
+  get 'discover', to: 'users#index'
 
   authenticated :user do
     root 'newsfeeds#show'
