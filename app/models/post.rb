@@ -9,6 +9,7 @@ class Post < ApplicationRecord
   has_many :subscribers, -> { distinct }, through: :comments, source: :user
   has_many :likes, as: :likable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_many :notifications, as: :notifier, dependent: :destroy
 
   # Validations
   validates :post_content, presence: true, length: { maximum: 400 }

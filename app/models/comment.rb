@@ -11,6 +11,7 @@ class Comment < ApplicationRecord
   belongs_to :post, counter_cache: true
   has_many :likes, as: :likable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_many :notifications, as: :notifier, dependent: :destroy
 
   # Validations
   validates :comment_content, presence: true, length: { maximum: 200 }

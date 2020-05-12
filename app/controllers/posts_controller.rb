@@ -12,10 +12,9 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.js { flash.now[:notice] = 'Post added successfully!' }
-      else
-        flash.now[:notice] = @post.errors.full_messages[0]
         format.js
+      else
+        format.js { flash.now[:notice] = @post.errors.full_messages[0] }
       end
     end
   end
