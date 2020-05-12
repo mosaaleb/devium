@@ -22,7 +22,7 @@ shared_examples 'mentionable' do
     end
 
     it 'returns nil if mentionable does not contain @ sign' do
-      expect(mentionable.create_mention).to eq nil
+      expect(mentionable.send(:create_mention)).to eq nil
     end
 
     it 'create mentions for mentioned users' do
