@@ -27,6 +27,10 @@ module ApplicationHelper
     :user
   end
 
+  def not_guest?
+    !current_user.is_a? Guest
+  end
+
   def resource
     @resource ||= User.new
   end

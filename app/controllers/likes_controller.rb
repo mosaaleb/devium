@@ -6,6 +6,7 @@ class LikesController < ApplicationController
   def create
     current_user.like(likable)
     respond_to do |format|
+      format.html
       format.js { render :update }
     end
   end
@@ -13,6 +14,7 @@ class LikesController < ApplicationController
   def destroy
     current_user.dislike(likable)
     respond_to do |format|
+      format.html
       format.js { render :update }
     end
   end
