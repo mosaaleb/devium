@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'models/concerns/notifiable_spec'
 require 'models/concerns/mentionable_spec'
 
 RSpec.describe Post, type: :model do
+  it_behaves_like 'notifiable'
   it_behaves_like 'mentionable'
 
   describe 'Validations' do
