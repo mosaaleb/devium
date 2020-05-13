@@ -1,24 +1,14 @@
 # frozen_string_literal: true
 
 class Like < ApplicationRecord
-  # Callbacks
-  after_create :create_notification
+  include Notifiable
 
-  # Associations
   belongs_to :user
   belongs_to :likable, counter_cache: true, polymorphic: true
-  has_many :notifications, as: :notifiable, dependent: :destroy
-  has_many :notifications, as: :notifier, dependent: :destroy
 
-  # Private methods
   private
 
-  def create_notification
-    return if user == likable.user
-
-    Notification.create(actor: user,
-                        recipient: likable.user,
-                        notifier: self,
-                        notifiable: likable)
+  def notification_recipients
+    [likable.user] - [user]
   end
 end

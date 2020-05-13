@@ -1,34 +1,20 @@
 # frozen_string_literal: true
 
 class Comment < ApplicationRecord
+  include Notifiable
   include Mentionable
 
-  # Callbacks
-  after_create :create_notification
+  alias_attribute :content, :comment_content
 
-  # Associations
   belongs_to :user
   belongs_to :post, counter_cache: true
   has_many :likes, as: :likable, dependent: :destroy
-  has_many :notifications, as: :notifiable, dependent: :destroy
-  has_many :notifications, as: :notifier, dependent: :destroy
 
-  # Validations
   validates :comment_content, presence: true, length: { maximum: 200 }
 
-  # Private method
   private
 
-  def comment_recipients
+  def notification_recipients
     post.subscribers + [post.user] - [user]
-  end
-
-  def create_notification
-    comment_recipients.each do |recipient|
-      Notification.create(actor: user,
-                          recipient: recipient,
-                          notifier: self,
-                          notifiable: post)
-    end
   end
 end
