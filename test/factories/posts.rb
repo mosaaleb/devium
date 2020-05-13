@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :post do
-    post_content { 'I am the one who knocks!' }
+    post_content { 'Just a post' }
     association :user, strategy: :create
   end
 end

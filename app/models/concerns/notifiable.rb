@@ -4,7 +4,7 @@ module Notifiable
   extend ActiveSupport::Concern
 
   included do
-    after_create :create_notification, unless: proc { self.class == Post }
+    after_create :create_notification
 
     has_many :notifications, as: :notifier, dependent: :destroy
     has_many :notifications, as: :notifiable, dependent: :destroy
@@ -33,6 +33,8 @@ module Notifiable
       likable
     elsif self.class == Mention
       mentionable
+    elsif self.class == Post
+      self
     end
   end
 end

@@ -16,6 +16,6 @@ class Post < ApplicationRecord
   private
 
   def notification_recipients
-    subscribers
+    []
   end
 end
