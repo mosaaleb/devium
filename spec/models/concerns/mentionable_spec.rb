@@ -13,22 +13,30 @@ shared_examples 'mentionable' do
     expect(mentionable).to have_received(:create_mention)
   end
 
-  describe '#create_mention' do
+  context 'when creating mentions' do
     let(:mentioner) { create :user }
     let(:mentioned) { create :user }
-
-    before do
-      described_class.create(content: 'Just a post', user: mentioner)
-    end
+    let(:mentioned_users) { create_list(:user, 2) }
 
     it 'returns nil if mentionable does not contain @ sign' do
+      described_class.create(content: 'some content', user: mentioner)
+
       expect(mentionable.send(:create_mention)).to eq nil
     end
 
-    it 'create mentions for mentioned users' do
+    it 'create mentions for mentioned user' do
       mentioner.posts.create(content: "hi @#{mentioned.username}!")
 
       expect(mentioned.mentions.count).to eq 1
+    end
+
+    it 'create metions for all mentioned users' do
+      mentioner.posts.create(content: "@#{mentioned_users[0].username} "\
+                                      "@#{mentioned_users[1].username}!")
+
+      mentioned_users.each do |user|
+        expect(user.mentions.count).to eq 1
+      end
     end
   end
 end
