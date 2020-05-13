@@ -5,11 +5,12 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find_by(username: params[:user_username])
-
-    render(html: 'User not found') && return unless @user
-
-    @profile = @user.profile
-    @timeline = Timeline.new(@user)
+    if @user
+      @profile = @user.profile
+      @timeline = Timeline.new(@user)
+    else
+      render 'users/user_not_found'
+    end
   end
 
   def edit
