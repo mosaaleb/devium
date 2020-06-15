@@ -23,10 +23,10 @@ The live version of this project is hosted in heroku
 
 
 ## Built with:
-- Ruby on Rails
-- RSpec
-- Capybara
-- Bootstrap
+- Ruby on Rails.
+- RSpec.
+- Capybara.
+- Bootstrap.
 
 ## Database Design
 [ERD](https://www.lucidchart.com/invitations/accept/02f604cf-c6bb-4e94-a595-4b3c6856d8a3)
@@ -37,16 +37,17 @@ The live version of this project is hosted in heroku
 - Remove friends.
 - Add posts.
 - Add comment to posts.
-- Add likes to either posts or comments
+- Add likes to either posts or comments.
 - Having newsfeed page based on the friends list.
 - Ability to login with facebook.
 - Edit setting and profile information.
-- Adding hashtags
+- Adding hashtags.
 - Notification system.
 - Mentioning friends in comments or posts.
 
 ## Coming Features:
 - [x] mention users on comments or posts.
+- [ ] Search with ElasticSearch.
 
 **Having specific feature in mind?**
 Please [Submit](https://github.com/mosaaleb/devium/labels/enhancement) it
