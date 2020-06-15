@@ -1,12 +1,12 @@
 # :computer: Devium
 ![screenshot](screenshot.png)
 
-Devium is social networking platform for developers.
-You can connect with your peer develpers and interact with them.
-Devium is built with Rails, and fully tested with RSpec and Capybara.
+Devium is a social networking platform for developers.
+You can connect with your peer developers and interact with them.
+Devium is built with Rails and fully tested with RSpec and Capybara.
 
 ## Intro
-This is a part of Rails curriculum on [Microverse](https://www.microverse.org/), originally built for educational purposes.
+This is a part of the Rails curriculum on [Microverse](https://www.microverse.org/), originally built for educational purposes.
 
 ## Setup
 
@@ -18,7 +18,7 @@ This is a part of Rails curriculum on [Microverse](https://www.microverse.org/),
 ```
 
 ## Live Version
-The live version of this project is hosted in heroku 
+The live version of this project is hosted in Heroku 
 [Devium](https://deviumio.herokuapp.com/).
 
 
@@ -36,10 +36,10 @@ The live version of this project is hosted in heroku
 - Accepting friend requests.
 - Remove friends.
 - Add posts.
-- Add comment to posts.
+- Add comments to posts.
 - Add likes to either posts or comments.
-- Having newsfeed page based on the friends list.
-- Ability to login with facebook.
+- Having a newsfeed page based on the friends' list.
+- Ability to login with Facebook.
 - Edit setting and profile information.
 - Adding hashtags.
 - Notification system.
@@ -49,7 +49,7 @@ The live version of this project is hosted in heroku
 - [x] mention users on comments or posts.
 - [ ] Search with ElasticSearch.
 
-**Having specific feature in mind?**
+**Having a specific feature in mind?**
 Please [Submit](https://github.com/mosaaleb/devium/labels/enhancement) it
 
 ### Testing
@@ -72,4 +72,3 @@ You can run all the tests by simply running:
   - [GitHub](https://github.com/mosaaleb)
   - [LinkedIn](https://www.linkedin.com/in/muhammadebeid/)
   - [muhammed.ebeid@gmail.com](muhammed.ebeid@gmail.com)
-
